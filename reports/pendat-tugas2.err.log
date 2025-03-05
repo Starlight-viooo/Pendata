@@ -1,0 +1,118 @@
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/dist-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/usr/local/lib/python3.11/dist-packages/nbclient/client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/usr/local/lib/python3.11/dist-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/usr/local/lib/python3.11/dist-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+
+import pymysql
+import psycopg2
+import numpy as np
+import pandas as pd
+
+def get_mysql_data():
+    conn = pymysql.connect(
+        # host dan lain lain dihapus untuk keamanan
+    )
+    cursor = conn.cursor()
+    # cursor.execute("USE myiris")  # Use the database
+    cursor.execute("SELECT * FROM irismysql")  # Select all records from the table
+    data = cursor.fetchall()  # Fetch all rows
+
+    conn.close()
+
+    # Convert to Python list
+    data_list = [list(row) for row in data]
+
+    # Convert to NumPy array
+    data_numpy = np.array(data_list)
+
+    return data_list
+
+    # print(len(data_list))
+    # print(data_numpy)
+
+get_mysql_data()
+# def display_data_in_dataframe(data_list):
+#     # Define column names
+#     columns = ['id', 'class', 'sepal_length', 'sepal_width']
+
+#     # Create DataFrame
+#     df = pd.DataFrame(data_list, columns=columns)
+
+#     # Display DataFrame
+#     print(df)
+
+# # Call the functions
+# data_list = get_mysql_data()
+# display_data_in_dataframe(data_list)
+
+------------------
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mOSError[0m                                   Traceback (most recent call last)
+[0;32m/usr/local/lib/python3.11/dist-packages/pymysql/connections.py[0m in [0;36mconnect[0;34m(self, sock)[0m
+[1;32m    648[0m                         [0;32mtry[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 649[0;31m                             sock = socket.create_connection(
+[0m[1;32m    650[0m                                 [0;34m([0m[0mself[0m[0;34m.[0m[0mhost[0m[0;34m,[0m [0mself[0m[0;34m.[0m[0mport[0m[0;34m)[0m[0;34m,[0m [0mself[0m[0;34m.[0m[0mconnect_timeout[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/lib/python3.11/socket.py[0m in [0;36mcreate_connection[0;34m(address, timeout, source_address, all_errors)[0m
+[1;32m    862[0m             [0;32mif[0m [0;32mnot[0m [0mall_errors[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 863[0;31m                 [0;32mraise[0m [0mexceptions[0m[0;34m[[0m[0;36m0[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    864[0m             [0;32mraise[0m [0mExceptionGroup[0m[0;34m([0m[0;34m"create_connection failed"[0m[0;34m,[0m [0mexceptions[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/lib/python3.11/socket.py[0m in [0;36mcreate_connection[0;34m(address, timeout, source_address, all_errors)[0m
+[1;32m    847[0m                 [0msock[0m[0;34m.[0m[0mbind[0m[0;34m([0m[0msource_address[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 848[0;31m             [0msock[0m[0;34m.[0m[0mconnect[0m[0;34m([0m[0msa[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    849[0m             [0;31m# Break explicitly a reference cycle[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mOSError[0m: [Errno 99] Cannot assign requested address
+
+During handling of the above exception, another exception occurred:
+
+[0;31mOperationalError[0m                          Traceback (most recent call last)
+[0;32m<ipython-input-2-19ee1eeecc17>[0m in [0;36m<cell line: 0>[0;34m()[0m
+[1;32m     26[0m     [0;31m# print(data_numpy)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     27[0m [0;34m[0m[0m
+[0;32m---> 28[0;31m [0mget_mysql_data[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     29[0m [0;31m# def display_data_in_dataframe(data_list):[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     30[0m [0;31m#     # Define column names[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m<ipython-input-2-19ee1eeecc17>[0m in [0;36mget_mysql_data[0;34m()[0m
+[1;32m      5[0m [0;34m[0m[0m
+[1;32m      6[0m [0;32mdef[0m [0mget_mysql_data[0m[0;34m([0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 7[0;31m     conn = pymysql.connect(
+[0m[1;32m      8[0m         [0;31m# host dan lain lain dihapus untuk keamanan[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      9[0m     )
+
+[0;32m/usr/local/lib/python3.11/dist-packages/pymysql/connections.py[0m in [0;36m__init__[0;34m(self, user, password, host, database, unix_socket, port, charset, collation, sql_mode, read_default_file, conv, use_unicode, client_flag, cursorclass, init_command, connect_timeout, read_default_group, autocommit, local_infile, max_allowed_packet, defer_connect, auth_plugin_map, read_timeout, write_timeout, bind_address, binary_prefix, program_name, server_public_key, ssl, ssl_ca, ssl_cert, ssl_disabled, ssl_key, ssl_key_password, ssl_verify_cert, ssl_verify_identity, compress, named_pipe, passwd, db)[0m
+[1;32m    359[0m             [0mself[0m[0;34m.[0m[0m_sock[0m [0;34m=[0m [0;32mNone[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    360[0m         [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 361[0;31m             [0mself[0m[0;34m.[0m[0mconnect[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    362[0m [0;34m[0m[0m
+[1;32m    363[0m     [0;32mdef[0m [0m__enter__[0m[0;34m([0m[0mself[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.11/dist-packages/pymysql/connections.py[0m in [0;36mconnect[0;34m(self, sock)[0m
+[1;32m    714[0m                 [0;32mif[0m [0mDEBUG[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    715[0m                     [0mprint[0m[0;34m([0m[0mexc[0m[0;34m.[0m[0mtraceback[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 716[0;31m                 [0;32mraise[0m [0mexc[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    717[0m [0;34m[0m[0m
+[1;32m    718[0m             [0;31m# If e is neither DatabaseError or IOError, It's a bug.[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mOperationalError[0m: (2003, "Can't connect to MySQL server on 'localhost' ([Errno 99] Cannot assign requested address)")
+
