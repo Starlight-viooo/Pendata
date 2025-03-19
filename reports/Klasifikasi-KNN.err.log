@@ -1,0 +1,154 @@
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/dist-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/usr/local/lib/python3.11/dist-packages/nbclient/client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/usr/local/lib/python3.11/dist-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/usr/local/lib/python3.11/dist-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import matplotlib.pyplot as plt
+from sklearn.inspection import DecisionBoundaryDisplay
+from sklearn.pipeline import Pipeline
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import accuracy_score
+
+# Tentukan kolom fitur (gunakan 2 fitur untuk visualisasi boundary keputusan)
+feature_columns = ["petal_length", "petal_width"]
+
+# Encode label kelas menjadi nilai numerik
+label_encoder = LabelEncoder()
+y_encoded_cleaned = label_encoder.fit_transform(df_cleaned["Class"])
+y_encoded_outlier = label_encoder.transform(df["Class"])
+
+# Split data bersih (tanpa outlier)
+X_cleaned = df_cleaned[feature_columns]
+X_train_cleaned, X_test_cleaned, y_train_cleaned, y_test_cleaned = train_test_split(
+    X_cleaned, y_encoded_cleaned, test_size=0.2, random_state=42
+)
+
+# Split data dengan outlier
+X_outlier = df[feature_columns]
+X_train_outlier, X_test_outlier, y_train_outlier, y_test_outlier = train_test_split(
+    X_outlier, y_encoded_outlier, test_size=0.2, random_state=42
+)
+
+# Inisialisasi pipeline dengan KNN
+clf = Pipeline([
+    ("knn", KNeighborsClassifier(n_neighbors=11))
+])
+
+# ----- Latih Model pada Data Bersih -----
+clf.fit(X_train_cleaned, y_train_cleaned)
+y_pred_cleaned = clf.predict(X_test_cleaned)
+accuracy_cleaned = accuracy_score(y_test_cleaned, y_pred_cleaned)
+cl_report_cleaned = classification_report(y_test_cleaned, y_pred_cleaned, target_names=label_encoder.classes_)
+
+print("Data Tanpa Outlier")
+print(f"Akurasi: {accuracy_cleaned * 100:.2f}%")
+print(cl_report_cleaned)
+print()
+
+# Visualisasi boundary keputusan untuk data bersih
+_, axs_cleaned = plt.subplots(ncols=2, figsize=(12, 5))
+for ax, weights in zip(axs_cleaned, ("uniform", "distance")):
+    clf.set_params(knn__weights=weights).fit(X_train_cleaned, y_train_cleaned)
+    disp = DecisionBoundaryDisplay.from_estimator(
+        clf,
+        X_test_cleaned,
+        response_method="predict",
+        plot_method="pcolormesh",
+        xlabel=feature_columns[0],
+        ylabel=feature_columns[1],
+        shading="auto",
+        alpha=0.5,
+        ax=ax,
+    )
+    scatter = disp.ax_.scatter(
+        X_train_cleaned.iloc[:, 0], X_train_cleaned.iloc[:, 1],
+        c=y_train_cleaned, edgecolors="k", cmap="viridis"
+    )
+    disp.ax_.legend(
+        scatter.legend_elements()[0],
+        label_encoder.classes_,
+        loc="lower left",
+        title="Classes",
+    )
+    _ = disp.ax_.set_title(
+        f"Boundary Keputusan (Data Bersih)\n(k=11, weights={weights!r})"
+    )
+plt.show()
+
+# ----- Latih Model pada Data dengan Outlier -----
+clf.fit(X_train_outlier, y_train_outlier)
+y_pred_outlier = clf.predict(X_test_outlier)
+accuracy_outlier = accuracy_score(y_test_outlier, y_pred_outlier)
+cl_report_outlier = classification_report(y_test_outlier, y_pred_outlier, target_names=label_encoder.classes_)
+print("\nData Dengan Outlier")
+print(f"Akurasi: {accuracy_outlier * 100:.2f}%")
+print(cl_report_outlier)
+
+#### jangan di nyalain anda akan kejang kejang melihatnya jika kode ini dinyalakan !!!!
+
+# # Visualisasi boundary keputusan untuk data dengan outlier
+# _, axs_outlier = plt.subplots(ncols=2, figsize=(12, 5))
+# for ax, weights in zip(axs_outlier, ("uniform", "distance")):
+#     clf.set_params(knn__weights=weights).fit(X_train_outlier, y_train_outlier)
+#     disp = DecisionBoundaryDisplay.from_estimator(
+#         clf,
+#         X_test_outlier,
+#         response_method="predict",
+#         plot_method="pcolormesh",
+#         xlabel=feature_columns[0],
+#         ylabel=feature_columns[1],
+#         shading="auto",
+#         alpha=0.5,
+#         ax=ax,
+#     )
+#     scatter = disp.ax_.scatter(
+#         X_train_outlier.iloc[:, 0], X_train_outlier.iloc[:, 1],
+#         c=y_train_outlier, edgecolors="k", cmap="viridis"
+#     )
+#     disp.ax_.legend(
+#         scatter.legend_elements()[0],
+#         label_encoder.classes_,
+#         loc="lower left",
+#         title="Classes",
+#     )
+#     _ = disp.ax_.set_title(
+#         f"Boundary Keputusan (Data Dengan Outlier)\n(k=11, weights={weights!r})"
+#     )
+# plt.show()
+
+# Perbandingan Akurasi
+print("\nPerbandingan Akurasi:")
+print(f"Akurasi data bersih: {accuracy_cleaned * 100:.2f}%")
+print(f"Akurasi data dengan outlier: {accuracy_outlier * 100:.2f}%")
+
+------------------
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mNameError[0m                                 Traceback (most recent call last)
+[0;32m<ipython-input-7-e5252651137f>[0m in [0;36m<cell line: 0>[0;34m()[0m
+[1;32m     36[0m [0my_pred_cleaned[0m [0;34m=[0m [0mclf[0m[0;34m.[0m[0mpredict[0m[0;34m([0m[0mX_test_cleaned[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     37[0m [0maccuracy_cleaned[0m [0;34m=[0m [0maccuracy_score[0m[0;34m([0m[0my_test_cleaned[0m[0;34m,[0m [0my_pred_cleaned[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 38[0;31m [0mcl_report_cleaned[0m [0;34m=[0m [0mclassification_report[0m[0;34m([0m[0my_test_cleaned[0m[0;34m,[0m [0my_pred_cleaned[0m[0;34m,[0m [0mtarget_names[0m[0;34m=[0m[0mlabel_encoder[0m[0;34m.[0m[0mclasses_[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     39[0m [0;34m[0m[0m
+[1;32m     40[0m [0mprint[0m[0;34m([0m[0;34m"Data Tanpa Outlier"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mNameError[0m: name 'classification_report' is not defined
+
