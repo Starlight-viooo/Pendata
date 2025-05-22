@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -409,7 +409,16 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pymysql in /usr/local/lib/python3.11/dist-packages (1.1.1)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting pymysql
+  Downloading PyMySQL-1.1.1-py3-none-any.whl.metadata (4.4 kB)
+Downloading PyMySQL-1.1.1-py3-none-any.whl (44 kB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/45.0 kB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">45.0/45.0 kB</span> <span class=" -Color -Color-Red">1.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: pymysql
+Successfully installed pymysql-1.1.1
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: psycopg2 in /usr/local/lib/python3.11/dist-packages (2.9.10)
@@ -657,39 +666,39 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> id           Class  sepal_length  sepal_width  petal_length  petal_width
-  1     Iris-setosa      1.400000     0.200000      5.100000     3.500000
+  1     Iris-setosa      8.400307     7.071738     20.849325    22.463747
   2     Iris-setosa     14.000000     2.000000     40.900000    30.000000
   3     Iris-setosa      1.300000     0.200000      4.700000     3.200000
   4     Iris-setosa      1.500000     0.200000      4.600000     3.100000
-  5     Iris-setosa      9.530622     9.800681     14.579663    21.722078
+  5     Iris-setosa      1.400000     0.200000      5.000000     3.600000
   6     Iris-setosa      1.700000     0.400000      5.400000     3.900000
   7     Iris-setosa      1.400000     0.300000      4.600000     3.400000
-  8     Iris-setosa      1.500000     0.200000      5.000000     3.400000
+  8     Iris-setosa      3.156488     9.932285     18.152161    23.346403
   9     Iris-setosa      1.400000     0.200000      4.400000     2.900000
  10     Iris-setosa      1.500000     0.100000      4.900000     3.100000
  11     Iris-setosa      1.500000     0.200000      5.400000     3.700000
  12     Iris-setosa      1.600000     0.200000      4.800000     3.400000
  13     Iris-setosa      1.400000     0.100000      4.800000     3.000000
  14     Iris-setosa      1.100000     0.100000      4.300000     3.000000
- 15     Iris-setosa      1.200000     0.200000      5.800000     4.000000
+ 15     Iris-setosa     12.740024    13.761669     14.638328    23.567161
  16     Iris-setosa      1.500000     0.400000      5.700000     4.400000
  17     Iris-setosa      1.300000     0.400000      5.400000     3.900000
- 18     Iris-setosa     10.243760    16.683902     23.119517     6.976697
+ 18     Iris-setosa      9.595037    16.675920     19.272244     5.450194
  19     Iris-setosa      1.700000     0.300000      5.700000     3.800000
  20     Iris-setosa      1.500000     0.300000      5.100000     3.800000
  21     Iris-setosa      1.700000     0.200000      5.400000     3.400000
  22     Iris-setosa      1.500000     0.400000      5.100000     3.700000
  23     Iris-setosa      1.000000     0.200000      4.600000     3.600000
- 24     Iris-setosa     14.758711    19.140053     11.277249     4.313264
+ 24     Iris-setosa      1.700000     0.500000      5.100000     3.300000
  25     Iris-setosa      1.900000     0.200000      4.800000     3.400000
  26     Iris-setosa      1.600000     0.200000      5.000000     3.000000
  27     Iris-setosa      1.600000     0.400000      5.000000     3.400000
  28     Iris-setosa      1.500000     0.200000      5.200000     3.500000
  29     Iris-setosa      1.400000     0.200000      5.200000     3.400000
- 30     Iris-setosa     15.701067     3.754904     21.255388    10.320866
+ 30     Iris-setosa     18.543525    11.939332     17.197681    20.624783
  31     Iris-setosa      1.600000     0.200000      4.800000     3.100000
  32     Iris-setosa      1.500000     0.400000      5.400000     3.400000
- 33     Iris-setosa     20.667363     8.050895     12.624734    23.949234
+ 33     Iris-setosa      1.500000     0.100000      5.200000     4.100000
  34     Iris-setosa      1.400000     0.200000      5.500000     4.200000
  35     Iris-setosa      1.500000     0.100000      4.900000     3.100000
  36     Iris-setosa      1.200000     0.200000      5.000000     3.200000
@@ -700,11 +709,11 @@ document.write(`
  41     Iris-setosa      1.300000     0.300000      5.000000     3.500000
  42     Iris-setosa      1.300000     0.300000      4.500000     2.300000
  43     Iris-setosa      1.300000     0.200000      4.400000     3.200000
- 44     Iris-setosa     19.103600     4.755973     24.920128    11.802448
+ 44     Iris-setosa      1.600000     0.600000      5.000000     3.500000
  45     Iris-setosa      1.900000     0.400000      5.100000     3.800000
  46     Iris-setosa      1.400000     0.300000      4.800000     3.000000
  47     Iris-setosa      1.600000     0.200000      5.100000     3.800000
- 48     Iris-setosa      1.400000     0.200000      4.600000     3.200000
+ 48     Iris-setosa      9.557692    14.858818     11.084836    16.911416
  49     Iris-setosa      1.500000     0.200000      5.300000     3.700000
  50     Iris-setosa      1.400000     0.200000      5.000000     3.300000
  51 Iris-versicolor      4.700000     1.400000      7.000000     3.200000
@@ -719,7 +728,7 @@ document.write(`
  60 Iris-versicolor      3.900000     1.400000      5.200000     2.700000
  61 Iris-versicolor      3.500000     1.000000      5.000000     2.000000
  62 Iris-versicolor      4.200000     1.500000      5.900000     3.000000
- 63 Iris-versicolor     20.963842    18.150489     19.933203     7.971066
+ 63 Iris-versicolor      4.000000     1.000000      6.000000     2.200000
  64 Iris-versicolor      4.700000     1.400000      6.100000     2.900000
  65 Iris-versicolor      3.600000     1.300000      5.600000     2.900000
  66 Iris-versicolor      4.400000     1.400000      6.700000     3.100000
@@ -732,8 +741,8 @@ document.write(`
  73 Iris-versicolor      4.900000     1.500000      6.300000     2.500000
  74 Iris-versicolor      4.700000     1.200000      6.100000     2.800000
  75 Iris-versicolor      4.300000     1.300000      6.400000     2.900000
- 76 Iris-versicolor      4.400000     1.400000      6.600000     3.000000
- 77 Iris-versicolor     11.737082     4.092547     14.078235    15.742137
+ 76 Iris-versicolor     11.684898    17.390151      8.694233    12.773408
+ 77 Iris-versicolor      4.800000     1.400000      6.800000     2.800000
  78 Iris-versicolor      5.000000     1.700000      6.700000     3.000000
  79 Iris-versicolor      4.500000     1.500000      6.000000     2.900000
  80 Iris-versicolor      3.500000     1.000000      5.700000     2.600000
@@ -741,9 +750,9 @@ document.write(`
  82 Iris-versicolor      3.700000     1.000000      5.500000     2.400000
  83 Iris-versicolor      3.900000     1.200000      5.800000     2.700000
  84 Iris-versicolor      5.100000     1.600000      6.000000     2.700000
- 85 Iris-versicolor     23.465505     9.809803      9.112448     4.867180
- 86 Iris-versicolor     20.561164    12.866334     15.958531    14.791910
- 87 Iris-versicolor      4.700000     1.500000      6.700000     3.100000
+ 85 Iris-versicolor      4.500000     1.500000      5.400000     3.000000
+ 86 Iris-versicolor      4.500000     1.600000      6.000000     3.400000
+ 87 Iris-versicolor     11.842537     9.871191     24.713466    18.342465
  88 Iris-versicolor      4.400000     1.300000      6.300000     2.300000
  89 Iris-versicolor      4.100000     1.300000      5.600000     3.000000
  90 Iris-versicolor      4.000000     1.300000      5.500000     2.500000
@@ -759,34 +768,34 @@ document.write(`
 100 Iris-versicolor      4.100000     1.300000      5.700000     2.800000
 101  Iris-virginica      6.000000     2.500000      6.300000     3.300000
 102  Iris-virginica      5.100000     1.900000      5.800000     2.700000
-103  Iris-virginica      5.900000     2.100000      7.100000     3.000000
+103  Iris-virginica     10.779590    17.356768     21.499267     5.258136
 104  Iris-virginica      5.600000     1.800000      6.300000     2.900000
-105  Iris-virginica      5.800000     2.200000      6.500000     3.000000
+105  Iris-virginica     18.617305     8.513814     21.488616    21.938833
 106  Iris-virginica      6.600000     2.100000      7.600000     3.000000
 107  Iris-virginica      4.500000     1.700000      4.900000     2.500000
 108  Iris-virginica      6.300000     1.800000      7.300000     2.900000
 109  Iris-virginica      5.800000     1.800000      6.700000     2.500000
 110  Iris-virginica      6.100000     2.500000      7.200000     3.600000
-111  Iris-virginica      9.362239     8.207059     13.333551    21.433008
+111  Iris-virginica      5.100000     2.000000      6.500000     3.200000
 112  Iris-virginica      5.300000     1.900000      6.400000     2.700000
 113  Iris-virginica      5.500000     2.100000      6.800000     3.000000
 114  Iris-virginica      5.000000     2.000000      5.700000     2.500000
-115  Iris-virginica      5.100000     2.400000      5.800000     2.800000
-116  Iris-virginica     22.367935    12.765151     13.021549    22.320774
+115  Iris-virginica     10.933506     4.740620     13.169577    22.396595
+116  Iris-virginica      5.300000     2.300000      6.400000     3.200000
 117  Iris-virginica      5.500000     1.800000      6.500000     3.000000
 118  Iris-virginica      6.700000     2.200000      7.700000     3.800000
 119  Iris-virginica      6.900000     2.300000      7.700000     2.600000
-120  Iris-virginica      5.000000     1.500000      6.000000     2.200000
-121  Iris-virginica     16.472160     3.465281     11.016846     8.158503
+120  Iris-virginica     10.695670     9.888125     10.199992    12.616619
+121  Iris-virginica      5.700000     2.300000      6.900000     3.200000
 122  Iris-virginica      4.900000     2.000000      5.600000     2.800000
 123  Iris-virginica      6.700000     2.000000      7.700000     2.800000
 124  Iris-virginica      4.900000     1.800000      6.300000     2.700000
 125  Iris-virginica      5.700000     2.100000      6.700000     3.300000
 126  Iris-virginica      6.000000     1.800000      7.200000     3.200000
 127  Iris-virginica      4.800000     1.800000      6.200000     2.800000
-128  Iris-virginica      4.900000     1.800000      6.100000     3.000000
+128  Iris-virginica      8.205345    10.989703      8.817857    15.062537
 129  Iris-virginica      5.600000     2.100000      6.400000     2.800000
-130  Iris-virginica     24.702092    17.655717     23.350899    16.092129
+130  Iris-virginica      5.800000     1.600000      7.200000     3.000000
 131  Iris-virginica      6.100000     1.900000      7.400000     2.800000
 132  Iris-virginica      6.400000     2.000000      7.900000     3.800000
 133  Iris-virginica      5.600000     2.200000      6.400000     2.800000
@@ -804,7 +813,7 @@ document.write(`
 145  Iris-virginica      5.700000     2.500000      6.700000     3.300000
 146  Iris-virginica      5.200000     2.300000      6.700000     3.000000
 147  Iris-virginica      5.000000     1.900000      6.300000     2.500000
-148  Iris-virginica      5.200000     2.000000      6.500000     3.000000
+148  Iris-virginica      6.958282    21.719344      8.472808    16.781185
 149  Iris-virginica      5.400000     2.300000      6.200000     3.400000
 150  Iris-virginica      5.100000     1.800000      5.900000     3.000000
 </pre></div>
@@ -906,39 +915,39 @@ y = a + bx</p>
 Jumlah data normal: 129
 Jumlah total data setelah perbaikan: 150
  id           Class  sepal_length  sepal_width  petal_length  petal_width
-  1     Iris-setosa      1.400000     0.200000      5.100000     3.500000
-  2     Iris-setosa      1.105622     0.181909      4.819556     3.318501
+  1     Iris-setosa      1.600962     0.269609      5.083678     3.471729
+  2     Iris-setosa      1.172678     0.181778      4.789447     3.309989
   3     Iris-setosa      1.300000     0.200000      4.700000     3.200000
   4     Iris-setosa      1.500000     0.200000      4.600000     3.100000
-  5     Iris-setosa      1.305246     0.208697      4.923003     3.372878
+  5     Iris-setosa      1.400000     0.200000      5.000000     3.600000
   6     Iris-setosa      1.700000     0.400000      5.400000     3.900000
   7     Iris-setosa      1.400000     0.300000      4.600000     3.400000
-  8     Iris-setosa      1.500000     0.200000      5.000000     3.400000
+  8     Iris-setosa      1.727217     0.295501      5.170415     3.519409
   9     Iris-setosa      1.400000     0.200000      4.400000     2.900000
  10     Iris-setosa      1.500000     0.100000      4.900000     3.100000
  11     Iris-setosa      1.500000     0.200000      5.400000     3.700000
  12     Iris-setosa      1.600000     0.200000      4.800000     3.400000
  13     Iris-setosa      1.400000     0.100000      4.800000     3.000000
  14     Iris-setosa      1.100000     0.100000      4.300000     3.000000
- 15     Iris-setosa      1.200000     0.200000      5.800000     4.000000
- 16     Iris-setosa      1.409253     0.222655      4.976900     3.401209
+ 15     Iris-setosa      1.617709     0.273044      5.095183     3.478054
+ 16     Iris-setosa      1.683626     0.286562      5.140468     3.502947
  17     Iris-setosa      1.300000     0.400000      5.400000     3.900000
- 18     Iris-setosa      1.013410     0.169534      4.771771     3.293383
+ 18     Iris-setosa      1.536729     0.256437      5.039550     3.447472
  19     Iris-setosa      1.700000     0.300000      5.700000     3.800000
  20     Iris-setosa      1.500000     0.300000      5.100000     3.800000
  21     Iris-setosa      1.700000     0.200000      5.400000     3.400000
  22     Iris-setosa      1.500000     0.400000      5.100000     3.700000
  23     Iris-setosa      1.000000     0.200000      4.600000     3.600000
- 24     Iris-setosa      1.594907     0.247569      5.073108     3.451781
+ 24     Iris-setosa      1.700000     0.500000      5.100000     3.300000
  25     Iris-setosa      1.900000     0.200000      4.800000     3.400000
  26     Iris-setosa      1.600000     0.200000      5.000000     3.000000
  27     Iris-setosa      1.600000     0.400000      5.000000     3.400000
  28     Iris-setosa      1.500000     0.200000      5.200000     3.500000
  29     Iris-setosa      1.400000     0.200000      5.200000     3.400000
- 30     Iris-setosa      1.310334     0.209380      4.925639     3.374264
+ 30     Iris-setosa      1.784181     0.307183      5.209549     3.540921
  31     Iris-setosa      1.600000     0.200000      4.800000     3.100000
  32     Iris-setosa      1.500000     0.400000      5.400000     3.400000
- 33     Iris-setosa      1.248297     0.201055      4.893491     3.357366
+ 33     Iris-setosa      1.500000     0.100000      5.200000     4.100000
  34     Iris-setosa      1.400000     0.200000      5.500000     4.200000
  35     Iris-setosa      1.500000     0.100000      4.900000     3.100000
  36     Iris-setosa      1.200000     0.200000      5.000000     3.200000
@@ -947,13 +956,13 @@ Jumlah total data setelah perbaikan: 150
  39     Iris-setosa      1.300000     0.200000      4.400000     3.000000
  40     Iris-setosa      1.500000     0.200000      5.100000     3.400000
  41     Iris-setosa      1.300000     0.300000      5.000000     3.500000
- 42     Iris-setosa      1.353200     0.215133      4.947853     3.385941
+ 42     Iris-setosa      1.558772     0.260957      5.054693     3.455796
  43     Iris-setosa      1.300000     0.200000      4.400000     3.200000
- 44     Iris-setosa      1.837731     0.280154      5.198941     3.517925
+ 44     Iris-setosa      1.600000     0.600000      5.000000     3.500000
  45     Iris-setosa      1.900000     0.400000      5.100000     3.800000
  46     Iris-setosa      1.400000     0.300000      4.800000     3.000000
  47     Iris-setosa      1.600000     0.200000      5.100000     3.800000
- 48     Iris-setosa      1.400000     0.200000      4.600000     3.200000
+ 48     Iris-setosa      1.324295     0.212871      4.893608     3.367247
  49     Iris-setosa      1.500000     0.200000      5.300000     3.700000
  50     Iris-setosa      1.400000     0.200000      5.000000     3.300000
  51 Iris-versicolor      4.700000     1.400000      7.000000     3.200000
@@ -968,7 +977,7 @@ Jumlah total data setelah perbaikan: 150
  60 Iris-versicolor      3.900000     1.400000      5.200000     2.700000
  61 Iris-versicolor      3.500000     1.000000      5.000000     2.000000
  62 Iris-versicolor      4.200000     1.500000      5.900000     3.000000
- 63 Iris-versicolor      5.019889     1.588851      6.591874     3.054590
+ 63 Iris-versicolor      4.000000     1.000000      6.000000     2.200000
  64 Iris-versicolor      4.700000     1.400000      6.100000     2.900000
  65 Iris-versicolor      3.600000     1.300000      5.600000     2.900000
  66 Iris-versicolor      4.400000     1.400000      6.700000     3.100000
@@ -981,8 +990,8 @@ Jumlah total data setelah perbaikan: 150
  73 Iris-versicolor      4.900000     1.500000      6.300000     2.500000
  74 Iris-versicolor      4.700000     1.200000      6.100000     2.800000
  75 Iris-versicolor      4.300000     1.300000      6.400000     2.900000
- 76 Iris-versicolor      4.400000     1.400000      6.600000     3.000000
- 77 Iris-versicolor      4.090054     1.263270      5.787894     2.699805
+ 76 Iris-versicolor      4.497962     1.405178      6.109160     2.851562
+ 77 Iris-versicolor      4.800000     1.400000      6.800000     2.800000
  78 Iris-versicolor      5.000000     1.700000      6.700000     3.000000
  79 Iris-versicolor      4.500000     1.500000      6.000000     2.900000
  80 Iris-versicolor      3.500000     1.000000      5.700000     2.600000
@@ -990,9 +999,9 @@ Jumlah total data setelah perbaikan: 150
  82 Iris-versicolor      3.700000     1.000000      5.500000     2.400000
  83 Iris-versicolor      3.900000     1.200000      5.800000     2.700000
  84 Iris-versicolor      5.100000     1.600000      6.000000     2.700000
- 85 Iris-versicolor      3.641572     1.106234      5.400115     2.528684
- 86 Iris-versicolor      3.515833     1.062206      5.291395     2.480707
- 87 Iris-versicolor      4.700000     1.500000      6.700000     3.100000
+ 85 Iris-versicolor      4.500000     1.500000      5.400000     3.000000
+ 86 Iris-versicolor      4.500000     1.600000      6.000000     3.400000
+ 87 Iris-versicolor      4.260586     1.320585      5.911866     2.758380
  88 Iris-versicolor      4.400000     1.300000      6.300000     2.300000
  89 Iris-versicolor      4.100000     1.300000      5.600000     3.000000
  90 Iris-versicolor      4.000000     1.300000      5.500000     2.500000
@@ -1004,40 +1013,40 @@ Jumlah total data setelah perbaikan: 150
  96 Iris-versicolor      4.200000     1.200000      5.700000     3.000000
  97 Iris-versicolor      4.200000     1.300000      5.700000     2.900000
  98 Iris-versicolor      4.300000     1.300000      6.200000     2.900000
- 99 Iris-versicolor      4.069915     1.256218      5.770481     2.692121
+ 99 Iris-versicolor      4.980966     1.577304      6.510607     3.041163
 100 Iris-versicolor      4.100000     1.300000      5.700000     2.800000
 101  Iris-virginica      6.000000     2.500000      6.300000     3.300000
 102  Iris-virginica      5.100000     1.900000      5.800000     2.700000
-103  Iris-virginica      5.900000     2.100000      7.100000     3.000000
+103  Iris-virginica      4.500051     1.866184      5.539029     2.773849
 104  Iris-virginica      5.600000     1.800000      6.300000     2.900000
-105  Iris-virginica      5.800000     2.200000      6.500000     3.000000
+105  Iris-virginica      5.662311     2.043535      6.695700     2.993115
 106  Iris-virginica      6.600000     2.100000      7.600000     3.000000
 107  Iris-virginica      4.500000     1.700000      4.900000     2.500000
 108  Iris-virginica      6.300000     1.800000      7.300000     2.900000
 109  Iris-virginica      5.800000     1.800000      6.700000     2.500000
 110  Iris-virginica      6.100000     2.500000      7.200000     3.600000
-111  Iris-virginica      4.532271     1.839475      5.551743     2.717184
+111  Iris-virginica      5.100000     2.000000      6.500000     3.200000
 112  Iris-virginica      5.300000     1.900000      6.400000     2.700000
 113  Iris-virginica      5.500000     2.100000      6.800000     3.000000
 114  Iris-virginica      5.000000     2.000000      5.700000     2.500000
-115  Iris-virginica      5.100000     2.400000      5.800000     2.800000
-116  Iris-virginica      5.650135     2.044973      6.657630     2.965370
+115  Iris-virginica      6.006763     2.096096      7.038496     3.058098
+116  Iris-virginica      5.300000     2.300000      6.400000     3.200000
 117  Iris-virginica      5.500000     1.800000      6.500000     3.000000
-118  Iris-virginica      5.734863     2.060549      6.741450     2.984181
-119  Iris-virginica      4.605710     1.852976      5.624395     2.733489
-120  Iris-virginica      5.000000     1.500000      6.000000     2.200000
-121  Iris-virginica      5.602314     2.036182      6.610321     2.954753
+118  Iris-virginica      5.689983     2.047758      6.723239     2.998336
+119  Iris-virginica      6.532051     2.176251      7.561258     3.157196
+120  Iris-virginica      5.979261     2.091899      7.011126     3.052909
+121  Iris-virginica      5.700000     2.300000      6.900000     3.200000
 122  Iris-virginica      4.900000     2.000000      5.600000     2.800000
 123  Iris-virginica      6.700000     2.000000      7.700000     2.800000
 124  Iris-virginica      4.900000     1.800000      6.300000     2.700000
 125  Iris-virginica      5.700000     2.100000      6.700000     3.300000
 126  Iris-virginica      6.000000     1.800000      7.200000     3.200000
 127  Iris-virginica      4.800000     1.800000      6.200000     2.800000
-128  Iris-virginica      4.900000     1.800000      6.100000     3.000000
+128  Iris-virginica      5.250850     1.980750      6.286218     2.915491
 129  Iris-virginica      5.600000     2.100000      6.400000     2.800000
-130  Iris-virginica      5.807681     2.073935      6.813488     3.000348
+130  Iris-virginica      5.800000     1.600000      7.200000     3.000000
 131  Iris-virginica      6.100000     1.900000      7.400000     2.800000
-132  Iris-virginica      4.798247     1.888370      5.814869     2.776236
+132  Iris-virginica      6.274638     2.136972      7.305084     3.108634
 133  Iris-virginica      5.600000     2.200000      6.400000     2.800000
 134  Iris-virginica      5.100000     1.500000      6.300000     2.800000
 135  Iris-virginica      5.600000     1.400000      6.100000     2.600000
@@ -1053,7 +1062,7 @@ Jumlah total data setelah perbaikan: 150
 145  Iris-virginica      5.700000     2.500000      6.700000     3.300000
 146  Iris-virginica      5.200000     2.300000      6.700000     3.000000
 147  Iris-virginica      5.000000     1.900000      6.300000     2.500000
-148  Iris-virginica      5.200000     2.000000      6.500000     3.000000
+148  Iris-virginica      4.668841     1.891940      5.707008     2.805692
 149  Iris-virginica      5.400000     2.300000      6.200000     3.400000
 150  Iris-virginica      5.100000     1.800000      5.900000     3.000000
 </pre></div>
@@ -1094,7 +1103,7 @@ Jumlah total data setelah perbaikan: 150
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2f4de09c1609bd1cd5782ea6c6aaaa0404d96ee429ca7237f3a8218e8858fabe.png" src="_images/2f4de09c1609bd1cd5782ea6c6aaaa0404d96ee429ca7237f3a8218e8858fabe.png" />
+<img alt="_images/b66f79b550a502b4126a68762ea9ae8fbad9723a64d4b554eb2d106b4f528462.png" src="_images/b66f79b550a502b4126a68762ea9ae8fbad9723a64d4b554eb2d106b4f528462.png" />
 </div>
 </div>
 <p>Kode ini membuat <strong>scatter plot</strong> untuk memvisualisasikan distribusi data dari dua fitur, yaitu <strong>petal_length</strong> dan <strong>petal_width</strong>, pada dataset <code class="docutils literal notranslate"><span class="pre">df_cleaned</span></code>. Warna titik pada plot ditentukan berdasarkan kelas (<code class="docutils literal notranslate"><span class="pre">Class</span></code>) dengan peta warna tertentu untuk setiap spesies (<code class="docutils literal notranslate"><span class="pre">Iris-setosa</span></code>, <code class="docutils literal notranslate"><span class="pre">Iris-versicolor</span></code>, <code class="docutils literal notranslate"><span class="pre">Iris-virginica</span></code>).</p>
@@ -1268,35 +1277,35 @@ Pertama, modul Python seperti <code class="docutils literal notranslate"><span c
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data Tanpa Outlier
-Akurasi: 73.33%
+Akurasi: 80.00%
                  precision    recall  f1-score   support
 
     Iris-setosa       1.00      1.00      1.00        10
-Iris-versicolor       0.55      0.67      0.60         9
- Iris-virginica       0.67      0.55      0.60        11
+Iris-versicolor       0.67      0.67      0.67         9
+ Iris-virginica       0.73      0.73      0.73        11
 
-       accuracy                           0.73        30
-      macro avg       0.74      0.74      0.73        30
-   weighted avg       0.74      0.73      0.73        30
+       accuracy                           0.80        30
+      macro avg       0.80      0.80      0.80        30
+   weighted avg       0.80      0.80      0.80        30
 </pre></div>
 </div>
-<img alt="_images/f722a7eb2001eadbc42cd8d6e7be142aa62339111e56c9f0c42ef685b0cebadf.png" src="_images/f722a7eb2001eadbc42cd8d6e7be142aa62339111e56c9f0c42ef685b0cebadf.png" />
+<img alt="_images/9513abb661fbfdec5c8c37721911e02456949711f0dd6aa6a776f0a13fca551d.png" src="_images/9513abb661fbfdec5c8c37721911e02456949711f0dd6aa6a776f0a13fca551d.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data Dengan Outlier
-Akurasi: 70.00%
+Akurasi: 80.00%
                  precision    recall  f1-score   support
 
     Iris-setosa       0.91      1.00      0.95        10
-Iris-versicolor       0.55      0.67      0.60         9
- Iris-virginica       0.62      0.45      0.53        11
+Iris-versicolor       0.70      0.78      0.74         9
+ Iris-virginica       0.78      0.64      0.70        11
 
-       accuracy                           0.70        30
-      macro avg       0.69      0.71      0.69        30
-   weighted avg       0.70      0.70      0.69        30
+       accuracy                           0.80        30
+      macro avg       0.80      0.80      0.80        30
+   weighted avg       0.80      0.80      0.80        30
 
 
 Perbandingan Akurasi:
-Akurasi data bersih: 73.33%
-Akurasi data dengan outlier: 70.00%
+Akurasi data bersih: 80.00%
+Akurasi data dengan outlier: 80.00%
 </pre></div>
 </div>
 </div>
@@ -1435,34 +1444,34 @@ akibat nilai outlier yang terlalu besar. Pada akhirnya, perbandingan akurasi ant
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data Tanpa Outlier
-Akurasi: 96.67%
+Akurasi: 100.00%
                  precision    recall  f1-score   support
 
     Iris-setosa       1.00      1.00      1.00        10
-Iris-versicolor       0.90      1.00      0.95         9
- Iris-virginica       1.00      0.91      0.95        11
+Iris-versicolor       1.00      1.00      1.00         9
+ Iris-virginica       1.00      1.00      1.00        11
 
-       accuracy                           0.97        30
-      macro avg       0.97      0.97      0.97        30
-   weighted avg       0.97      0.97      0.97        30
+       accuracy                           1.00        30
+      macro avg       1.00      1.00      1.00        30
+   weighted avg       1.00      1.00      1.00        30
 </pre></div>
 </div>
-<img alt="_images/1f577435a0e0fc4302f54561557c26d4f39cdd0eb7ddbfc63e0c9b08fd831ad6.png" src="_images/1f577435a0e0fc4302f54561557c26d4f39cdd0eb7ddbfc63e0c9b08fd831ad6.png" />
+<img alt="_images/20e2d2e6a038a19d1e0d352e3b8f0f860f2ce4963212b36eff2f83fd20e20df8.png" src="_images/20e2d2e6a038a19d1e0d352e3b8f0f860f2ce4963212b36eff2f83fd20e20df8.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data Dengan Outlier
 Akurasi: 93.33%
                  precision    recall  f1-score   support
 
-    Iris-setosa       1.00      0.90      0.95        10
-Iris-versicolor       1.00      0.89      0.94         9
- Iris-virginica       0.85      1.00      0.92        11
+    Iris-setosa       0.83      1.00      0.91        10
+Iris-versicolor       1.00      1.00      1.00         9
+ Iris-virginica       1.00      0.82      0.90        11
 
        accuracy                           0.93        30
-      macro avg       0.95      0.93      0.94        30
+      macro avg       0.94      0.94      0.94        30
    weighted avg       0.94      0.93      0.93        30
 
 
 Perbandingan Akurasi:
-Akurasi data bersih: 96.67%
+Akurasi data bersih: 100.00%
 Akurasi data dengan outlier: 93.33%
 </pre></div>
 </div>
@@ -1630,49 +1639,41 @@ Iris-versicolor       1.00      1.00      1.00         7
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data dengan Outlier
-Akurasi: 30.00%
-Jumlah klasifikasi salah: 21
+Akurasi: 43.33%
+Jumlah klasifikasi salah: 17
 Data yang salah diklasifikasikan:
-               Class  sepal_length  sepal_width  petal_length  petal_width  \
-18       Iris-setosa      1.700000     0.300000      5.700000     3.800000   
-118   Iris-virginica      6.900000     2.300000      7.700000     2.600000   
-76   Iris-versicolor     11.737082     4.092547     14.078235    15.742137   
-31       Iris-setosa      1.500000     0.400000      5.400000     3.400000   
-141   Iris-virginica      5.100000     2.300000      6.900000     3.100000   
-110   Iris-virginica      9.362239     8.207059     13.333551    21.433008   
-12       Iris-setosa      1.400000     0.100000      4.800000     3.000000   
-36       Iris-setosa      1.300000     0.200000      5.500000     3.500000   
-9        Iris-setosa      1.500000     0.100000      4.900000     3.100000   
-19       Iris-setosa      1.500000     0.300000      5.100000     3.800000   
-104   Iris-virginica      5.800000     2.200000      6.500000     3.000000   
-132   Iris-virginica      5.600000     2.200000      6.400000     2.800000   
-127   Iris-virginica      4.900000     1.800000      6.100000     3.000000   
-26       Iris-setosa      1.600000     0.400000      5.000000     3.400000   
-128   Iris-virginica      5.600000     2.100000      6.400000     2.800000   
-131   Iris-virginica      6.400000     2.000000      7.900000     3.800000   
-145   Iris-virginica      5.200000     2.300000      6.700000     3.000000   
-108   Iris-virginica      5.800000     1.800000      6.700000     2.500000   
-143   Iris-virginica      5.900000     2.300000      6.800000     3.200000   
-45       Iris-setosa      1.400000     0.300000      4.800000     3.000000   
-30       Iris-setosa      1.600000     0.200000      4.800000     3.100000   
+              Class  sepal_length  sepal_width  petal_length  petal_width  \
+18      Iris-setosa      1.700000     0.300000      5.700000     3.800000   
+31      Iris-setosa      1.500000     0.400000      5.400000     3.400000   
+141  Iris-virginica      5.100000     2.300000      6.900000     3.100000   
+110  Iris-virginica      5.100000     2.000000      6.500000     3.200000   
+12      Iris-setosa      1.400000     0.100000      4.800000     3.000000   
+36      Iris-setosa      1.300000     0.200000      5.500000     3.500000   
+9       Iris-setosa      1.500000     0.100000      4.900000     3.100000   
+19      Iris-setosa      1.500000     0.300000      5.100000     3.800000   
+104  Iris-virginica     18.617305     8.513814     21.488616    21.938833   
+132  Iris-virginica      5.600000     2.200000      6.400000     2.800000   
+26      Iris-setosa      1.600000     0.400000      5.000000     3.400000   
+128  Iris-virginica      5.600000     2.100000      6.400000     2.800000   
+145  Iris-virginica      5.200000     2.300000      6.700000     3.000000   
+108  Iris-virginica      5.800000     1.800000      6.700000     2.500000   
+143  Iris-virginica      5.900000     2.300000      6.800000     3.200000   
+45      Iris-setosa      1.400000     0.300000      4.800000     3.000000   
+30      Iris-setosa      1.600000     0.200000      4.800000     3.100000   
 
            Predicted  
 18   Iris-versicolor  
-118  Iris-versicolor  
-76       Iris-setosa  
 31   Iris-versicolor  
 141  Iris-versicolor  
-110      Iris-setosa  
+110  Iris-versicolor  
 12   Iris-versicolor  
 36   Iris-versicolor  
 9    Iris-versicolor  
 19   Iris-versicolor  
-104  Iris-versicolor  
+104      Iris-setosa  
 132  Iris-versicolor  
-127  Iris-versicolor  
 26   Iris-versicolor  
 128  Iris-versicolor  
-131  Iris-versicolor  
 145  Iris-versicolor  
 108  Iris-versicolor  
 143  Iris-versicolor  
@@ -1680,13 +1681,13 @@ Data yang salah diklasifikasikan:
 30   Iris-versicolor  
                  precision    recall  f1-score   support
 
-    Iris-setosa       0.33      0.10      0.15        10
-Iris-versicolor       0.30      0.89      0.44         9
- Iris-virginica       0.00      0.00      0.00        11
+    Iris-setosa       0.50      0.10      0.17        10
+Iris-versicolor       0.36      1.00      0.53         9
+ Iris-virginica       1.00      0.27      0.43        11
 
-       accuracy                           0.30        30
-      macro avg       0.21      0.33      0.20        30
-   weighted avg       0.20      0.30      0.18        30
+       accuracy                           0.43        30
+      macro avg       0.62      0.46      0.37        30
+   weighted avg       0.64      0.43      0.37        30
 
 
 Data Bersih (Tanpa Outlier)
@@ -1708,18 +1709,10 @@ Iris-versicolor       1.00      1.00      1.00         7
 
 
 Perbandingan:
-Akurasi Data dengan Outlier: 30.00%
-Jumlah klasifikasi salah pada Data dengan Outlier: 21
+Akurasi Data dengan Outlier: 43.33%
+Jumlah klasifikasi salah pada Data dengan Outlier: 17
 Akurasi Data Bersih: 100.00%
 Jumlah klasifikasi salah pada Data Bersih: 0
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.11/dist-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
-  _warn_prf(average, modifier, f&quot;{metric.capitalize()} is&quot;, len(result))
-/usr/local/lib/python3.11/dist-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
-  _warn_prf(average, modifier, f&quot;{metric.capitalize()} is&quot;, len(result))
-/usr/local/lib/python3.11/dist-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
-  _warn_prf(average, modifier, f&quot;{metric.capitalize()} is&quot;, len(result))
 </pre></div>
 </div>
 </div>
