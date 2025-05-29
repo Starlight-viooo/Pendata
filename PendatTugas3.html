@@ -1,0 +1,1993 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Deteksi Outlier dengan Metode K-Nearest Neighbors (KNN) &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PendatTugas3';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Local Outlier Factor (LOF)" href="PendatTugas4LOF.html" />
+    <link rel="prev" title="Pembukaan Data Mining" href="pendat-tugas2.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.jpg" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/logo.jpg" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pendat-tugas2.html"><strong>Pembukaan Data Mining</strong></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Deteksi Outlier dengan Metode K-Nearest Neighbors (KNN)</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="PendatTugas4LOF.html">Local Outlier Factor (LOF)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Klasifikasi.html"><strong>Klasifikasi pada Iris dataset</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="230411100167_PendatUTS.html">Pendat UTS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas6Clustering.html">Clustering Iris dataset dengan K- Mean</a></li>
+<li class="toctree-l1"><a class="reference internal" href="C-Means%20Clustering.html">Fuzzy C-Mean Clustering</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FPendatTugas3.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/PendatTugas3.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Deteksi Outlier dengan Metode K-Nearest Neighbors (KNN)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-jarak-euclidean-antar-titik"><strong>1. Perhitungan Jarak Euclidean Antar Titik</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-jarak-euclidean"><strong>Perhitungan Jarak Euclidean</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rata-rata-jarak-ke-2-tetangga-terdekat"><strong>2. Rata-rata Jarak ke 2 Tetangga Terdekat</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan"><strong>Kesimpulan</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengambil-dataset-sepal-length-dan-sepal-width-dari-database-mysql"><strong>1. Mengambil Dataset Sepal length dan sepal width dari database mysql</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mensimulasikan-data-outlier-pada-petal-length-dan-petal-width"><strong>Mensimulasikan Data Outlier pada petal length dan petal width</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengambil-dataset-petal-length-dan-petal-width-dari-database-postgresql"><strong>2. Mengambil Dataset petal length dan petal width dari database postgresql</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mensimulasikan-data-outlier-pada-sepal-length-dan-sepal-width"><strong>Mensimulasikan Data Outlier pada sepal length dan sepal width</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menggabungkan-data-dari-dua-database-berbeda"><strong>3. Menggabungkan Data dari dua database berbeda</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#melakukan-deteksi-outlier-dengan-metode-k-nn"><strong>4. Melakukan deteksi Outlier dengan metode K-NN</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mencari-k-optimal-dengan-elbow-method"><strong>Mencari K optimal dengan Elbow method</strong></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <p>#<strong>Mendeteksi Outlier</strong></p>
+<p>Outlier adalah data yang berada jauh dari kumpulan data lainnya dan dapat mempengaruhi hasil analisis secara signifikan.</p>
+<p>Pentingnya menghilangkan outlier dalam proses understanding data tidak bisa diabaikan, karena outlier dapat menyebabkan interpretasi yang salah dan mengurangi kualitas model prediksi.</p>
+<p>Dengan mengidentifikasi dan menghilangkan outlier, kita dapat memastikan bahwa hasil analisis lebih akurat dan mencerminkan pola yang sebenarnya dalam data. Selanjutnya, kita akan melakukan deteksi outlier menggunakan metode K-Nearest Neighbors (KNN),</p>
+<p>sebuah teknik yang cukup sederhana dalam mengidentifikasi anomali berdasarkan kedekatan dengan titik data lain.</p>
+<p>Sebelum memulai sebaiknya kita melakukan install library untuk mengkoneksikan kode python dengan database
+Database Iris dataset berada di dua jenis database yang berbeda, yaitu Mysql dan PostgreSQL</p>
+<p>Untuk mengkoneksikan dengan database Mysql kita dapat gunakan library</p>
+<ul class="simple">
+<li><p>pymysql</p></li>
+<li><p>mysql-connector
+atau library alternatif lainnya</p></li>
+</ul>
+<p>Untuk mengkoneksikan dengan database PostgreSQL kita dapat gunakan library</p>
+<ul class="simple">
+<li><p>psycopg2
+atau library alternatif lainnya</p></li>
+</ul>
+<p>Namun kali ini saya menggunakan pymysql sebagai</p>
+<p>Metode K-NN mendeteksi outlier dengan cara menghitung jarak antar titik data dengan titik terdekatnya. Data yang memiliki jarak jauh dari titik lainnya akan dianggap outlier.</p>
+<p>Untuk menghitung K-NN secara manual, kita akan:</p>
+<p>Menghitung jarak Euclidean antar setiap pasangan data.
+Menentukan dua tetangga terdekat</p>
+<section class="tex2jax_ignore mathjax_ignore" id="deteksi-outlier-dengan-metode-k-nearest-neighbors-knn">
+<h1><strong>Deteksi Outlier dengan Metode K-Nearest Neighbors (KNN)</strong><a class="headerlink" href="#deteksi-outlier-dengan-metode-k-nearest-neighbors-knn" title="Link to this heading">#</a></h1>
+<section id="perhitungan-jarak-euclidean-antar-titik">
+<h2><strong>1. Perhitungan Jarak Euclidean Antar Titik</strong><a class="headerlink" href="#perhitungan-jarak-euclidean-antar-titik" title="Link to this heading">#</a></h2>
+<p>Jarak antara dua titik dihitung menggunakan rumus:</p>
+<div class="math notranslate nohighlight">
+\[
+d(A,B) = \sqrt{(x_1 - x_2)^2 + (y_1 - y_2)^2 + (z_1 - z_2)^2 + (w_1 - w_2)^2}
+\]</div>
+<p>dengan:</p>
+<ul class="simple">
+<li><p>( x ) = sepal_length</p></li>
+<li><p>( y ) = sepal_width</p></li>
+<li><p>( z ) = petal_length</p></li>
+<li><p>( w ) = petal_width</p></li>
+</ul>
+<p>Tabel berikut menunjukkan koordinat setiap titik:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>ID</p></th>
+<th class="head"><p>(sepal_length, sepal_width, petal_length, petal_width)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>(1.4,</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>(14.0, 2.0, 40.9, 30.0)</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>(1.3, 0.2, 4.7, 3.2)</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>(1.5, 0.2, 4.6, 3.1)</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>(1.4, 0.2, 5.0, 3.6)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="perhitungan-jarak-euclidean">
+<h3><strong>Perhitungan Jarak Euclidean</strong><a class="headerlink" href="#perhitungan-jarak-euclidean" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Jarak antara ID 1 dan ID 2:</strong>
+$<span class="math notranslate nohighlight">\(
+d(1,2) = \sqrt{(1.4 - 14.0)^2 + (0.2 - 2.0)^2 + (5.1 - 40.9)^2 + (3.5 - 30.0)^2}
+\)</span>$</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{(-12.6)^2 + (-1.8)^2 + (-35.8)^2 + (-26.5)^2}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{158.76 + 3.24 + 1281.64 + 702.25}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{2145.89} \approx 46.31
+\]</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Jarak antara ID 1 dan ID 3:</strong>
+$<span class="math notranslate nohighlight">\(
+d(1,3) = \sqrt{(1.4 - 1.3)^2 + (0.2 - 0.2)^2 + (5.1 - 4.7)^2 + (3.5 - 3.2)^2}
+\)</span>$</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{(0.1)^2 + (0)^2 + (0.4)^2 + (0.3)^2}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{0.01 + 0 + 0.16 + 0.09}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{0.26} \approx 0.51
+\]</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Jarak antara ID 1 dan ID 4:</strong>
+$<span class="math notranslate nohighlight">\(
+d(1,4) = \sqrt{(1.4 - 1.5)^2 + (0.2 - 0.2)^2 + (5.1 - 4.6)^2 + (3.5 - 3.1)^2}
+\)</span>$</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{(-0.1)^2 + 0^2 + (0.5)^2 + (0.4)^2}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{0.01 + 0 + 0.25 + 0.16}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{0.42} \approx 0.65
+\]</div>
+<ol class="arabic simple" start="4">
+<li><p><strong>Jarak antara ID 1 dan ID 5:</strong>
+$<span class="math notranslate nohighlight">\(
+d(1,5) = \sqrt{(1.4 - 1.4)^2 + (0.2 - 0.2)^2 + (5.1 - 5.0)^2 + (3.5 - 3.6)^2}
+\)</span>$</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{(0)^2 + (0)^2 + (0.1)^2 + (-0.1)^2}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{0 + 0 + 0.01 + 0.01}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{0.02} \approx 0.14
+\]</div>
+<blockquote>
+<div><p>Perhitungan serupa dilakukan untuk ID lainnya.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="rata-rata-jarak-ke-2-tetangga-terdekat">
+<h2><strong>2. Rata-rata Jarak ke 2 Tetangga Terdekat</strong><a class="headerlink" href="#rata-rata-jarak-ke-2-tetangga-terdekat" title="Link to this heading">#</a></h2>
+<p>Untuk <strong>k = 2</strong>, rata-rata jarak dihitung dengan mencari dua tetangga terdekat setiap titik dan menghitung rata-rata jarak mereka.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>ID</p></th>
+<th class="head"><p>K-Tetangga Terdekat</p></th>
+<th class="head"><p>Rata-rata Jarak</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>(5, 3) → (0.14, 0.51)</p></td>
+<td><p><strong>0.33</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>(1, 5) → (46.31, 46.34)</p></td>
+<td><p><strong>46.32</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>(5, 1) → (0.4, 0.51)</p></td>
+<td><p><strong>0.46</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>(5, 1) → (0.42, 0.65)</p></td>
+<td><p><strong>0.54</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>(1, 3) → (0.14, 0.4)</p></td>
+<td><p><strong>0.27</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="kesimpulan">
+<h2><strong>Kesimpulan</strong><a class="headerlink" href="#kesimpulan" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>ID 2 memiliki rata-rata jarak tertinggi (46.32), jauh lebih besar dibandingkan yang lain</strong>.</p></li>
+<li><p><strong>ID 2 adalah outlier</strong> karena jauh dari kelompok data lainnya.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install pymysql
+<span class="o">%</span><span class="k">pip</span> install psycopg2
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pymysql in /usr/local/lib/python3.11/dist-packages (1.1.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: psycopg2 in /usr/local/lib/python3.11/dist-packages (2.9.10)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="mengambil-dataset-sepal-length-dan-sepal-width-dari-database-mysql">
+<h2><strong>1. Mengambil Dataset Sepal length dan sepal width dari database mysql</strong><a class="headerlink" href="#mengambil-dataset-sepal-length-dan-sepal-width-dari-database-mysql" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pymysql</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_mysql_data</span><span class="p">():</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">pymysql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+        <span class="n">host</span><span class="o">=</span><span class="s2">&quot;pendatviomysql-39-projectvioo.h.aivencloud.com&quot;</span><span class="p">,</span>
+        <span class="n">user</span><span class="o">=</span><span class="s2">&quot;avnadmin&quot;</span><span class="p">,</span>
+        <span class="n">password</span><span class="o">=</span><span class="s2">&quot;AVNS_nnGCVuLriFaCit_hSPr&quot;</span><span class="p">,</span>
+        <span class="n">database</span><span class="o">=</span><span class="s2">&quot;myiris&quot;</span><span class="p">,</span>
+        <span class="n">port</span><span class="o">=</span><span class="mi">20305</span>
+    <span class="p">)</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM irismysql&quot;</span><span class="p">)</span>  <span class="c1"># Select all records from the table</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>  <span class="c1"># Fetch all rows</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="c1"># Convert to Python list</span>
+    <span class="n">data_list</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
+    <span class="c1"># Convert to NumPy array</span>
+    <span class="n">data_numpy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data_list</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data_list</span>
+<span class="n">get_mysql_data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[1, &#39;Iris-setosa&#39;, 1.4, 0.2],
+ [2, &#39;Iris-setosa&#39;, 14.0, 2.0],
+ [3, &#39;Iris-setosa&#39;, 1.3, 0.2],
+ [4, &#39;Iris-setosa&#39;, 1.5, 0.2],
+ [5, &#39;Iris-setosa&#39;, 1.4, 0.2],
+ [6, &#39;Iris-setosa&#39;, 1.7, 0.4],
+ [7, &#39;Iris-setosa&#39;, 1.4, 0.3],
+ [8, &#39;Iris-setosa&#39;, 1.5, 0.2],
+ [9, &#39;Iris-setosa&#39;, 1.4, 0.2],
+ [10, &#39;Iris-setosa&#39;, 1.5, 0.1],
+ [11, &#39;Iris-setosa&#39;, 1.5, 0.2],
+ [12, &#39;Iris-setosa&#39;, 1.6, 0.2],
+ [13, &#39;Iris-setosa&#39;, 1.4, 0.1],
+ [14, &#39;Iris-setosa&#39;, 1.1, 0.1],
+ [15, &#39;Iris-setosa&#39;, 1.2, 0.2],
+ [16, &#39;Iris-setosa&#39;, 1.5, 0.4],
+ [17, &#39;Iris-setosa&#39;, 1.3, 0.4],
+ [18, &#39;Iris-setosa&#39;, 1.4, 0.3],
+ [19, &#39;Iris-setosa&#39;, 1.7, 0.3],
+ [20, &#39;Iris-setosa&#39;, 1.5, 0.3],
+ [21, &#39;Iris-setosa&#39;, 1.7, 0.2],
+ [22, &#39;Iris-setosa&#39;, 1.5, 0.4],
+ [23, &#39;Iris-setosa&#39;, 1.0, 0.2],
+ [24, &#39;Iris-setosa&#39;, 1.7, 0.5],
+ [25, &#39;Iris-setosa&#39;, 1.9, 0.2],
+ [26, &#39;Iris-setosa&#39;, 1.6, 0.2],
+ [27, &#39;Iris-setosa&#39;, 1.6, 0.4],
+ [28, &#39;Iris-setosa&#39;, 1.5, 0.2],
+ [29, &#39;Iris-setosa&#39;, 1.4, 0.2],
+ [30, &#39;Iris-setosa&#39;, 1.6, 0.2],
+ [31, &#39;Iris-setosa&#39;, 1.6, 0.2],
+ [32, &#39;Iris-setosa&#39;, 1.5, 0.4],
+ [33, &#39;Iris-setosa&#39;, 1.5, 0.1],
+ [34, &#39;Iris-setosa&#39;, 1.4, 0.2],
+ [35, &#39;Iris-setosa&#39;, 1.5, 0.1],
+ [36, &#39;Iris-setosa&#39;, 1.2, 0.2],
+ [37, &#39;Iris-setosa&#39;, 1.3, 0.2],
+ [38, &#39;Iris-setosa&#39;, 1.5, 0.1],
+ [39, &#39;Iris-setosa&#39;, 1.3, 0.2],
+ [40, &#39;Iris-setosa&#39;, 1.5, 0.2],
+ [41, &#39;Iris-setosa&#39;, 1.3, 0.3],
+ [42, &#39;Iris-setosa&#39;, 1.3, 0.3],
+ [43, &#39;Iris-setosa&#39;, 1.3, 0.2],
+ [44, &#39;Iris-setosa&#39;, 1.6, 0.6],
+ [45, &#39;Iris-setosa&#39;, 1.9, 0.4],
+ [46, &#39;Iris-setosa&#39;, 1.4, 0.3],
+ [47, &#39;Iris-setosa&#39;, 1.6, 0.2],
+ [48, &#39;Iris-setosa&#39;, 1.4, 0.2],
+ [49, &#39;Iris-setosa&#39;, 1.5, 0.2],
+ [50, &#39;Iris-setosa&#39;, 1.4, 0.2],
+ [51, &#39;Iris-versicolor&#39;, 4.7, 1.4],
+ [52, &#39;Iris-versicolor&#39;, 4.5, 1.5],
+ [53, &#39;Iris-versicolor&#39;, 4.9, 1.5],
+ [54, &#39;Iris-versicolor&#39;, 4.0, 1.3],
+ [55, &#39;Iris-versicolor&#39;, 4.6, 1.5],
+ [56, &#39;Iris-versicolor&#39;, 4.5, 1.3],
+ [57, &#39;Iris-versicolor&#39;, 4.7, 1.6],
+ [58, &#39;Iris-versicolor&#39;, 3.3, 1.0],
+ [59, &#39;Iris-versicolor&#39;, 4.6, 1.3],
+ [60, &#39;Iris-versicolor&#39;, 3.9, 1.4],
+ [61, &#39;Iris-versicolor&#39;, 3.5, 1.0],
+ [62, &#39;Iris-versicolor&#39;, 4.2, 1.5],
+ [63, &#39;Iris-versicolor&#39;, 4.0, 1.0],
+ [64, &#39;Iris-versicolor&#39;, 4.7, 1.4],
+ [65, &#39;Iris-versicolor&#39;, 3.6, 1.3],
+ [66, &#39;Iris-versicolor&#39;, 4.4, 1.4],
+ [67, &#39;Iris-versicolor&#39;, 4.5, 1.5],
+ [68, &#39;Iris-versicolor&#39;, 4.1, 1.0],
+ [69, &#39;Iris-versicolor&#39;, 4.5, 1.5],
+ [70, &#39;Iris-versicolor&#39;, 3.9, 1.1],
+ [71, &#39;Iris-versicolor&#39;, 4.8, 1.8],
+ [72, &#39;Iris-versicolor&#39;, 4.0, 1.3],
+ [73, &#39;Iris-versicolor&#39;, 4.9, 1.5],
+ [74, &#39;Iris-versicolor&#39;, 4.7, 1.2],
+ [75, &#39;Iris-versicolor&#39;, 4.3, 1.3],
+ [76, &#39;Iris-versicolor&#39;, 4.4, 1.4],
+ [77, &#39;Iris-versicolor&#39;, 4.8, 1.4],
+ [78, &#39;Iris-versicolor&#39;, 5.0, 1.7],
+ [79, &#39;Iris-versicolor&#39;, 4.5, 1.5],
+ [80, &#39;Iris-versicolor&#39;, 3.5, 1.0],
+ [81, &#39;Iris-versicolor&#39;, 3.8, 1.1],
+ [82, &#39;Iris-versicolor&#39;, 3.7, 1.0],
+ [83, &#39;Iris-versicolor&#39;, 3.9, 1.2],
+ [84, &#39;Iris-versicolor&#39;, 5.1, 1.6],
+ [85, &#39;Iris-versicolor&#39;, 4.5, 1.5],
+ [86, &#39;Iris-versicolor&#39;, 4.5, 1.6],
+ [87, &#39;Iris-versicolor&#39;, 4.7, 1.5],
+ [88, &#39;Iris-versicolor&#39;, 4.4, 1.3],
+ [89, &#39;Iris-versicolor&#39;, 4.1, 1.3],
+ [90, &#39;Iris-versicolor&#39;, 4.0, 1.3],
+ [91, &#39;Iris-versicolor&#39;, 4.4, 1.2],
+ [92, &#39;Iris-versicolor&#39;, 4.6, 1.4],
+ [93, &#39;Iris-versicolor&#39;, 4.0, 1.2],
+ [94, &#39;Iris-versicolor&#39;, 3.3, 1.0],
+ [95, &#39;Iris-versicolor&#39;, 4.2, 1.3],
+ [96, &#39;Iris-versicolor&#39;, 4.2, 1.2],
+ [97, &#39;Iris-versicolor&#39;, 4.2, 1.3],
+ [98, &#39;Iris-versicolor&#39;, 4.3, 1.3],
+ [99, &#39;Iris-versicolor&#39;, 3.0, 1.1],
+ [100, &#39;Iris-versicolor&#39;, 4.1, 1.3],
+ [101, &#39;Iris-virginica&#39;, 6.0, 2.5],
+ [102, &#39;Iris-virginica&#39;, 5.1, 1.9],
+ [103, &#39;Iris-virginica&#39;, 5.9, 2.1],
+ [104, &#39;Iris-virginica&#39;, 5.6, 1.8],
+ [105, &#39;Iris-virginica&#39;, 5.8, 2.2],
+ [106, &#39;Iris-virginica&#39;, 6.6, 2.1],
+ [107, &#39;Iris-virginica&#39;, 4.5, 1.7],
+ [108, &#39;Iris-virginica&#39;, 6.3, 1.8],
+ [109, &#39;Iris-virginica&#39;, 5.8, 1.8],
+ [110, &#39;Iris-virginica&#39;, 6.1, 2.5],
+ [111, &#39;Iris-virginica&#39;, 5.1, 2.0],
+ [112, &#39;Iris-virginica&#39;, 5.3, 1.9],
+ [113, &#39;Iris-virginica&#39;, 5.5, 2.1],
+ [114, &#39;Iris-virginica&#39;, 5.0, 2.0],
+ [115, &#39;Iris-virginica&#39;, 5.1, 2.4],
+ [116, &#39;Iris-virginica&#39;, 5.3, 2.3],
+ [117, &#39;Iris-virginica&#39;, 5.5, 1.8],
+ [118, &#39;Iris-virginica&#39;, 6.7, 2.2],
+ [119, &#39;Iris-virginica&#39;, 6.9, 2.3],
+ [120, &#39;Iris-virginica&#39;, 5.0, 1.5],
+ [121, &#39;Iris-virginica&#39;, 5.7, 2.3],
+ [122, &#39;Iris-virginica&#39;, 4.9, 2.0],
+ [123, &#39;Iris-virginica&#39;, 6.7, 2.0],
+ [124, &#39;Iris-virginica&#39;, 4.9, 1.8],
+ [125, &#39;Iris-virginica&#39;, 5.7, 2.1],
+ [126, &#39;Iris-virginica&#39;, 6.0, 1.8],
+ [127, &#39;Iris-virginica&#39;, 4.8, 1.8],
+ [128, &#39;Iris-virginica&#39;, 4.9, 1.8],
+ [129, &#39;Iris-virginica&#39;, 5.6, 2.1],
+ [130, &#39;Iris-virginica&#39;, 5.8, 1.6],
+ [131, &#39;Iris-virginica&#39;, 6.1, 1.9],
+ [132, &#39;Iris-virginica&#39;, 6.4, 2.0],
+ [133, &#39;Iris-virginica&#39;, 5.6, 2.2],
+ [134, &#39;Iris-virginica&#39;, 5.1, 1.5],
+ [135, &#39;Iris-virginica&#39;, 5.6, 1.4],
+ [136, &#39;Iris-virginica&#39;, 6.1, 2.3],
+ [137, &#39;Iris-virginica&#39;, 5.6, 2.4],
+ [138, &#39;Iris-virginica&#39;, 5.5, 1.8],
+ [139, &#39;Iris-virginica&#39;, 4.8, 1.8],
+ [140, &#39;Iris-virginica&#39;, 5.4, 2.1],
+ [141, &#39;Iris-virginica&#39;, 5.6, 2.4],
+ [142, &#39;Iris-virginica&#39;, 5.1, 2.3],
+ [143, &#39;Iris-virginica&#39;, 5.1, 1.9],
+ [144, &#39;Iris-virginica&#39;, 5.9, 2.3],
+ [145, &#39;Iris-virginica&#39;, 5.7, 2.5],
+ [146, &#39;Iris-virginica&#39;, 5.2, 2.3],
+ [147, &#39;Iris-virginica&#39;, 5.0, 1.9],
+ [148, &#39;Iris-virginica&#39;, 5.2, 2.0],
+ [149, &#39;Iris-virginica&#39;, 5.4, 2.3],
+ [150, &#39;Iris-virginica&#39;, 5.1, 1.8]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Kode Python di atas berfungsi untuk mengambil data dari database MySQL menggunakan library pymysql dan mengonversinya menjadi array NumPy.
+Pertama-tama, kode ini mengimpor library yang diperlukan: pymysql untuk koneksi MySQL, numpy untuk operasi numerik, dan pandas untuk manipulasi data. Fungsi get_mysql_data kemudian didefinisikan untuk menghubungkan ke database MySQL menggunakan kredensial yang diberikan (host, user, password, database, dan port).</p>
+<p>Setelah koneksi berhasil, sebuah cursor dibuat untuk mengeksekusi query SQL “SELECT * FROM irismysql” yang mengambil semua data dari tabel irismysql. Data yang diambil kemudian disimpan dalam variabel data dengan menggunakan metode fetchall(),</p>
+<p>yang mengembalikan semua baris dari hasil query. Koneksi ke database kemudian ditutup supaya tidak bikin lemot .
+Data yang diperoleh dikonversi dari tuple ke list Python menggunakan list comprehension [list(row) for row in data], dan akhirnya dikonversi menjadi array NumPy dengan np.array(data_list). Fungsi ini mengembalikan data dalam bentuk daftar Python.</p>
+<p>dapat dilihat dari data tersebut terlihat nilai ekstrim atau outlier pada id ke 2, hal ini di sengaja karena tujuan dari halaman ini adalah untuk mensimulasikan outlier pada data dan cara untuk mendeteksi nya</p>
+<section id="mensimulasikan-data-outlier-pada-petal-length-dan-petal-width">
+<h3><strong>Mensimulasikan Data Outlier pada petal length dan petal width</strong><a class="headerlink" href="#mensimulasikan-data-outlier-pada-petal-length-dan-petal-width" title="Link to this heading">#</a></h3>
+<p>Pada data di atas sudah ada outlier yang saya tambahkan pada database, namun jika belum ada outier yang sengaja di tambahkan, maka berikut ini adalah kode untuk memasukkan outlier ke id ke 2</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pymysql</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+
+<span class="n">conn</span> <span class="o">=</span> <span class="n">pymysql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+        <span class="n">host</span><span class="o">=</span><span class="s2">&quot;pendatviomysql-39-projectvioo.h.aivencloud.com&quot;</span><span class="p">,</span>
+        <span class="n">user</span><span class="o">=</span><span class="s2">&quot;avnadmin&quot;</span><span class="p">,</span>
+        <span class="n">password</span><span class="o">=</span><span class="s2">&quot;AVNS_nnGCVuLriFaCit_hSPr&quot;</span><span class="p">,</span>
+        <span class="n">database</span><span class="o">=</span><span class="s2">&quot;myiris&quot;</span><span class="p">,</span>
+        <span class="n">port</span><span class="o">=</span><span class="mi">20305</span>
+    <span class="p">)</span>
+
+
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;UPDATE irismysql SET petal_length = 14.0, petal_width = 2.0 WHERE id = 2&quot;</span><span class="p">)</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM irismysql WHERE id = 2&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>  <span class="c1"># Fetch all rows</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="c1"># Convert to Python list</span>
+<span class="n">data_list</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
+
+<span class="c1"># Convert to NumPy array</span>
+<span class="n">data_numpy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data_list</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data_numpy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[&#39;2&#39; &#39;Iris-setosa&#39; &#39;14.0&#39; &#39;2.0&#39;]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="mengambil-dataset-petal-length-dan-petal-width-dari-database-postgresql">
+<h2><strong>2. Mengambil Dataset petal length dan petal width dari database postgresql</strong><a class="headerlink" href="#mengambil-dataset-petal-length-dan-petal-width-dari-database-postgresql" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">psycopg2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_pg_data</span><span class="p">():</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+        <span class="n">host</span><span class="o">=</span><span class="s2">&quot;pg-30810f3a-projectvioo.h.aivencloud.com&quot;</span><span class="p">,</span>
+        <span class="n">user</span><span class="o">=</span><span class="s2">&quot;avnadmin&quot;</span><span class="p">,</span>
+        <span class="n">password</span><span class="o">=</span><span class="s2">&quot;AVNS_zzD9DhqapmhcWhqwe5C&quot;</span><span class="p">,</span>
+        <span class="n">database</span><span class="o">=</span><span class="s2">&quot;defaultdb&quot;</span><span class="p">,</span>
+        <span class="n">port</span><span class="o">=</span><span class="mi">20305</span>
+    <span class="p">)</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM iris_post&quot;</span><span class="p">)</span>  <span class="c1"># Select all records from the table</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>  <span class="c1"># Fetch all rows</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="c1"># Convert to Python list</span>
+    <span class="n">data_list</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
+
+    <span class="c1"># Convert to NumPy array</span>
+    <span class="n">data_numpy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data_list</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">data_list</span>
+
+<span class="n">get_pg_data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[1, &#39;Iris-setosa&#39;, 5.1, 3.5],
+ [3, &#39;Iris-setosa&#39;, 4.7, 3.2],
+ [4, &#39;Iris-setosa&#39;, 4.6, 3.1],
+ [5, &#39;Iris-setosa&#39;, 5.0, 3.6],
+ [6, &#39;Iris-setosa&#39;, 5.4, 3.9],
+ [7, &#39;Iris-setosa&#39;, 4.6, 3.4],
+ [8, &#39;Iris-setosa&#39;, 5.0, 3.4],
+ [9, &#39;Iris-setosa&#39;, 4.4, 2.9],
+ [10, &#39;Iris-setosa&#39;, 4.9, 3.1],
+ [11, &#39;Iris-setosa&#39;, 5.4, 3.7],
+ [12, &#39;Iris-setosa&#39;, 4.8, 3.4],
+ [13, &#39;Iris-setosa&#39;, 4.8, 3.0],
+ [14, &#39;Iris-setosa&#39;, 4.3, 3.0],
+ [15, &#39;Iris-setosa&#39;, 5.8, 4.0],
+ [16, &#39;Iris-setosa&#39;, 5.7, 4.4],
+ [17, &#39;Iris-setosa&#39;, 5.4, 3.9],
+ [18, &#39;Iris-setosa&#39;, 5.1, 3.5],
+ [19, &#39;Iris-setosa&#39;, 5.7, 3.8],
+ [20, &#39;Iris-setosa&#39;, 5.1, 3.8],
+ [21, &#39;Iris-setosa&#39;, 5.4, 3.4],
+ [22, &#39;Iris-setosa&#39;, 5.1, 3.7],
+ [23, &#39;Iris-setosa&#39;, 4.6, 3.6],
+ [24, &#39;Iris-setosa&#39;, 5.1, 3.3],
+ [25, &#39;Iris-setosa&#39;, 4.8, 3.4],
+ [26, &#39;Iris-setosa&#39;, 5.0, 3.0],
+ [27, &#39;Iris-setosa&#39;, 5.0, 3.4],
+ [28, &#39;Iris-setosa&#39;, 5.2, 3.5],
+ [29, &#39;Iris-setosa&#39;, 5.2, 3.4],
+ [30, &#39;Iris-setosa&#39;, 4.7, 3.2],
+ [31, &#39;Iris-setosa&#39;, 4.8, 3.1],
+ [32, &#39;Iris-setosa&#39;, 5.4, 3.4],
+ [33, &#39;Iris-setosa&#39;, 5.2, 4.1],
+ [34, &#39;Iris-setosa&#39;, 5.5, 4.2],
+ [35, &#39;Iris-setosa&#39;, 4.9, 3.1],
+ [36, &#39;Iris-setosa&#39;, 5.0, 3.2],
+ [37, &#39;Iris-setosa&#39;, 5.5, 3.5],
+ [38, &#39;Iris-setosa&#39;, 4.9, 3.1],
+ [39, &#39;Iris-setosa&#39;, 4.4, 3.0],
+ [40, &#39;Iris-setosa&#39;, 5.1, 3.4],
+ [41, &#39;Iris-setosa&#39;, 5.0, 3.5],
+ [42, &#39;Iris-setosa&#39;, 4.5, 2.3],
+ [43, &#39;Iris-setosa&#39;, 4.4, 3.2],
+ [44, &#39;Iris-setosa&#39;, 5.0, 3.5],
+ [45, &#39;Iris-setosa&#39;, 5.1, 3.8],
+ [46, &#39;Iris-setosa&#39;, 4.8, 3.0],
+ [47, &#39;Iris-setosa&#39;, 5.1, 3.8],
+ [48, &#39;Iris-setosa&#39;, 4.6, 3.2],
+ [49, &#39;Iris-setosa&#39;, 5.3, 3.7],
+ [50, &#39;Iris-setosa&#39;, 5.0, 3.3],
+ [51, &#39;Iris-versicolor&#39;, 7.0, 3.2],
+ [52, &#39;Iris-versicolor&#39;, 6.4, 3.2],
+ [53, &#39;Iris-versicolor&#39;, 6.9, 3.1],
+ [54, &#39;Iris-versicolor&#39;, 5.5, 2.3],
+ [55, &#39;Iris-versicolor&#39;, 6.5, 2.8],
+ [56, &#39;Iris-versicolor&#39;, 5.7, 2.8],
+ [57, &#39;Iris-versicolor&#39;, 6.3, 3.3],
+ [58, &#39;Iris-versicolor&#39;, 4.9, 2.4],
+ [59, &#39;Iris-versicolor&#39;, 6.6, 2.9],
+ [60, &#39;Iris-versicolor&#39;, 5.2, 2.7],
+ [61, &#39;Iris-versicolor&#39;, 5.0, 2.0],
+ [62, &#39;Iris-versicolor&#39;, 5.9, 3.0],
+ [63, &#39;Iris-versicolor&#39;, 6.0, 2.2],
+ [64, &#39;Iris-versicolor&#39;, 6.1, 2.9],
+ [65, &#39;Iris-versicolor&#39;, 5.6, 2.9],
+ [66, &#39;Iris-versicolor&#39;, 6.7, 3.1],
+ [67, &#39;Iris-versicolor&#39;, 5.6, 3.0],
+ [68, &#39;Iris-versicolor&#39;, 5.8, 2.7],
+ [69, &#39;Iris-versicolor&#39;, 6.2, 2.2],
+ [70, &#39;Iris-versicolor&#39;, 5.6, 2.5],
+ [71, &#39;Iris-versicolor&#39;, 5.9, 3.2],
+ [72, &#39;Iris-versicolor&#39;, 6.1, 2.8],
+ [73, &#39;Iris-versicolor&#39;, 6.3, 2.5],
+ [74, &#39;Iris-versicolor&#39;, 6.1, 2.8],
+ [75, &#39;Iris-versicolor&#39;, 6.4, 2.9],
+ [76, &#39;Iris-versicolor&#39;, 6.6, 3.0],
+ [77, &#39;Iris-versicolor&#39;, 6.8, 2.8],
+ [78, &#39;Iris-versicolor&#39;, 6.7, 3.0],
+ [79, &#39;Iris-versicolor&#39;, 6.0, 2.9],
+ [80, &#39;Iris-versicolor&#39;, 5.7, 2.6],
+ [81, &#39;Iris-versicolor&#39;, 5.5, 2.4],
+ [82, &#39;Iris-versicolor&#39;, 5.5, 2.4],
+ [83, &#39;Iris-versicolor&#39;, 5.8, 2.7],
+ [84, &#39;Iris-versicolor&#39;, 6.0, 2.7],
+ [85, &#39;Iris-versicolor&#39;, 5.4, 3.0],
+ [86, &#39;Iris-versicolor&#39;, 6.0, 3.4],
+ [87, &#39;Iris-versicolor&#39;, 6.7, 3.1],
+ [88, &#39;Iris-versicolor&#39;, 6.3, 2.3],
+ [89, &#39;Iris-versicolor&#39;, 5.6, 3.0],
+ [90, &#39;Iris-versicolor&#39;, 5.5, 2.5],
+ [91, &#39;Iris-versicolor&#39;, 5.5, 2.6],
+ [92, &#39;Iris-versicolor&#39;, 6.1, 3.0],
+ [93, &#39;Iris-versicolor&#39;, 5.8, 2.6],
+ [94, &#39;Iris-versicolor&#39;, 5.0, 2.3],
+ [95, &#39;Iris-versicolor&#39;, 5.6, 2.7],
+ [96, &#39;Iris-versicolor&#39;, 5.7, 3.0],
+ [97, &#39;Iris-versicolor&#39;, 5.7, 2.9],
+ [98, &#39;Iris-versicolor&#39;, 6.2, 2.9],
+ [99, &#39;Iris-versicolor&#39;, 5.1, 2.5],
+ [100, &#39;Iris-versicolor&#39;, 5.7, 2.8],
+ [101, &#39;Iris-virginica&#39;, 6.3, 3.3],
+ [102, &#39;Iris-virginica&#39;, 5.8, 2.7],
+ [103, &#39;Iris-virginica&#39;, 7.1, 3.0],
+ [104, &#39;Iris-virginica&#39;, 6.3, 2.9],
+ [105, &#39;Iris-virginica&#39;, 6.5, 3.0],
+ [106, &#39;Iris-virginica&#39;, 7.6, 3.0],
+ [107, &#39;Iris-virginica&#39;, 4.9, 2.5],
+ [108, &#39;Iris-virginica&#39;, 7.3, 2.9],
+ [109, &#39;Iris-virginica&#39;, 6.7, 2.5],
+ [110, &#39;Iris-virginica&#39;, 7.2, 3.6],
+ [111, &#39;Iris-virginica&#39;, 6.5, 3.2],
+ [112, &#39;Iris-virginica&#39;, 6.4, 2.7],
+ [113, &#39;Iris-virginica&#39;, 6.8, 3.0],
+ [114, &#39;Iris-virginica&#39;, 5.7, 2.5],
+ [115, &#39;Iris-virginica&#39;, 5.8, 2.8],
+ [116, &#39;Iris-virginica&#39;, 6.4, 3.2],
+ [117, &#39;Iris-virginica&#39;, 6.5, 3.0],
+ [118, &#39;Iris-virginica&#39;, 7.7, 3.8],
+ [119, &#39;Iris-virginica&#39;, 7.7, 2.6],
+ [120, &#39;Iris-virginica&#39;, 6.0, 2.2],
+ [121, &#39;Iris-virginica&#39;, 6.9, 3.2],
+ [122, &#39;Iris-virginica&#39;, 5.6, 2.8],
+ [123, &#39;Iris-virginica&#39;, 7.7, 2.8],
+ [124, &#39;Iris-virginica&#39;, 6.3, 2.7],
+ [125, &#39;Iris-virginica&#39;, 6.7, 3.3],
+ [126, &#39;Iris-virginica&#39;, 7.2, 3.2],
+ [127, &#39;Iris-virginica&#39;, 6.2, 2.8],
+ [128, &#39;Iris-virginica&#39;, 6.1, 3.0],
+ [129, &#39;Iris-virginica&#39;, 6.4, 2.8],
+ [130, &#39;Iris-virginica&#39;, 7.2, 3.0],
+ [131, &#39;Iris-virginica&#39;, 7.4, 2.8],
+ [132, &#39;Iris-virginica&#39;, 7.9, 3.8],
+ [133, &#39;Iris-virginica&#39;, 6.4, 2.8],
+ [134, &#39;Iris-virginica&#39;, 6.3, 2.8],
+ [135, &#39;Iris-virginica&#39;, 6.1, 2.6],
+ [136, &#39;Iris-virginica&#39;, 7.7, 3.0],
+ [137, &#39;Iris-virginica&#39;, 6.3, 3.4],
+ [138, &#39;Iris-virginica&#39;, 6.4, 3.1],
+ [139, &#39;Iris-virginica&#39;, 6.0, 3.0],
+ [140, &#39;Iris-virginica&#39;, 6.9, 3.1],
+ [141, &#39;Iris-virginica&#39;, 6.7, 3.1],
+ [142, &#39;Iris-virginica&#39;, 6.9, 3.1],
+ [143, &#39;Iris-virginica&#39;, 5.8, 2.7],
+ [144, &#39;Iris-virginica&#39;, 6.8, 3.2],
+ [145, &#39;Iris-virginica&#39;, 6.7, 3.3],
+ [146, &#39;Iris-virginica&#39;, 6.7, 3.0],
+ [147, &#39;Iris-virginica&#39;, 6.3, 2.5],
+ [148, &#39;Iris-virginica&#39;, 6.5, 3.0],
+ [149, &#39;Iris-virginica&#39;, 6.2, 3.4],
+ [150, &#39;Iris-virginica&#39;, 5.9, 3.0],
+ [2, &#39;Iris-setosa&#39;, 40.9, 30.0]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Kode ini mengimpor library psycopg2 untuk koneksi PostgreSQL dan numpy untuk operasi numerik. Fungsi get_pg_data menghubungkan ke database PostgreSQL dengan menggunakan kredensial yang diberikan (host, user, password, database, dan port).</p>
+<p>Setelah koneksi berhasil, fungsi ini membuat cursor untuk mengeksekusi query SQL “SELECT * FROM iris_post”, yang mengambil semua data dari tabel iris_post.</p>
+<p>Hasil query disimpan dalam variabel data dengan menggunakan metode fetchall(), yang mengembalikan semua baris dari hasil query tersebut.</p>
+<p>Setelah itu, cursor dan koneksi ke database ditutup untuk memastikan tidak ada kebocoran koneksi.</p>
+<p>Data yang diperoleh dikonversi dari tuple ke list Python menggunakan list comprehension [list(row) for row in data], dan akhirnya dikonversi menjadi array NumPy dengan np.array(data_list). Fungsi ini mengembalikan data dalam bentuk list Python</p>
+<section id="mensimulasikan-data-outlier-pada-sepal-length-dan-sepal-width">
+<h3><strong>Mensimulasikan Data Outlier pada sepal length dan sepal width</strong><a class="headerlink" href="#mensimulasikan-data-outlier-pada-sepal-length-dan-sepal-width" title="Link to this heading">#</a></h3>
+<p>Pada data di atas sudah ada outlier yang saya tambahkan pada database, namun jika belum ada outier yang sengaja di tambahkan, maka berikut ini adalah kode untuk memasukkan outlier ke id ke 2</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">psycopg2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="n">conn</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+        <span class="n">host</span><span class="o">=</span><span class="s2">&quot;pg-30810f3a-projectvioo.h.aivencloud.com&quot;</span><span class="p">,</span>
+        <span class="n">user</span><span class="o">=</span><span class="s2">&quot;avnadmin&quot;</span><span class="p">,</span>
+        <span class="n">password</span><span class="o">=</span><span class="s2">&quot;AVNS_zzD9DhqapmhcWhqwe5C&quot;</span><span class="p">,</span>
+        <span class="n">database</span><span class="o">=</span><span class="s2">&quot;defaultdb&quot;</span><span class="p">,</span>
+        <span class="n">port</span><span class="o">=</span><span class="mi">20305</span>
+    <span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;UPDATE iris_post SET sepal_length = 40.9, sepal_width = 30.0 WHERE id = 2&quot;</span><span class="p">)</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM iris_post WHERE id = 2&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>  <span class="c1"># Fetch all rows</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="c1"># Convert to Python list</span>
+<span class="n">data_list</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
+
+<span class="c1"># Convert to NumPy array</span>
+<span class="n">data_numpy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data_list</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data_numpy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[&#39;2&#39; &#39;Iris-setosa&#39; &#39;40.9&#39; &#39;30.0&#39;]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="menggabungkan-data-dari-dua-database-berbeda">
+<h2><strong>3. Menggabungkan Data dari dua database berbeda</strong><a class="headerlink" href="#menggabungkan-data-dari-dua-database-berbeda" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="c1"># buat datafrrame</span>
+
+<span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal_width&#39;</span><span class="p">]</span>
+<span class="n">data_mysql</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">get_mysql_data</span><span class="p">(),</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_width&#39;</span><span class="p">]</span>
+<span class="n">data_pg</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">get_pg_data</span><span class="p">(),</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="c1"># print(data_mysql)</span>
+
+<span class="c1"># Gabungkan berdasarkan kolom &#39;id&#39; dan &#39;Class&#39;</span>
+<span class="n">df_merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">data_mysql</span><span class="p">,</span> <span class="n">data_pg</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;Class&quot;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_merged</span><span class="p">)</span>
+<span class="c1"># df_merged.to_excel(&quot;iris2.xlsx&quot;,index=True)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      id           Class  sepal_length  sepal_width  petal_length  petal_width
+0      1     Iris-setosa           1.4          0.2           5.1          3.5
+1      2     Iris-setosa          14.0          2.0          40.9         30.0
+2      3     Iris-setosa           1.3          0.2           4.7          3.2
+3      4     Iris-setosa           1.5          0.2           4.6          3.1
+4      5     Iris-setosa           1.4          0.2           5.0          3.6
+..   ...             ...           ...          ...           ...          ...
+145  146  Iris-virginica           5.2          2.3           6.7          3.0
+146  147  Iris-virginica           5.0          1.9           6.3          2.5
+147  148  Iris-virginica           5.2          2.0           6.5          3.0
+148  149  Iris-virginica           5.4          2.3           6.2          3.4
+149  150  Iris-virginica           5.1          1.8           5.9          3.0
+
+[150 rows x 6 columns]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="melakukan-deteksi-outlier-dengan-metode-k-nn">
+<h2><strong>4. Melakukan deteksi Outlier dengan metode K-NN</strong><a class="headerlink" href="#melakukan-deteksi-outlier-dengan-metode-k-nn" title="Link to this heading">#</a></h2>
+<p>Deteksi outlier menggunakan algoritma K-nearest neighbors (K-NN) melibatkan beberapa langkah untuk mengidentifikasi titik data yang menyimpang secara signifikan dari dataset lainnya.</p>
+<p>Awalnya, dataset direpresentasikan dalam ruang multidimensi di mana setiap titik data sesuai dengan satu instance data dengan fitur-fiturnya sebagai koordinat.</p>
+<p>Inti dari K-NN adalah menghitung jarak antara titik-titik data untuk menentukan kedekatannya yang pada umum nya menggunakan jarak euclidian . Untuk setiap titik dalam dataset, jarak ke semua titik lain dihitung, dan k tetangga terdekat (k titik terdekat) diidentifikasi.</p>
+<p>Rata-rata jarak ke k tetangga ini berfungsi sebagai metrik untuk menilai seberapa jauh suatu titik data. Jika rata-rata jarak ini melebihi ambang batas/ treshold yang telah ditentukan, titik tersebut dianggap sebagai outlier.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">euclidean_distance</span><span class="p">(</span><span class="n">point1</span><span class="p">,</span> <span class="n">point2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">point1</span> <span class="o">-</span> <span class="n">point2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_knn_distances</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+        <span class="n">distance</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">distance</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">euclidean_distance</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span>
+        <span class="n">distances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">distance</span><span class="p">)[:</span><span class="n">k</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">distances</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Fungsi euclidian distance digunakan menghitung jarak Euclidean antara dua titik. Jarak Euclidean adalah akar kuadrat dari jumlah kuadrat selisih antara koordinat dari dua titik. yang nanti nya akan di panggil fungsi lainnya</p></li>
+<li><p>Fungsi calculate_knn_distances, Fungsi ini menghitung jarak ke k tetangga terdekat untuk setiap titik dalam data. Langkah-langkahnya:</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p>Membuat list kosong untuk menyimpan jarak ke tetangga titik data terdekat.</p></li>
+<li><p>Menghitung jarak Euclidean antara setiap titik dan semua titik lainnya (kecuali dirinya sendiri).</p></li>
+<li><p>Mengurutkan jarak yang dihitung dan menyimpan k jarak terdekat.</p></li>
+<li><p>Mengembalikan list yang diurutkan berdasarkan jarak tetangga terdekat.
+yang di tuliskan dengan kode :</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">distance</span><span class="p">)[:</span><span class="n">k</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">detect_outliers</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="n">calculate_knn_distances</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+    <span class="n">outliers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">distances</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">:</span>
+            <span class="n">outliers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">outliers</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Fungsi ini mendeteksi outlier berdasarkan jarak ke tetangga terdekat. Langkah-langkahnya:</p>
+<p>Menghitung jarak ke k tetangga terdekat menggunakan fungsi calculate_knn_distances.</p>
+<p>ini adalah kode nya :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># distances = calculate_knn_distances(data, k)</span>
+</pre></div>
+</div>
+<p>Menginisialisasi daftar outlier kosong.</p>
+<p>Menghitung rata-rata jarak ke tetangga terdekat untuk setiap titik.</p>
+<p>Menambahkan indeks titik ke daftar outlier jika rata-rata jarak lebih besar dari ambang batas (threshold).</p>
+<p>Mengembalikan daftar indeks outlier</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df_merged</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      id           Class  sepal_length  sepal_width  petal_length  petal_width
+0      1     Iris-setosa           1.4          0.2           5.1          3.5
+1      2     Iris-setosa          14.0          2.0          40.9         30.0
+2      3     Iris-setosa           1.3          0.2           4.7          3.2
+3      4     Iris-setosa           1.5          0.2           4.6          3.1
+4      5     Iris-setosa           1.4          0.2           5.0          3.6
+..   ...             ...           ...          ...           ...          ...
+145  146  Iris-virginica           5.2          2.3           6.7          3.0
+146  147  Iris-virginica           5.0          1.9           6.3          2.5
+147  148  Iris-virginica           5.2          2.0           6.5          3.0
+148  149  Iris-virginica           5.4          2.3           6.2          3.4
+149  150  Iris-virginica           5.1          1.8           5.9          3.0
+
+[150 rows x 6 columns]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">euclidean_distance</span><span class="p">(</span><span class="n">point1</span><span class="p">,</span> <span class="n">point2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">point1</span> <span class="o">-</span> <span class="n">point2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_knn_distances</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">distances</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+        <span class="n">distance</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">distance</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">euclidean_distance</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span>
+        <span class="n">distances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">distance</span><span class="p">)[:</span><span class="n">k</span><span class="p">]))</span>  <span class="c1"># Ambil rata-rata K terdekat</span>
+    <span class="k">return</span> <span class="n">distances</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">detect_outliers</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">knn_distances</span> <span class="o">=</span> <span class="n">calculate_knn_distances</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+
+    <span class="c1">#  Menghitung threshold otomatis</span>
+    <span class="n">mean_distance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">knn_distances</span><span class="p">)</span>
+    <span class="n">std_distance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">knn_distances</span><span class="p">)</span>
+    <span class="n">threshold</span> <span class="o">=</span> <span class="n">mean_distance</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">std_distance</span><span class="p">)</span>
+
+    <span class="c1">#  Menandai outliers berdasarkan threshold</span>
+    <span class="n">outlier_flags</span> <span class="o">=</span> <span class="p">[</span><span class="n">dist</span> <span class="o">&gt;</span> <span class="n">threshold</span> <span class="k">for</span> <span class="n">dist</span> <span class="ow">in</span> <span class="n">knn_distances</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">knn_distances</span><span class="p">,</span> <span class="n">outlier_flags</span><span class="p">,</span> <span class="n">threshold</span>
+
+<span class="c1"># copy dataframe</span>
+<span class="n">datapd</span><span class="o">=</span> <span class="n">df_merged</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Konversi DataFrame ke NumPy array</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">datapd</span><span class="p">[[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal_width&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_width&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># Jumlah tetangga</span>
+
+<span class="c1">#  Hitung jarak KNN dan deteksi outlier dengan threshold otomatis</span>
+<span class="n">datapd</span><span class="p">[</span><span class="s1">&#39;knn_distance&#39;</span><span class="p">],</span> <span class="n">datapd</span><span class="p">[</span><span class="s1">&#39;outlier_flag&#39;</span><span class="p">],</span> <span class="n">threshold</span> <span class="o">=</span> <span class="n">detect_outliers</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+
+<span class="c1"># Pastikan tipe data konsisten</span>
+<span class="n">datapd</span><span class="p">[</span><span class="s1">&#39;knn_distance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datapd</span><span class="p">[</span><span class="s1">&#39;knn_distance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+<span class="c1"># Menampilkan hasil</span>
+<span class="n">display</span><span class="p">(</span><span class="n">datapd</span><span class="p">)</span>  <span class="c1"># Tampilkan DataFrame secara rapi di Jupyter</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Threshold otomatis untuk outlier: </span><span class="si">{</span><span class="n">threshold</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">datapd</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>  <span class="c1"># Jika ingin melihat semua data dalam format teks</span>
+
+<span class="c1">#  Menampilkan hanya data yang terdeteksi sebagai outlier</span>
+<span class="n">outliers_data</span> <span class="o">=</span> <span class="n">datapd</span><span class="p">[</span><span class="n">datapd</span><span class="p">[</span><span class="s1">&#39;outlier_flag&#39;</span><span class="p">]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Outliers IDs:&quot;</span><span class="p">,</span> <span class="n">outliers_data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">outliers_data</span><span class="p">)</span>  <span class="c1"># Tampilkan outliers secara rapi di Jupyter</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-f81d1139-e659-44ce-8378-a4f903904f29" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>Class</th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+      <th>knn_distance</th>
+      <th>outlier_flag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Iris-setosa</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>0.120711</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Iris-setosa</td>
+      <td>14.0</td>
+      <td>2.0</td>
+      <td>40.9</td>
+      <td>30.0</td>
+      <td>42.867264</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Iris-setosa</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>0.193185</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Iris-setosa</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>0.157313</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Iris-setosa</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>0.157313</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <td>146</td>
+      <td>Iris-virginica</td>
+      <td>5.2</td>
+      <td>2.3</td>
+      <td>6.7</td>
+      <td>3.0</td>
+      <td>0.302752</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>147</td>
+      <td>Iris-virginica</td>
+      <td>5.0</td>
+      <td>1.9</td>
+      <td>6.3</td>
+      <td>2.5</td>
+      <td>0.309557</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>147</th>
+      <td>148</td>
+      <td>Iris-virginica</td>
+      <td>5.2</td>
+      <td>2.0</td>
+      <td>6.5</td>
+      <td>3.0</td>
+      <td>0.285008</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>148</th>
+      <td>149</td>
+      <td>Iris-virginica</td>
+      <td>5.4</td>
+      <td>2.3</td>
+      <td>6.2</td>
+      <td>3.4</td>
+      <td>0.272474</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>150</td>
+      <td>Iris-virginica</td>
+      <td>5.1</td>
+      <td>1.8</td>
+      <td>5.9</td>
+      <td>3.0</td>
+      <td>0.299535</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+<p>150 rows × 8 columns</p>
+</div>
+    <div class="colab-df-buttons">
+      
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-f81d1139-e659-44ce-8378-a4f903904f29')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+    
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-f81d1139-e659-44ce-8378-a4f903904f29 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-f81d1139-e659-44ce-8378-a4f903904f29');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+  
+    </div>
+  </div>
+  </div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Threshold otomatis untuk outlier: 7.5039
+      id            Class  sepal_length  sepal_width  petal_length  petal_width  knn_distance  outlier_flag
+0      1      Iris-setosa           1.4          0.2           5.1          3.5      0.120711         False
+1      2      Iris-setosa          14.0          2.0          40.9         30.0     42.867264          True
+2      3      Iris-setosa           1.3          0.2           4.7          3.2      0.193185         False
+3      4      Iris-setosa           1.5          0.2           4.6          3.1      0.157313         False
+4      5      Iris-setosa           1.4          0.2           5.0          3.6      0.157313         False
+5      6      Iris-setosa           1.7          0.4           5.4          3.9      0.339036         False
+6      7      Iris-setosa           1.4          0.3           4.6          3.4      0.244091         False
+7      8      Iris-setosa           1.5          0.2           5.0          3.4      0.120711         False
+8      9      Iris-setosa           1.4          0.2           4.4          2.9      0.220711         False
+9     10      Iris-setosa           1.5          0.1           4.9          3.1      0.000000         False
+10    11      Iris-setosa           1.5          0.2           5.4          3.7      0.191421         False
+11    12      Iris-setosa           1.6          0.2           4.8          3.4      0.223607         False
+12    13      Iris-setosa           1.4          0.1           4.8          3.0      0.173205         False
+13    14      Iris-setosa           1.1          0.1           4.3          3.0      0.280588         False
+14    15      Iris-setosa           1.2          0.2           5.8          4.0      0.440676         False
+15    16      Iris-setosa           1.5          0.4           5.7          4.4      0.454139         False
+16    17      Iris-setosa           1.3          0.4           5.4          3.9      0.353483         False
+17    18      Iris-setosa           1.4          0.3           5.1          3.5      0.120711         False
+18    19      Iris-setosa           1.7          0.3           5.7          3.8      0.359480         False
+19    20      Iris-setosa           1.5          0.3           5.1          3.8      0.141421         False
+20    21      Iris-setosa           1.7          0.2           5.4          3.4      0.291421         False
+21    22      Iris-setosa           1.5          0.4           5.1          3.7      0.193185         False
+22    23      Iris-setosa           1.0          0.2           4.6          3.6      0.484080         False
+23    24      Iris-setosa           1.7          0.5           5.1          3.3      0.232288         False
+24    25      Iris-setosa           1.9          0.2           4.8          3.4      0.337083         False
+25    26      Iris-setosa           1.6          0.2           5.0          3.0      0.200000         False
+26    27      Iris-setosa           1.6          0.4           5.0          3.4      0.211803         False
+27    28      Iris-setosa           1.5          0.2           5.2          3.5      0.141421         False
+28    29      Iris-setosa           1.4          0.2           5.2          3.4      0.141421         False
+29    30      Iris-setosa           1.6          0.2           4.7          3.2      0.157313         False
+30    31      Iris-setosa           1.6          0.2           4.8          3.1      0.157313         False
+31    32      Iris-setosa           1.5          0.4           5.4          3.4      0.291421         False
+32    33      Iris-setosa           1.5          0.1           5.2          4.1      0.346410         False
+33    34      Iris-setosa           1.4          0.2           5.5          4.2      0.353483         False
+34    35      Iris-setosa           1.5          0.1           4.9          3.1      0.000000         False
+35    36      Iris-setosa           1.2          0.2           5.0          3.2      0.269917         False
+36    37      Iris-setosa           1.3          0.2           5.5          3.5      0.308114         False
+37    38      Iris-setosa           1.5          0.1           4.9          3.1      0.000000         False
+38    39      Iris-setosa           1.3          0.2           4.4          3.0      0.170711         False
+39    40      Iris-setosa           1.5          0.2           5.1          3.4      0.120711         False
+40    41      Iris-setosa           1.3          0.3           5.0          3.5      0.157313         False
+41    42      Iris-setosa           1.3          0.3           4.5          2.3      0.669321         False
+42    43      Iris-setosa           1.3          0.2           4.4          3.2      0.211803         False
+43    44      Iris-setosa           1.6          0.6           5.0          3.5      0.244091         False
+44    45      Iris-setosa           1.9          0.4           5.1          3.8      0.367360         False
+45    46      Iris-setosa           1.4          0.3           4.8          3.0      0.222474         False
+46    47      Iris-setosa           1.6          0.2           5.1          3.8      0.193185         False
+47    48      Iris-setosa           1.4          0.2           4.6          3.2      0.141421         False
+48    49      Iris-setosa           1.5          0.2           5.3          3.7      0.161803         False
+49    50      Iris-setosa           1.4          0.2           5.0          3.3      0.157313         False
+50    51  Iris-versicolor           4.7          1.4           7.0          3.2      0.298119         False
+51    52  Iris-versicolor           4.5          1.5           6.4          3.2      0.290401         False
+52    53  Iris-versicolor           4.9          1.5           6.9          3.1      0.273709         False
+53    54  Iris-versicolor           4.0          1.3           5.5          2.3      0.250000         False
+54    55  Iris-versicolor           4.6          1.5           6.5          2.8      0.280588         False
+55    56  Iris-versicolor           4.5          1.3           5.7          2.8      0.308114         False
+56    57  Iris-versicolor           4.7          1.6           6.3          3.3      0.319370         False
+57    58  Iris-versicolor           3.3          1.0           4.9          2.4      0.264360         False
+58    59  Iris-versicolor           4.6          1.3           6.6          2.9      0.244949         False
+59    60  Iris-versicolor           3.9          1.4           5.2          2.7      0.448600         False
+60    61  Iris-versicolor           3.5          1.0           5.0          2.0      0.409406         False
+61    62  Iris-versicolor           4.2          1.5           5.9          3.0      0.315831         False
+62    63  Iris-versicolor           4.0          1.0           6.0          2.2      0.504757         False
+63    64  Iris-versicolor           4.7          1.4           6.1          2.9      0.182514         False
+64    65  Iris-versicolor           3.6          1.3           5.6          2.9      0.435739         False
+65    66  Iris-versicolor           4.4          1.4           6.7          3.1      0.228825         False
+66    67  Iris-versicolor           4.5          1.5           5.6          3.0      0.250000         False
+67    68  Iris-versicolor           4.1          1.0           5.8          2.7      0.263896         False
+68    69  Iris-versicolor           4.5          1.5           6.2          2.2      0.387239         False
+69    70  Iris-versicolor           3.9          1.1           5.6          2.5      0.209077         False
+70    71  Iris-versicolor           4.8          1.8           5.9          3.2      0.261803         False
+71    72  Iris-versicolor           4.0          1.3           6.1          2.8      0.339036         False
+72    73  Iris-versicolor           4.9          1.5           6.3          2.5      0.360555         False
+73    74  Iris-versicolor           4.7          1.2           6.1          2.8      0.261803         False
+74    75  Iris-versicolor           4.3          1.3           6.4          2.9      0.232288         False
+75    76  Iris-versicolor           4.4          1.4           6.6          3.0      0.193185         False
+76    77  Iris-versicolor           4.8          1.4           6.8          2.8      0.331319         False
+77    78  Iris-versicolor           5.0          1.7           6.7          3.0      0.345197         False
+78    79  Iris-versicolor           4.5          1.5           6.0          2.9      0.222474         False
+79    80  Iris-versicolor           3.5          1.0           5.7          2.6      0.385337         False
+80    81  Iris-versicolor           3.8          1.1           5.5          2.4      0.157313         False
+81    82  Iris-versicolor           3.7          1.0           5.5          2.4      0.202998         False
+82    83  Iris-versicolor           3.9          1.2           5.8          2.7      0.202998         False
+83    84  Iris-versicolor           5.1          1.6           6.0          2.7      0.346109         False
+84    85  Iris-versicolor           4.5          1.5           5.4          3.0      0.306155         False
+85    86  Iris-versicolor           4.5          1.6           6.0          3.4      0.399215         False
+86    87  Iris-versicolor           4.7          1.5           6.7          3.1      0.299535         False
+87    88  Iris-versicolor           4.4          1.3           6.3          2.3      0.419516         False
+88    89  Iris-versicolor           4.1          1.3           5.6          3.0      0.173205         False
+89    90  Iris-versicolor           4.0          1.3           5.5          2.5      0.222474         False
+90    91  Iris-versicolor           4.4          1.2           5.5          2.6      0.290401         False
+91    92  Iris-versicolor           4.6          1.4           6.1          3.0      0.170711         False
+92    93  Iris-versicolor           4.0          1.2           5.8          2.6      0.193185         False
+93    94  Iris-versicolor           3.3          1.0           5.0          2.3      0.250988         False
+94    95  Iris-versicolor           4.2          1.3           5.6          2.7      0.198406         False
+95    96  Iris-versicolor           4.2          1.2           5.7          3.0      0.157313         False
+96    97  Iris-versicolor           4.2          1.3           5.7          2.9      0.141421         False
+97    98  Iris-versicolor           4.3          1.3           6.2          2.9      0.265831         False
+98    99  Iris-versicolor           3.0          1.1           5.1          2.5      0.387298         False
+99   100  Iris-versicolor           4.1          1.3           5.7          2.8      0.157313         False
+100  101   Iris-virginica           6.0          2.5           6.3          3.3      0.462132         False
+101  102   Iris-virginica           5.1          1.9           5.8          2.7      0.132288         False
+102  103   Iris-virginica           5.9          2.1           7.1          3.0      0.393649         False
+103  104   Iris-virginica           5.6          1.8           6.3          2.9      0.244949         False
+104  105   Iris-virginica           5.8          2.2           6.5          3.0      0.308114         False
+105  106   Iris-virginica           6.6          2.1           7.6          3.0      0.396863         False
+106  107   Iris-virginica           4.5          1.7           4.9          2.5      0.748212         False
+107  108   Iris-virginica           6.3          1.8           7.3          2.9      0.350233         False
+108  109   Iris-virginica           5.8          1.8           6.7          2.5      0.578388         False
+109  110   Iris-virginica           6.1          2.5           7.2          3.6      0.651638         False
+110  111   Iris-virginica           5.1          2.0           6.5          3.2      0.298886         False
+111  112   Iris-virginica           5.3          1.9           6.4          2.7      0.360288         False
+112  113   Iris-virginica           5.5          2.1           6.8          3.0      0.259808         False
+113  114   Iris-virginica           5.0          2.0           5.7          2.5      0.264575         False
+114  115   Iris-virginica           5.1          2.4           5.8          2.8      0.499900         False
+115  116   Iris-virginica           5.3          2.3           6.4          3.2      0.337083         False
+116  117   Iris-virginica           5.5          1.8           6.5          3.0      0.193185         False
+117  118   Iris-virginica           6.7          2.2           7.7          3.8      0.615423         False
+118  119   Iris-virginica           6.9          2.3           7.7          2.6      0.480017         False
+119  120   Iris-virginica           5.0          1.5           6.0          2.2      0.477753         False
+120  121   Iris-virginica           5.7          2.3           6.9          3.2      0.244091         False
+121  122   Iris-virginica           4.9          2.0           5.6          2.8      0.316228         False
+122  123   Iris-virginica           6.7          2.0           7.7          2.8      0.338443         False
+123  124   Iris-virginica           4.9          1.8           6.3          2.7      0.209077         False
+124  125   Iris-virginica           5.7          2.1           6.7          3.3      0.308114         False
+125  126   Iris-virginica           6.0          1.8           7.2          3.2      0.366854         False
+126  127   Iris-virginica           4.8          1.8           6.2          2.8      0.209077         False
+127  128   Iris-virginica           4.9          1.8           6.1          3.0      0.193185         False
+128  129   Iris-virginica           5.6          2.1           6.4          2.8      0.208114         False
+129  130   Iris-virginica           5.8          1.6           7.2          3.0      0.428156         False
+130  131   Iris-virginica           6.1          1.9           7.4          2.8      0.361416         False
+131  132   Iris-virginica           6.4          2.0           7.9          3.8      0.647743         False
+132  133   Iris-virginica           5.6          2.2           6.4          2.8      0.200000         False
+133  134   Iris-virginica           5.1          1.5           6.3          2.8      0.346109         False
+134  135   Iris-virginica           5.6          1.4           6.1          2.6      0.547646         False
+135  136   Iris-virginica           6.1          2.3           7.7          3.0      0.543120         False
+136  137   Iris-virginica           5.6          2.4           6.3          3.4      0.316124         False
+137  138   Iris-virginica           5.5          1.8           6.4          3.1      0.193185         False
+138  139   Iris-virginica           4.8          1.8           6.0          3.0      0.182514         False
+139  140   Iris-virginica           5.4          2.1           6.9          3.1      0.266880         False
+140  141   Iris-virginica           5.6          2.4           6.7          3.1      0.254762         False
+141  142   Iris-virginica           5.1          2.3           6.9          3.1      0.302752         False
+142  143   Iris-virginica           5.1          1.9           5.8          2.7      0.132288         False
+143  144   Iris-virginica           5.9          2.3           6.8          3.2      0.269917         False
+144  145   Iris-virginica           5.7          2.5           6.7          3.3      0.272474         False
+145  146   Iris-virginica           5.2          2.3           6.7          3.0      0.302752         False
+146  147   Iris-virginica           5.0          1.9           6.3          2.5      0.309557         False
+147  148   Iris-virginica           5.2          2.0           6.5          3.0      0.285008         False
+148  149   Iris-virginica           5.4          2.3           6.2          3.4      0.272474         False
+149  150   Iris-virginica           5.1          1.8           5.9          3.0      0.299535         False
+
+Outliers IDs: [2]
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-f242bf68-a0d5-4a15-9aef-0fcc07d06d7d" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>Class</th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+      <th>knn_distance</th>
+      <th>outlier_flag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Iris-setosa</td>
+      <td>14.0</td>
+      <td>2.0</td>
+      <td>40.9</td>
+      <td>30.0</td>
+      <td>42.867264</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+      
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-f242bf68-a0d5-4a15-9aef-0fcc07d06d7d')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+      
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+    
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-f242bf68-a0d5-4a15-9aef-0fcc07d06d7d button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-f242bf68-a0d5-4a15-9aef-0fcc07d06d7d');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+  
+    </div>
+  </div>
+  </div></div>
+</div>
+</section>
+<section id="mencari-k-optimal-dengan-elbow-method">
+<h2><strong>Mencari K optimal dengan Elbow method</strong><a class="headerlink" href="#mencari-k-optimal-dengan-elbow-method" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span>
+
+<span class="c1"># Ambil data fitur dan target</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df_merged</span><span class="p">[[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal_width&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_width&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df_merged</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>  <span class="c1"># target</span>
+
+<span class="c1"># Membagi dataset menjadi training dan testing</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Definisikan range untuk K</span>
+<span class="n">k_values</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">21</span><span class="p">)</span>
+<span class="n">error_rates</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Evaluasi K untuk setiap nilai</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">k_values</span><span class="p">:</span>
+    <span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+    <span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="n">error_rate</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">error_rates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">error_rate</span><span class="p">)</span>
+
+<span class="c1"># Cari nilai K optimal dengan error rate terendah</span>
+<span class="n">optimal_k</span> <span class="o">=</span> <span class="n">k_values</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">error_rates</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Nilai K optimal adalah: </span><span class="si">{</span><span class="n">optimal_k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot hasil Elbow Method</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">k_values</span><span class="p">,</span> <span class="n">error_rates</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;K Value&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Error Rate&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Elbow Method to Find Optimal K&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">k_values</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">error_rates</span><span class="p">)],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Optimal K&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Nilai K optimal adalah: 1
+</pre></div>
+</div>
+<img alt="_images/36359961c4809fcc9fa87bde67808fb04082f79a9686eb0e05d4a58a8b86d8d3.png" src="_images/36359961c4809fcc9fa87bde67808fb04082f79a9686eb0e05d4a58a8b86d8d3.png" />
+</div>
+</div>
+<p>Kode di atas adalah kode mencari K optimal pada metode K-NN
+Langkah pertama adalah menyiapkan dataset dengan memilih kolom fitur seperti sepal_length, sepal_width, petal_length, dan petal_width dari dataframe df_merged, serta menggunakan kolom id sebagai target.
+Setelah itu, dataset dibagi menjadi data latih (training) dan data uji (testing) menggunakan fungsi train_test_split. Selanjutnya, algoritma KNN dilatih dan dievaluasi untuk berbagai nilai K (dalam rentang 1 hingga 20).</p>
+<p>Untuk setiap nilai K, prediksi dilakukan pada data uji, dan tingkat kesalahan (error rate) dihitung sebagai 1 dikurangi akurasi prediksi. Semua nilai error rate kemudian dipetakan terhadap nilai K dalam grafik untuk memvisualisasikan tren. Titik optimal (elbow) ditandai sebagai nilai K dengan error rate terendah</p>
+<p>karena data masih kotor dengan outlier pada id =2  K optimal kemungkinan masih belum benar</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="pendat-tugas2.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><strong>Pembukaan Data Mining</strong></p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="PendatTugas4LOF.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Local Outlier Factor (LOF)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-jarak-euclidean-antar-titik"><strong>1. Perhitungan Jarak Euclidean Antar Titik</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-jarak-euclidean"><strong>Perhitungan Jarak Euclidean</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rata-rata-jarak-ke-2-tetangga-terdekat"><strong>2. Rata-rata Jarak ke 2 Tetangga Terdekat</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan"><strong>Kesimpulan</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengambil-dataset-sepal-length-dan-sepal-width-dari-database-mysql"><strong>1. Mengambil Dataset Sepal length dan sepal width dari database mysql</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mensimulasikan-data-outlier-pada-petal-length-dan-petal-width"><strong>Mensimulasikan Data Outlier pada petal length dan petal width</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengambil-dataset-petal-length-dan-petal-width-dari-database-postgresql"><strong>2. Mengambil Dataset petal length dan petal width dari database postgresql</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mensimulasikan-data-outlier-pada-sepal-length-dan-sepal-width"><strong>Mensimulasikan Data Outlier pada sepal length dan sepal width</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menggabungkan-data-dari-dua-database-berbeda"><strong>3. Menggabungkan Data dari dua database berbeda</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#melakukan-deteksi-outlier-dengan-metode-k-nn"><strong>4. Melakukan deteksi Outlier dengan metode K-NN</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mencari-k-optimal-dengan-elbow-method"><strong>Mencari K optimal dengan Elbow method</strong></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vio
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

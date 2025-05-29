@@ -1,0 +1,113 @@
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/dist-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/usr/local/lib/python3.11/dist-packages/nbclient/client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/usr/local/lib/python3.11/dist-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/usr/local/lib/python3.11/dist-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import numpy as np
+
+# Data dan derajat keanggotaan awal
+data = np.array([
+    [1, 2],
+    [5, 3],
+    [3, 4],
+    [6, 7],
+    [7, 7]
+], dtype=float)
+
+U = np.array([
+    [0.3, 0.7],
+    [0.6, 0.4],
+    [0.4, 0.6],
+    [0.7, 0.3],
+    [0.2, 0.8]
+], dtype=float)
+
+m = 2  # parameter fuzziness
+n_clusters = 2
+n_iterations = 2
+data_labels = [f'X{i+1}' for i in range(len(data))]
+
+def compute_centroids(U, data, m):
+    um = U ** m
+    centroids = []
+    for j in range(n_clusters):
+        numerator = np.sum((um[:, j, None]) * data, axis=0)
+        denominator = np.sum(um[:, j])
+        centroid = numerator / denominator
+        centroids.append(centroid)
+    return np.array(centroids)
+
+def update_membership(U, data, centroids, m):
+    N = data.shape[0]
+    new_U = np.zeros((N, n_clusters))
+    for i in range(N):
+        for j in range(n_clusters):
+            numerator = np.linalg.norm(data[i] - centroids[j]) + 1e-10
+            denom_sum = 0
+            for k in range(n_clusters):
+                denominator = np.linalg.norm(data[i] - centroids[k]) + 1e-10
+                denom_sum += (numerator / denominator) ** (2 / (m - 1))
+            new_U[i, j] = 1 / denom_sum
+    return new_U
+
+def compute_objective(U, data, centroids, m):
+    J = 0.0
+    for i in range(len(data)):
+        for j in range(n_clusters):
+            dist_sq = np.linalg.norm(data[i] - centroids[j]) ** 2
+            J += (U[i, j] ** m) * dist_sq
+    return J
+
+# Iterasi FCM
+for iteration in range(n_iterations):
+    print(f"\n=== Iterasi {iteration + 1} ===")
+
+    # 1. Hitung pusat cluster
+    centroids = compute_centroids(U, data, m)
+    centroids_df = pd.DataFrame(centroids, columns=["x", "y"], index=[f"C{j+1}" for j in range(n_clusters)])
+    print("\nPusat Cluster:")
+    print(centroids_df)
+
+    # 2. Update derajat keanggotaan
+    U = update_membership(U, data, centroids, m)
+    U_df = pd.DataFrame(U, columns=[f"Cluster {j+1}" for j in range(n_clusters)], index=data_labels)
+    print("\nDerajat Keanggotaan (U):")
+    print(U_df)
+
+    # 3. Hitung fungsi objektif
+    J = compute_objective(U, data, centroids, m)
+    print(f"\nFungsi Objektif (J): {J:.6f}")
+
+------------------
+
+----- stdout -----
+
+=== Iterasi 1 ===
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mNameError[0m                                 Traceback (most recent call last)
+[0;32m<ipython-input-1-b67e183abedc>[0m in [0;36m<cell line: 0>[0;34m()[0m
+[1;32m     60[0m     [0;31m# 1. Hitung pusat cluster[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     61[0m     [0mcentroids[0m [0;34m=[0m [0mcompute_centroids[0m[0;34m([0m[0mU[0m[0;34m,[0m [0mdata[0m[0;34m,[0m [0mm[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 62[0;31m     [0mcentroids_df[0m [0;34m=[0m [0mpd[0m[0;34m.[0m[0mDataFrame[0m[0;34m([0m[0mcentroids[0m[0;34m,[0m [0mcolumns[0m[0;34m=[0m[0;34m[[0m[0;34m"x"[0m[0;34m,[0m [0;34m"y"[0m[0;34m][0m[0;34m,[0m [0mindex[0m[0;34m=[0m[0;34m[[0m[0;34mf"C{j+1}"[0m [0;32mfor[0m [0mj[0m [0;32min[0m [0mrange[0m[0;34m([0m[0mn_clusters[0m[0;34m)[0m[0;34m][0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     63[0m     [0mprint[0m[0;34m([0m[0;34m"\nPusat Cluster:"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     64[0m     [0mprint[0m[0;34m([0m[0mcentroids_df[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mNameError[0m: name 'pd' is not defined
+

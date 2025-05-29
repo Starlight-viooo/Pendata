@@ -1,0 +1,1256 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Pendat UTS &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '230411100167_PendatUTS';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Clustering Iris dataset dengan K- Mean" href="Tugas6Clustering.html" />
+    <link rel="prev" title="Klasifikasi pada Iris dataset" href="Klasifikasi.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.jpg" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/logo.jpg" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pendat-tugas2.html"><strong>Pembukaan Data Mining</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="PendatTugas3.html"><strong>Deteksi Outlier dengan Metode K-Nearest Neighbors (KNN)</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="PendatTugas4LOF.html">Local Outlier Factor (LOF)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Klasifikasi.html"><strong>Klasifikasi pada Iris dataset</strong></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Pendat UTS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas6Clustering.html">Clustering Iris dataset dengan K- Mean</a></li>
+<li class="toctree-l1"><a class="reference internal" href="C-Means%20Clustering.html">Fuzzy C-Mean Clustering</a></li>
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F230411100167_PendatUTS.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/230411100167_PendatUTS.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Pendat UTS</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preparation"><strong>Data Preparation</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-modelling">Data Modelling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-prediksi">Hasil Prediksi</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="pendat-uts">
+<h1>Pendat UTS<a class="headerlink" href="#pendat-uts" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mengimpor library yang diperlukan</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">drive</span>
+
+<span class="c1"># Mount Google Drive</span>
+<span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;/content/drive&#39;</span><span class="p">)</span>
+
+<span class="c1"># Load dataset dari Google Drive</span>
+<span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;/content/drive/MyDrive/PendatUTS/cirrhosis.csv&quot;</span>  <span class="c1"># Pastikan path benar</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+<span class="c1"># --- Tampilkan Informasi Dataset ---</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Informasi Dataset:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
+
+<span class="c1"># # --- Contoh Data ---</span>
+<span class="c1"># print(&quot;\nContoh Data:&quot;)</span>
+<span class="c1"># print(df.head())</span>
+
+<span class="c1"># --- Statistik Deskriptif untuk Kolom Numerik ---</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Statistik Deskriptif:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+
+<span class="c1"># --- Cek jumlah nilai yang hilang ---</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Jumlah Missing Values per Kolom:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="c1"># --- Visualisasi Distribusi Usia ---</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribusi Usia Pasien&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Age (days)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Count&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># --- Visualisasi Bilirubin Berdasarkan Status Pasien ---</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Status&quot;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Bilirubin&quot;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribusi Bilirubin Berdasarkan Status Pasien&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Status&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Bilirubin (mg/dl)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># --- Visualisasi Distribusi Penggunaan Obat ---</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Drug&quot;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribusi Penggunaan Obat&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Drug Type&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Count&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># --- Perbaiki Heatmap Korelasi dengan Hanya Kolom Numerik ---</span>
+<span class="c1"># Pilih hanya kolom numerik dan hilangkan kolom ID</span>
+<span class="n">numeric_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">])</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ID&quot;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="c1"># Visualisasi Heatmap Korelasi</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">numeric_df</span><span class="o">.</span><span class="n">corr</span><span class="p">(),</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;coolwarm&quot;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;.2f&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Heatmap Korelasi Fitur Numerik (Tanpa ID)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="nn">&lt;ipython-input-1-9a566cafa269&gt;</span> in <span class="ni">&lt;cell line: 0&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> 
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1"># Mount Google Drive</span>
+<span class="ne">----&gt; </span><span class="mi">9</span> <span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;/content/drive&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> 
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="c1"># Load dataset dari Google Drive</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/google/colab/drive.py</span> in <span class="ni">mount</span><span class="nt">(mountpoint, force_remount, timeout_ms, readonly)</span>
+<span class="g g-Whitespace">     </span><span class="mi">98</span> <span class="k">def</span><span class="w"> </span><span class="nf">mount</span><span class="p">(</span><span class="n">mountpoint</span><span class="p">,</span> <span class="n">force_remount</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout_ms</span><span class="o">=</span><span class="mi">120000</span><span class="p">,</span> <span class="n">readonly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">99</span><span class="w">   </span><span class="sd">&quot;&quot;&quot;Mount your Google Drive at the specified mountpoint path.&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">100</span>   <span class="k">return</span> <span class="n">_mount</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">101</span>       <span class="n">mountpoint</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">102</span>       <span class="n">force_remount</span><span class="o">=</span><span class="n">force_remount</span><span class="p">,</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/google/colab/drive.py</span> in <span class="ni">_mount</span><span class="nt">(mountpoint, force_remount, timeout_ms, ephemeral, readonly)</span>
+<span class="g g-Whitespace">    </span><span class="mi">135</span>   <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">136</span>   <span class="k">if</span> <span class="n">ephemeral</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">137</span>     <span class="n">_message</span><span class="o">.</span><span class="n">blocking_request</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">138</span>         <span class="s1">&#39;request_auth&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">139</span>         <span class="n">request</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;authType&#39;</span><span class="p">:</span> <span class="s1">&#39;dfs_ephemeral&#39;</span><span class="p">},</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/google/colab/_message.py</span> in <span class="ni">blocking_request</span><span class="nt">(request_type, request, timeout_sec, parent)</span>
+<span class="g g-Whitespace">    </span><span class="mi">174</span>       <span class="n">request_type</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">parent</span><span class="p">,</span> <span class="n">expect_reply</span><span class="o">=</span><span class="kc">True</span>
+<span class="g g-Whitespace">    </span><span class="mi">175</span>   <span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">176</span>   <span class="k">return</span> <span class="n">read_reply_from_input</span><span class="p">(</span><span class="n">request_id</span><span class="p">,</span> <span class="n">timeout_sec</span><span class="p">)</span>
+
+<span class="nn">/usr/local/lib/python3.11/dist-packages/google/colab/_message.py</span> in <span class="ni">read_reply_from_input</span><span class="nt">(message_id, timeout_sec)</span>
+<span class="g g-Whitespace">     </span><span class="mi">94</span>     <span class="n">reply</span> <span class="o">=</span> <span class="n">_read_next_input_message</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">95</span>     <span class="k">if</span> <span class="n">reply</span> <span class="o">==</span> <span class="n">_NOT_READY</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">reply</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">96</span>       <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.025</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">97</span>       <span class="k">continue</span>
+<span class="g g-Whitespace">     </span><span class="mi">98</span>     <span class="k">if</span> <span class="p">(</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+<p>Kode ini bertujuan untuk melakukan <strong>eksplorasi awal dataset Cirrhosis</strong> menggunakan Python di <strong>Google Colab</strong>, dengan akses data dari <strong>Google Drive</strong>. Pertama, dilakukan <strong>mount Google Drive</strong> agar file CSV yang tersimpan bisa diakses secara langsung.</p>
+<p>Dataset kemudian dibaca menggunakan <strong>pandas</strong> dan informasi dasar seperti jumlah baris, tipe data, dan jumlah missing values diperiksa menggunakan <code class="docutils literal notranslate"><span class="pre">df.info()</span></code> dan <code class="docutils literal notranslate"><span class="pre">df.isnull().sum()</span></code>. Selanjutnya, dilakukan <strong>analisis statistik deskriptif</strong> untuk memahami distribusi data numerik menggunakan <code class="docutils literal notranslate"><span class="pre">df.describe()</span></code>.</p>
+<p>lalu kita melakukan <strong>analisis korelasi</strong> antara fitur-fitur numerik dengan menggunakan <strong>heatmap</strong>, setelah memastikan bahwa hanya kolom numerik yang digunakan (tanpa <code class="docutils literal notranslate"><span class="pre">ID</span></code>).</p>
+<p>Visualisasi ini membantu memahami pola dalam data sebelum dilakukan <strong>tahapan preprocessing dan modeling</strong></p>
+<section id="data-preparation">
+<h2><strong>Data Preparation</strong><a class="headerlink" href="#data-preparation" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import library yang diperlukan</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">LocalOutlierFactor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">drive</span>
+
+<span class="c1"># Mount Google Drive untuk mengakses file</span>
+<span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;/content/drive&#39;</span><span class="p">)</span>
+
+<span class="c1"># Load dataset dari Google Drive</span>
+<span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;/content/drive/MyDrive/PendatUTS/cirrhosis.csv&quot;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+<span class="c1"># --- 1. Drop Rows dengan Nilai NA di Kolom &#39;Drug&#39; ---</span>
+<span class="n">df_cleaned</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Drug&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="c1"># --- 2. Impute Missing Values dengan Mean ---</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df_cleaned</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>  <span class="c1"># Hanya kolom numerik</span>
+    <span class="n">df_cleaned</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">df_cleaned</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+
+<span class="c1"># --- 3. Deteksi Outlier dengan LOF ---</span>
+<span class="c1"># Pilih hanya fitur numerik untuk LOF, tanpa ID</span>
+<span class="n">numeric_df</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">])</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ID&quot;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+<span class="c1"># Inisialisasi model LOF</span>
+<span class="n">lof</span> <span class="o">=</span> <span class="n">LocalOutlierFactor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">contamination</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>  <span class="c1"># 5% data dianggap outlier</span>
+<span class="n">outlier_predictions</span> <span class="o">=</span> <span class="n">lof</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">numeric_df</span><span class="p">)</span>
+
+<span class="c1"># Tambahkan hasil deteksi outlier ke dataframe</span>
+<span class="n">df_cleaned</span><span class="p">[</span><span class="s2">&quot;Outlier&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">outlier_predictions</span>  <span class="c1"># -1 berarti outlier, 1 berarti normal</span>
+
+<span class="c1"># Hapus baris yang terdeteksi sebagai outlier</span>
+<span class="n">df_final</span> <span class="o">=</span> <span class="n">df_cleaned</span><span class="p">[</span><span class="n">df_cleaned</span><span class="p">[</span><span class="s2">&quot;Outlier&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Outlier&quot;</span><span class="p">])</span>
+
+<span class="c1"># --- Cek hasil preprocessing ---</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Jumlah data setelah preprocessing:&quot;</span><span class="p">,</span> <span class="n">df_final</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Jumlah missing values setelah imputasi:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_final</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df_final</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+<span class="c1"># Simpan dataset yang telah dibersihkan ke Google Drive</span>
+<span class="n">output_path</span> <span class="o">=</span> <span class="s2">&quot;/content/drive/MyDrive/PendatUTS/cirrhosis_cleaned.csv&quot;</span>
+<span class="n">df_final</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Dataset bersih telah disimpan di: </span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Drive already mounted at /content/drive; to attempt to forcibly remount, call drive.mount(&quot;/content/drive&quot;, force_remount=True).
+
+Jumlah data setelah preprocessing: 296
+
+Jumlah missing values setelah imputasi:
+ID               0
+N_Days           0
+Status           0
+Drug             0
+Age              0
+Sex              0
+Ascites          0
+Hepatomegaly     0
+Spiders          0
+Edema            0
+Bilirubin        0
+Cholesterol      0
+Albumin          0
+Copper           0
+Alk_Phos         0
+SGOT             0
+Tryglicerides    0
+Platelets        0
+Prothrombin      0
+Stage            0
+dtype: int64
+ ID  N_Days Status            Drug   Age Sex Ascites Hepatomegaly Spiders Edema  Bilirubin  Cholesterol  Albumin     Copper  Alk_Phos   SGOT  Tryglicerides  Platelets  Prothrombin  Stage
+  1     400      D D-penicillamine 21464   F       Y            Y       Y     Y       14.5   261.000000     2.60 156.000000    1718.0 137.95     172.000000 190.000000         12.2    4.0
+  2    4500      C D-penicillamine 20617   F       N            Y       Y     N        1.1   302.000000     4.14  54.000000    7394.8 113.52      88.000000 221.000000         10.6    3.0
+  3    1012      D D-penicillamine 25594   M       N            N       N     S        1.4   176.000000     3.48 210.000000     516.0  96.10      55.000000 151.000000         12.0    4.0
+  4    1925      D D-penicillamine 19994   F       N            Y       Y     S        1.8   244.000000     2.54  64.000000    6121.8  60.63      92.000000 183.000000         10.3    4.0
+  5    1504     CL         Placebo 13918   F       N            Y       Y     N        3.4   279.000000     3.53 143.000000     671.0 113.15      72.000000 136.000000         10.9    3.0
+  6    2503      D         Placebo 24201   F       N            Y       N     N        0.8   248.000000     3.98  50.000000     944.0  93.00      63.000000 261.935065         11.0    3.0
+  7    1832      C         Placebo 20284   F       N            Y       N     N        1.0   322.000000     4.09  52.000000     824.0  60.45     213.000000 204.000000          9.7    3.0
+  8    2466      D         Placebo 19379   F       N            N       N     N        0.3   280.000000     4.00  52.000000    4651.2  28.38     189.000000 373.000000         11.0    3.0
+  9    2400      D D-penicillamine 15526   F       N            N       Y     N        3.2   562.000000     3.08  79.000000    2276.0 144.15      88.000000 251.000000         11.0    2.0
+ 10      51      D         Placebo 25772   F       Y            N       Y     Y       12.6   200.000000     2.74 140.000000     918.0 147.25     143.000000 302.000000         11.5    4.0
+ 11    3762      D         Placebo 19619   F       N            Y       Y     N        1.4   259.000000     4.16  46.000000    1104.0  79.05      79.000000 258.000000         12.0    4.0
+ 12     304      D         Placebo 21600   F       N            N       Y     N        3.6   236.000000     3.52  94.000000     591.0  82.15      95.000000  71.000000         13.6    4.0
+ 13    3577      C         Placebo 16688   F       N            N       N     N        0.7   281.000000     3.85  40.000000    1181.0  88.35     130.000000 244.000000         10.6    3.0
+ 14    1217      D         Placebo 20535   M       Y            Y       N     Y        0.8   369.510563     2.27  43.000000     728.0  71.00     124.702128 156.000000         11.0    4.0
+ 15    3584      D D-penicillamine 23612   F       N            N       N     N        0.8   231.000000     3.87 173.000000    9009.8 127.71      96.000000 295.000000         11.0    3.0
+ 16    3672      C         Placebo 14772   F       N            N       N     N        0.7   204.000000     3.66  28.000000     685.0  72.85      58.000000 198.000000         10.8    3.0
+ 17     769      D         Placebo 19060   F       N            Y       N     N        2.7   274.000000     3.15 159.000000    1533.0 117.80     128.000000 224.000000         10.5    4.0
+ 18     131      D D-penicillamine 19698   F       N            Y       Y     Y       11.4   178.000000     2.80 588.000000     961.0 280.55     200.000000 283.000000         12.4    4.0
+ 19    4232      C D-penicillamine 18102   F       N            Y       N     S        0.7   235.000000     3.56  39.000000    1881.0  93.00     123.000000 209.000000         11.0    3.0
+ 20    1356      D         Placebo 21898   F       N            Y       N     N        5.1   374.000000     3.51 140.000000    1919.0 122.45     135.000000 322.000000         13.0    4.0
+ 21    3445      C         Placebo 23445   M       N            Y       Y     N        0.6   252.000000     3.83  41.000000     843.0  65.10      83.000000 336.000000         11.4    4.0
+ 22     673      D D-penicillamine 20555   F       N            N       Y     N        3.4   271.000000     3.63 464.000000    1376.0 120.90      55.000000 173.000000         11.6    4.0
+ 23     264      D         Placebo 20442   F       Y            Y       Y     Y       17.4   395.000000     2.94 558.000000    6064.8 227.04     191.000000 214.000000         11.7    4.0
+ 25    4127      C         Placebo 16463   F       N            N       N     N        0.7   298.000000     4.10  40.000000     661.0 106.95      66.000000 324.000000         11.3    2.0
+ 26    1444      D         Placebo 19002   F       N            Y       Y     N        5.2  1128.000000     3.68  53.000000    3228.0 165.85     166.000000 421.000000          9.9    3.0
+ 27      77      D         Placebo 19884   F       Y            Y       Y     S       21.6   175.000000     3.31 221.000000    3697.4 101.91     168.000000  80.000000         12.0    4.0
+ 28     549      D         Placebo 16417   F       Y            Y       Y     Y       17.2   222.000000     3.23 209.000000    1975.0 189.10     195.000000 144.000000         13.0    4.0
+ 31    3839      D         Placebo 15177   F       N            Y       N     N        4.7   296.000000     3.44 114.000000    9933.2 206.40     101.000000 195.000000         10.3    2.0
+ 32    4523      C         Placebo 19722   F       N            Y       N     N        1.8   262.000000     3.34 101.000000    7277.0  82.56     158.000000 286.000000         10.6    4.0
+ 33    3170      D         Placebo 18731   F       N            N       N     N        0.8   210.000000     3.19  82.000000    1592.0 218.55     113.000000 180.000000         12.0    3.0
+ 34    3933      C D-penicillamine 19015   F       N            N       N     N        0.8   364.000000     3.70  37.000000    1840.0 170.50      64.000000 273.000000         10.5    2.0
+ 35    2847      D         Placebo 17758   F       N            N       N     N        1.2   314.000000     3.20 201.000000   12258.8  72.24     151.000000 431.000000         10.6    3.0
+ 36    3611      C         Placebo 20604   F       N            N       N     N        0.3   172.000000     3.39  18.000000     558.0  71.30      96.000000 311.000000         10.6    2.0
+ 38    3244      D         Placebo 13378   F       N            Y       Y     N        3.3   383.000000     3.53 102.000000    1234.0 137.95      87.000000 234.000000         11.0    4.0
+ 39    2297      D D-penicillamine 20232   F       N            Y       N     N        0.7   282.000000     3.00  52.000000    9066.8  72.24     111.000000 563.000000         10.6    4.0
+ 40    4467      C D-penicillamine 17046   F       N            N       N     N        1.3   369.510563     3.34 105.000000   11046.6 104.49     124.702128 358.000000         11.0    4.0
+ 41    1350      D D-penicillamine 12285   F       N            Y       N     N        6.8   369.510563     3.26  96.000000    1215.0 151.90     124.702128 226.000000         11.7    4.0
+ 44    3428      D         Placebo 13727   F       N            Y       Y     Y        3.3   299.000000     3.55 131.000000    1029.0 119.35      50.000000 199.000000         11.7    3.0
+ 45    4025      C         Placebo 15265   F       N            N       N     N        0.6   369.510563     3.93  19.000000    1826.0  71.30     124.702128 474.000000         10.9    2.0
+ 46    2256      D D-penicillamine 16728   F       N            Y       N     N        5.7   482.000000     2.84 161.000000   11552.0 136.74     165.000000 518.000000         12.7    3.0
+ 47    2576      C         Placebo 17323   F       N            N       N     N        0.5   316.000000     3.65  68.000000    1716.0 187.55      71.000000 356.000000          9.8    3.0
+ 48    4427      C         Placebo 17947   M       N            N       N     N        1.9   259.000000     3.70 281.000000   10396.8 188.34     178.000000 214.000000         11.0    3.0
+ 49     708      D         Placebo 22336   F       N            Y       N     N        0.8   369.510563     3.82  58.000000     678.0  97.65     124.702128 233.000000         11.0    4.0
+ 50    2598      D D-penicillamine 19544   F       N            Y       N     N        1.1   257.000000     3.36  43.000000    1080.0 106.95      73.000000 128.000000         10.6    4.0
+ 52    2386      D D-penicillamine 18460   M       N            N       N     N        6.0   614.000000     3.70 158.000000    5084.4 206.40      93.000000 362.000000         10.6    1.0
+ 57    3282      D D-penicillamine 19567   F       N            Y       N     S        2.3   260.000000     3.18 231.000000   11320.2 105.78      94.000000 216.000000         12.4    3.0
+ 60    4365      C D-penicillamine 21324   F       N            N       N     N        0.9   604.000000     3.40  82.000000     876.0  71.30      58.000000 228.000000         10.3    3.0
+ 61    4256      C         Placebo 16034   M       N            N       N     N        0.6   216.000000     3.94  28.000000     601.0  60.45     188.000000 211.000000         13.0    1.0
+ 62    3090      D         Placebo 22173   F       Y            N       N     N        1.3   302.000000     2.75  58.000000    1523.0  43.40     112.000000 329.000000         13.2    4.0
+ 63     859      D         Placebo 17031   F       N            N       Y     Y       22.5   932.000000     3.12  95.000000    5396.0 244.90     133.000000 165.000000         11.6    3.0
+ 64    1487      D         Placebo 22977   F       N            Y       N     N        2.1   373.000000     3.50  52.000000    1009.0 150.35     188.000000 178.000000         11.0    3.0
+ 65    3992      C D-penicillamine 14684   F       N            N       N     N        1.2   256.000000     3.60  74.000000     724.0 141.05     108.000000 430.000000         10.0    1.0
+ 66    4191      D D-penicillamine 16967   M       N            Y       N     N        1.4   427.000000     3.70 105.000000    1909.0 182.90     171.000000 123.000000         11.0    3.0
+ 67    2769      D         Placebo 18733   F       N            N       N     N        1.1   466.000000     3.91  84.000000    1787.0 328.60     185.000000 261.000000         10.0    3.0
+ 68    4039      C D-penicillamine 11912   F       N            N       N     N        0.7   174.000000     4.09  58.000000     642.0  71.30      46.000000 203.000000         10.6    3.0
+ 69    1170      D D-penicillamine 18021   F       N            Y       Y     S       20.0   652.000000     3.46 159.000000    3292.0 215.45     184.000000 227.000000         12.4    3.0
+ 70    3458      C D-penicillamine 20600   F       N            N       N     N        0.6   369.510563     4.64  20.000000     666.0  54.25     124.702128 265.000000         10.6    2.0
+ 71    4196      C         Placebo 17841   F       N            Y       N     N        1.2   258.000000     3.57  79.000000    2201.0 120.90      76.000000 410.000000         11.5    4.0
+ 72    4184      C         Placebo 11868   F       N            N       N     N        0.5   320.000000     3.54  51.000000    1243.0 122.45      80.000000 225.000000         10.0    3.0
+ 73    4190      C         Placebo 14060   F       N            N       N     N        0.7   132.000000     3.60  17.000000     423.0  49.60      56.000000 265.000000         11.0    1.0
+ 74    1827      D D-penicillamine 18964   F       N            Y       Y     N        8.4   558.000000     3.99 280.000000     967.0  89.90     309.000000 278.000000         11.0    4.0
+ 75    1191      D D-penicillamine 15895   F       Y            Y       Y     S       17.1   674.000000     2.53 207.000000    2078.0 182.90     598.000000 268.000000         11.5    4.0
+ 76      71      D D-penicillamine 18972   F       N            Y       Y     S       12.2   394.000000     3.08 111.000000    2132.0 155.00     243.000000 165.000000         11.6    4.0
+ 77     326      D         Placebo 18199   F       N            Y       Y     S        6.6   244.000000     3.41 199.000000    1819.0 170.50      91.000000 132.000000         12.1    3.0
+ 78    1690      D D-penicillamine 17512   F       N            Y       N     N        6.3   436.000000     3.02  75.000000    2176.0 170.50     104.000000 236.000000         10.6    4.0
+ 79    3707      C D-penicillamine 16990   F       N            Y       N     N        0.8   315.000000     4.24  13.000000    1637.0 170.50      70.000000 426.000000         10.9    3.0
+ 80     890      D         Placebo 24622   M       N            Y       N     N        7.2   247.000000     3.72 269.000000    1303.0 176.70      91.000000 360.000000         11.2    4.0
+ 81    2540      D D-penicillamine 23107   F       N            Y       Y     N       14.4   448.000000     3.65  34.000000    1218.0  60.45     318.000000 385.000000         11.7    4.0
+ 82    3574      D D-penicillamine 24585   F       N            N       N     N        4.5   472.000000     4.09 154.000000    1580.0 117.80     272.000000 412.000000         11.1    3.0
+ 83    4050      C D-penicillamine 20459   F       N            Y       N     S        1.3   250.000000     3.50  48.000000    1138.0  71.30     100.000000  81.000000         12.9    4.0
+ 84    4032      C         Placebo 20392   F       N            N       N     N        0.4   263.000000     3.76  29.000000    1345.0 137.95      74.000000 181.000000         11.2    3.0
+ 85    3358      D         Placebo 17246   F       N            Y       N     N        2.1   262.000000     3.48  58.000000    2045.0  89.90      84.000000 225.000000         11.5    4.0
+ 86    1657      D D-penicillamine 19270   F       N            Y       Y     N        5.0  1600.000000     3.21  75.000000    2656.0  82.15     174.000000 181.000000         10.9    3.0
+ 87     198      D D-penicillamine 13616   F       N            N       N     N        1.1   345.000000     4.40  75.000000    1860.0 218.55      72.000000 447.000000         10.7    3.0
+ 88    2452      C         Placebo 15119   F       N            N       N     S        0.6   296.000000     4.06  37.000000    1032.0  80.60      83.000000 442.000000         12.0    3.0
+ 89    1741      D D-penicillamine 19155   F       N            Y       N     N        2.0   408.000000     3.65  50.000000    1083.0 110.05      98.000000 200.000000         11.4    2.0
+ 90    2689      D D-penicillamine 12227   M       N            N       N     N        1.6   660.000000     4.22  94.000000    1857.0 151.90     155.000000 337.000000         11.0    2.0
+ 91     460      D         Placebo 16658   F       N            Y       Y     S        5.0   325.000000     3.47 110.000000    2460.0 246.45      56.000000 430.000000         11.9    4.0
+ 92     388      D D-penicillamine 28018   F       Y            N       N     Y        1.4   206.000000     3.13  36.000000    1626.0  86.80      70.000000 145.000000         12.2    4.0
+ 93    3913      C D-penicillamine 13344   F       N            N       N     N        1.3   353.000000     3.67  73.000000    2039.0 232.50      68.000000 380.000000         11.1    2.0
+ 94     750      D D-penicillamine 19693   F       N            Y       Y     N        3.2   201.000000     3.11 178.000000    1212.0 159.65      69.000000 188.000000         11.8    4.0
+ 95     130      D         Placebo 16944   F       Y            Y       Y     Y       17.4   369.510563     2.64 182.000000     559.0 119.35     124.702128 401.000000         11.7    2.0
+ 96    3850      C D-penicillamine 17841   F       N            N       N     N        1.0   369.510563     3.70  33.000000    1258.0  99.20     124.702128 338.000000         10.4    3.0
+ 97     611      D         Placebo 26259   M       N            Y       N     S        2.0   420.000000     3.26  62.000000    3196.0  77.50      91.000000 344.000000         11.4    3.0
+ 98    3823      C D-penicillamine 10550   F       N            N       N     N        1.0   239.000000     3.77  77.000000    1877.0  97.65     101.000000 312.000000         10.2    1.0
+ 99    3820      C         Placebo 17703   M       N            N       N     N        1.8   460.000000     3.35 148.000000    1472.0 108.50     118.000000 172.000000         10.2    2.0
+100     552      D         Placebo 18799   M       N            Y       N     N        2.3   178.000000     3.00 145.000000     746.0 178.25     122.000000 119.000000         12.0    4.0
+101    3581      C         Placebo 16418   F       N            N       N     N        0.9   400.000000     3.60  31.000000    1689.0 164.30     166.000000 327.000000         10.4    3.0
+102    3099      C D-penicillamine 20662   F       N            N       N     N        0.9   248.000000     3.97 172.000000     646.0  62.00      84.000000 128.000000         10.1    1.0
+103     110      D         Placebo 17884   F       Y            Y       Y     Y        2.5   188.000000     3.67  57.000000    1273.0 119.35     102.000000 110.000000         11.1    4.0
+104    3086      D D-penicillamine 15712   F       N            N       N     N        1.1   303.000000     3.64  20.000000    2108.0 128.65      53.000000 349.000000         11.1    2.0
+105    3092     CL         Placebo 12433   F       N            Y       N     N        1.1   464.000000     4.20  38.000000    1644.0 151.90     102.000000 348.000000         10.3    3.0
+106    3222      D D-penicillamine 25023   F       Y            Y       N     N        2.1   369.510563     3.90  50.000000    1087.0 103.85     124.702128 137.000000         10.6    2.0
+107    3388      C         Placebo 22836   F       N            N       N     N        0.6   212.000000     4.03  10.000000     648.0  71.30      77.000000 316.000000         17.1    1.0
+108    2583      D D-penicillamine 18393   F       N            N       N     N        0.4   127.000000     3.50  14.000000    1062.0  49.60      84.000000 334.000000         10.3    2.0
+109    2504      C         Placebo 16094   F       N            N       N     N        0.5   120.000000     3.61  53.000000     804.0 110.05      52.000000 271.000000         10.6    3.0
+110    2105      D D-penicillamine 14212   F       N            Y       Y     N        1.9   486.000000     3.54  74.000000    1052.0 108.50     109.000000 141.000000         10.9    3.0
+111    2350     CL D-penicillamine 15031   F       N            N       N     N        5.5   528.000000     4.18  77.000000    2404.0 172.05      78.000000 467.000000         10.7    3.0
+112    3445      D         Placebo 20256   F       N            Y       Y     N        2.0   267.000000     3.67  89.000000     754.0 196.85      90.000000 136.000000         11.8    4.0
+113     980      D D-penicillamine 18713   F       N            Y       Y     N        6.7   374.000000     3.74 103.000000     979.0 128.65     100.000000 266.000000         11.1    4.0
+114    3395      D         Placebo 19295   M       N            N       N     N        3.2   259.000000     4.30 208.000000    1040.0 110.05      78.000000 268.000000         11.7    3.0
+115    3422      C         Placebo 15574   F       N            N       Y     N        0.7   303.000000     4.19  81.000000    1584.0 111.60     156.000000 307.000000         10.3    3.0
+116    3336      C D-penicillamine 22306   F       N            N       Y     S        3.0   458.000000     3.63  74.000000    1588.0 106.95     382.000000 438.000000          9.9    3.0
+117    1083      D D-penicillamine 18137   F       N            Y       Y     N        6.5   950.000000     3.11 111.000000    2374.0 170.50     149.000000 354.000000         11.0    4.0
+118    2288      D D-penicillamine 17844   F       N            Y       N     N        3.5   390.000000     3.30  67.000000     878.0 137.95      93.000000 207.000000         10.2    3.0
+119     515      D D-penicillamine 19817   F       N            N       Y     N        0.6   636.000000     3.83 129.000000     944.0  97.65     114.000000 306.000000          9.5    3.0
+120    2033     CL D-penicillamine 12839   M       N            N       N     N        3.5   325.000000     3.98 444.000000     766.0 130.20     210.000000 344.000000         10.6    3.0
+121     191      D         Placebo 24803   M       Y            Y       N     Y        1.3   151.000000     3.08  73.000000    1112.0  46.50      49.000000 213.000000         13.2    4.0
+122    3297      C D-penicillamine 20248   F       N            N       N     N        0.6   298.000000     4.13  29.000000     758.0  65.10      85.000000 256.000000         10.7    3.0
+123     971      D D-penicillamine 16736   F       N            Y       Y     Y        5.1   369.510563     3.23  18.000000     790.0 179.80     124.702128 104.000000         13.0    4.0
+124    3069      C D-penicillamine 19318   M       N            Y       N     N        0.6   251.000000     3.90  25.000000     681.0  57.35     107.000000 182.000000         10.8    4.0
+125    2468     CL         Placebo 17233   F       N            Y       N     N        1.3   316.000000     3.51  75.000000    1162.0 147.25     137.000000 238.000000         10.0    4.0
+126     824      D D-penicillamine 19577   F       Y            Y       Y     N        1.2   269.000000     3.12  97.648387    1441.0 165.85      68.000000 166.000000         11.1    4.0
+127    3255      C         Placebo 16109   F       N            N       N     N        0.5   268.000000     4.08   9.000000    1174.0  86.80      95.000000 453.000000         10.0    2.0
+128    1037      D D-penicillamine 15322   F       N            Y       Y     N       16.2   369.510563     2.89  42.000000    1828.0 299.15     124.702128 123.000000         12.6    4.0
+129    3239      C D-penicillamine 23235   F       N            Y       N     N        0.9   420.000000     3.87  30.000000    1009.0  57.35     232.000000 261.935065          9.7    3.0
+130    1413      D         Placebo 16154   F       N            Y       Y     N       17.4  1775.000000     3.43 205.000000    2065.0 165.85      97.000000 418.000000         11.5    3.0
+131     850      D         Placebo 22646   F       N            Y       Y     N        2.8   242.000000     3.80  74.000000     614.0 136.40     104.000000 121.000000         13.2    4.0
+132    2944      C D-penicillamine 14812   F       N            N       N     N        1.9   448.000000     3.83  60.000000    1052.0 127.10     175.000000 181.000000          9.8    3.0
+133    2796      D         Placebo 22881   M       N            N       N     N        1.5   331.000000     3.95  13.000000     577.0 128.65      99.000000 165.000000         10.1    4.0
+134    3149      C         Placebo 15463   F       N            N       N     N        0.7   578.000000     3.67  35.000000    1353.0 127.10     105.000000 427.000000         10.7    2.0
+135    3150      C D-penicillamine 15694   F       N            N       N     N        0.4   263.000000     3.57 123.000000     836.0  74.40     121.000000 445.000000         11.0    2.0
+136    3098      C D-penicillamine 20440   F       N            N       N     N        0.8   263.000000     3.35  27.000000    1636.0 116.25      69.000000 206.000000          9.8    2.0
+137    2990      C D-penicillamine 22960   F       N            N       N     N        1.1   399.000000     3.60  79.000000    3472.0 155.00     152.000000 344.000000         10.1    2.0
+138    1297      D D-penicillamine 18719   M       N            Y       N     N        7.3   426.000000     3.93 262.000000    2424.0 145.70     218.000000 252.000000         10.5    3.0
+139    2106      C         Placebo 17080   F       N            Y       N     N        1.1   328.000000     3.31 159.000000    1260.0  94.55     134.000000 142.000000         11.6    4.0
+140    3059      C D-penicillamine 19751   F       N            Y       N     N        1.1   290.000000     4.09  38.000000    2120.0 186.00     146.000000 318.000000         10.0    3.0
+141    3050      C D-penicillamine 17180   F       N            N       N     N        0.9   346.000000     3.77  59.000000     794.0 125.55      56.000000 336.000000         10.6    2.0
+142    2419      D         Placebo 20354   F       N            Y       N     N        1.0   364.000000     3.48  20.000000     720.0 134.85      88.000000 283.000000          9.9    2.0
+143     786      D         Placebo 16839   F       N            Y       N     N        2.9   332.000000     3.60  86.000000    1492.0 134.85     103.000000 277.000000         11.0    4.0
+144     943      D         Placebo 19098   F       N            Y       N     S       28.0   556.000000     3.26 152.000000    3896.0 198.40     171.000000 335.000000         10.0    3.0
+145    2976      C         Placebo 18701   F       N            N       Y     N        0.7   309.000000     3.84  96.000000     858.0  41.85     106.000000 253.000000         11.4    3.0
+146    2615      C         Placebo 12369   F       N            N       N     S        1.2   369.510563     3.89  58.000000    1284.0 173.60     124.702128 239.000000          9.4    3.0
+147    2995      C D-penicillamine 27398   F       N            N       N     S        1.2   288.000000     3.37  32.000000     791.0  57.35     114.000000 213.000000         10.7    2.0
+149     762      D D-penicillamine 22574   M       N            Y       Y     S        3.0   257.000000     3.79 290.000000    1664.0 102.30     112.000000 140.000000          9.9    4.0
+150    2891      C         Placebo 12779   F       N            N       Y     N        1.0   369.510563     3.63  57.000000    1536.0 134.85     124.702128 233.000000         10.0    1.0
+151    2870      C D-penicillamine 20104   F       N            N       N     N        0.9   460.000000     3.03  57.000000     721.0  85.25     174.000000 301.000000          9.4    2.0
+152    1152      D D-penicillamine 25546   M       N            Y       N     N        2.3   586.000000     3.01 243.000000    2276.0 114.70     126.000000 339.000000         10.9    3.0
+153    2863      C D-penicillamine 18118   F       N            N       N     N        0.5   217.000000     3.85  68.000000     453.0  54.25      68.000000 270.000000         11.1    1.0
+154     140      D D-penicillamine 25340   M       N            N       Y     Y        2.4   168.000000     2.56 225.000000    1056.0 120.90      75.000000 108.000000         14.1    3.0
+155    2666      C         Placebo 15909   F       N            Y       Y     S        0.6   220.000000     3.35  57.000000    1620.0 153.45      80.000000 311.000000         11.2    4.0
+156     853      D         Placebo 21699   F       N            Y       N     N       25.5   358.000000     3.52 219.000000    2468.0 201.50     205.000000 151.000000         11.5    2.0
+157    2835      C         Placebo 17809   F       N            N       N     N        0.6   286.000000     3.42  34.000000    1868.0  77.50     206.000000 487.000000         10.0    2.0
+158    2475     CL D-penicillamine 13329   F       N            N       N     N        3.4   450.000000     3.37  32.000000    1408.0 116.25     118.000000 313.000000         11.2    2.0
+159    1536      D         Placebo 16714   M       N            N       N     N        2.5   317.000000     3.46 217.000000     714.0 130.20     140.000000 207.000000         10.1    3.0
+160    2772      C         Placebo 20955   F       N            N       N     N        0.6   217.000000     3.62  13.000000     414.0  75.95     119.000000 224.000000         10.5    3.0
+161    2797      C         Placebo 15612   F       N            N       N     N        2.3   502.000000     3.56   4.000000     964.0 120.90     180.000000 269.000000          9.6    2.0
+162     186      D         Placebo 21483   F       N            Y       Y     N        3.2   260.000000     3.19  91.000000     815.0 127.10     101.000000 160.000000         12.0    4.0
+163    2055      D D-penicillamine 19540   F       N            N       N     N        0.3   233.000000     4.08  20.000000     622.0  66.65      68.000000 358.000000          9.9    3.0
+164     264      D         Placebo 15857   F       N            Y       Y     S        8.5   369.510563     3.34 161.000000    1428.0 181.35     124.702128  88.000000         13.3    4.0
+165    1077      D D-penicillamine 19470   M       N            Y       N     N        4.0   196.000000     3.45  80.000000    2496.0 133.30     142.000000 212.000000         11.3    4.0
+166    2721      C         Placebo 15105   F       N            Y       N     N        5.7  1480.000000     3.26  84.000000    1960.0 457.25     108.000000 213.000000          9.5    2.0
+167    1682      D D-penicillamine 22265   M       N            Y       N     N        0.9   376.000000     3.86 200.000000    1015.0  83.70     154.000000 238.000000         10.3    4.0
+168    2713      C         Placebo 17442   F       N            Y       N     N        0.4   257.000000     3.80  44.000000     842.0  97.65     110.000000 261.935065          9.2    2.0
+169    1212      D         Placebo 12963   F       N            N       N     N        1.3   408.000000     4.22  67.000000    1387.0 142.60     137.000000 295.000000         10.1    3.0
+170    2692      C D-penicillamine 17774   F       N            N       N     N        1.2   390.000000     3.61  32.000000    1509.0  88.35      52.000000 263.000000          9.0    3.0
+171    2574      C D-penicillamine 19237   F       N            N       N     N        0.5   369.510563     4.52  31.000000     784.0  74.40     124.702128 361.000000         10.1    3.0
+172    2301      C         Placebo 18215   F       N            N       Y     N        1.3   205.000000     3.34  65.000000    1031.0  91.45     126.000000 217.000000          9.8    3.0
+173    2657      C D-penicillamine 11058   F       N            Y       Y     N        3.0   236.000000     3.42  76.000000    1403.0  89.90      86.000000 493.000000          9.8    2.0
+174    2644      C D-penicillamine 20296   F       N            N       N     N        0.5   369.510563     3.85  63.000000     663.0  79.05     124.702128 311.000000          9.7    1.0
+175    2624      C         Placebo 19049   F       N            N       N     N        0.8   283.000000     3.80 152.000000     718.0 108.50     168.000000 340.000000         10.1    3.0
+176    1492      D D-penicillamine 15198   F       N            Y       Y     N        3.2   369.510563     3.56  77.000000    1790.0 139.50     124.702128 149.000000         10.1    4.0
+177    2609      C         Placebo 20254   F       N            N       N     N        0.9   258.000000     4.01  49.000000     559.0  43.40     133.000000 277.000000         10.4    2.0
+178    2580      C D-penicillamine 25569   F       N            N       N     N        0.6   369.510563     4.08  51.000000     665.0  74.40     124.702128 325.000000         10.2    4.0
+179    2573      C         Placebo 16050   F       N            Y       N     N        1.8   396.000000     3.83  39.000000    2148.0 102.30     133.000000 278.000000          9.9    4.0
+180    2563      C         Placebo 15548   F       N            N       N     N        4.7   478.000000     4.38  44.000000    1629.0 237.15      76.000000 175.000000         10.4    3.0
+181    2556      C D-penicillamine 16279   F       N            Y       Y     N        1.4   248.000000     3.58  63.000000     554.0  75.95     106.000000  79.000000         10.3    4.0
+182    2555      C D-penicillamine 20799   F       N            Y       N     N        0.6   369.510563     3.69 161.000000     674.0  26.35     124.702128 539.000000          9.9    2.0
+183    2241     CL         Placebo 14705   F       N            N       N     N        0.5   201.000000     3.73  44.000000    1345.0  54.25     145.000000 445.000000         10.1    2.0
+184     974      D         Placebo 13736   F       N            Y       N     N       11.0   674.000000     3.55 358.000000    2412.0 167.40     140.000000 471.000000          9.8    3.0
+185    2527      C D-penicillamine 17664   F       N            N       N     N        0.8   256.000000     3.54  42.000000    1132.0  74.40      94.000000 192.000000         10.5    3.0
+186    1576      D D-penicillamine 25873   F       N            N       Y     S        2.0   225.000000     3.53  51.000000     933.0  69.75      62.000000 200.000000         12.7    3.0
+187     733      D         Placebo 13073   F       N            Y       N     N       14.0   808.000000     3.43 251.000000    2870.0 153.45     137.000000 268.000000         11.5    3.0
+188    2332      C D-penicillamine 22873   F       N            Y       N     N        0.7   187.000000     3.48  41.000000     654.0 120.90      98.000000 164.000000         11.0    4.0
+189    2456      C         Placebo 18499   F       N            Y       N     N        1.3   360.000000     3.63  52.000000    1812.0  97.65     164.000000 256.000000          9.9    3.0
+190    2504      C D-penicillamine 19916   F       N            N       Y     N        2.3   369.510563     3.93  24.000000    1828.0 133.30     124.702128 327.000000         10.2    2.0
+191     216      D         Placebo 19246   F       Y            Y       Y     N       24.5  1092.000000     3.35 233.000000    3740.0 147.25     432.000000 399.000000         15.2    4.0
+192    2443      C D-penicillamine 19256   F       N            Y       N     N        0.9   308.000000     3.69  67.000000     696.0  51.15     101.000000 344.000000          9.8    4.0
+193     797      D         Placebo 20736   F       N            N       N     N       10.8   932.000000     3.19 267.000000    2184.0 161.20     157.000000 382.000000         10.4    4.0
+194    2449      C D-penicillamine 16216   F       N            N       N     N        1.5   293.000000     4.30  50.000000     975.0 125.55      56.000000 336.000000          9.1    2.0
+195    2330      C D-penicillamine 10795   F       N            Y       N     N        3.7   347.000000     3.90  76.000000    2544.0 221.65      90.000000 129.000000         11.5    4.0
+196    2363      C D-penicillamine 20834   F       N            Y       Y     N        1.4   226.000000     3.36  13.000000     810.0  72.85      62.000000 117.000000         11.6    4.0
+197    2365      C D-penicillamine 16300   F       N            N       N     N        0.6   266.000000     3.97  25.000000    1164.0 102.30     102.000000 201.000000         10.1    2.0
+198    2357      C         Placebo 13075   F       N            N       Y     N        0.7   286.000000     2.90  38.000000    1692.0 141.05      90.000000 381.000000          9.6    2.0
+199    1592      C D-penicillamine 14872   F       N            N       N     N        2.1   392.000000     3.43  52.000000    1395.0 184.45     194.000000 328.000000         10.2    3.0
+200    2318      C         Placebo 11773   F       N            N       Y     N        4.7   236.000000     3.55 112.000000    1391.0 137.95     114.000000 332.000000          9.9    3.0
+201    2294      C         Placebo 15009   F       N            Y       N     N        0.6   235.000000     3.20  26.000000    1758.0 106.95      67.000000 228.000000         10.8    4.0
+202    2272      C D-penicillamine 22514   F       N            N       N     N        0.5   223.000000     3.80  15.000000    1044.0  80.60      89.000000 514.000000         10.0    2.0
+203    2221      C         Placebo 13535   F       N            Y       N     N        0.5   149.000000     4.04 227.000000     598.0  52.70      57.000000 166.000000          9.9    2.0
+204    2090      D         Placebo 22857   F       N            N       N     N        0.7   255.000000     3.74  23.000000    1024.0  77.50      58.000000 281.000000         10.2    3.0
+205    2081      D D-penicillamine 17889   F       Y            N       N     N        2.5   382.000000     3.55 108.000000    1516.0 238.70     124.702128 126.000000         10.3    3.0
+207    2171      C D-penicillamine 26580   F       N            N       N     S        0.6   369.510563     3.33  14.000000     733.0  85.25     124.702128 259.000000         10.1    4.0
+208     904      D D-penicillamine 22388   F       N            Y       N     N        3.9   396.000000     3.20  58.000000    1440.0 153.45     131.000000 156.000000         10.0    4.0
+209    2216      C         Placebo 19221   F       N            Y       Y     N        0.7   252.000000     4.01  11.000000    1210.0  72.85      58.000000 309.000000          9.5    2.0
+210    2224      C         Placebo 18176   M       N            Y       N     N        0.9   346.000000     3.37  81.000000    1098.0 122.45      90.000000 298.000000         10.0    2.0
+211    2195      C         Placebo 19327   F       N            N       N     N        1.3   369.510563     3.76  27.000000    1282.0 100.75     124.702128 114.000000         10.3    3.0
+212    2176      C         Placebo 17263   F       N            N       N     N        1.2   232.000000     3.98  11.000000    1074.0 100.75      99.000000 223.000000          9.9    3.0
+213    2178      C D-penicillamine 18337   F       N            N       Y     N        0.5   400.000000     3.40   9.000000    1134.0  96.10      55.000000 356.000000         10.2    3.0
+214    1786      D         Placebo 25329   F       N            Y       N     N        0.9   404.000000     3.43  34.000000    1866.0  79.05     224.000000 236.000000          9.9    3.0
+215    1080      D         Placebo 15037   F       N            N       N     N        5.9  1276.000000     3.85 141.000000    1204.0 203.05     157.000000 216.000000         10.7    3.0
+216    2168      C D-penicillamine 21610   F       N            N       N     N        0.5   369.510563     3.68  20.000000     856.0  55.80     124.702128 146.000000         10.4    3.0
+217     790      D         Placebo 13178   F       N            Y       N     N       11.4   608.000000     3.31  65.000000    1790.0 151.90     210.000000 298.000000         10.8    4.0
+218    2170      C D-penicillamine 12636   F       N            N       N     N        0.5   369.510563     3.89  29.000000     897.0  66.65     124.702128 423.000000         10.1    1.0
+219    2157      C         Placebo 15601   F       N            N       N     N        1.6   215.000000     4.17  67.000000     936.0 134.85      85.000000 176.000000          9.6    3.0
+220    1235      D D-penicillamine 23241   F       N            N       Y     N        3.8   426.000000     3.22  96.000000    2716.0 210.80     113.000000 228.000000         10.6    2.0
+221    2050      C         Placebo 20684   F       N            Y       N     N        0.9   360.000000     3.65  72.000000    3186.0  94.55     154.000000 269.000000          9.7    4.0
+222     597      D         Placebo 16898   F       N            Y       N     N        4.5   372.000000     3.38 227.000000    2310.0 167.40     135.000000 240.000000         12.4    3.0
+223     334      D D-penicillamine 22369   F       Y            Y       N     Y       14.1   448.000000     2.43 123.000000    1833.0 134.00     155.000000 210.000000         11.0    4.0
+224    1945      C D-penicillamine 14106   F       N            N       N     N        1.0   309.000000     3.66  67.000000    1214.0 158.10     101.000000 309.000000          9.7    3.0
+225    2022      C D-penicillamine 14161   F       N            N       N     N        0.7   274.000000     3.66 108.000000    1065.0  88.35     135.000000 251.000000         10.1    2.0
+226    1978      C         Placebo 20708   F       N            Y       N     N        0.5   223.000000     3.70  39.000000     884.0  75.95     104.000000 231.000000          9.6    3.0
+227     999      D D-penicillamine 21532   M       N            N       N     N        2.3   316.000000     3.35 172.000000    1601.0 179.80      63.000000 394.000000          9.7    2.0
+228    1967      C         Placebo 13486   F       N            N       N     N        0.7   215.000000     3.35  41.000000     645.0  93.00      74.000000 165.000000          9.6    3.0
+229     348      D D-penicillamine 22797   F       Y            Y       N     S        4.5   191.000000     3.05 200.000000    1020.0 175.15     118.000000 139.000000         11.4    4.0
+230    1979      C         Placebo 12641   F       N            Y       Y     N        3.3   302.000000     3.41  51.000000     310.0  83.70      44.000000  95.000000         11.5    4.0
+231    1165      D         Placebo 21307   F       N            Y       Y     N        3.4   518.000000     1.96 115.000000    2250.0 203.05      90.000000 190.000000         10.7    4.0
+232    1951      C D-penicillamine 18329   F       N            Y       N     N        0.4   267.000000     3.02  47.000000    1001.0 133.30      87.000000 265.000000         10.6    3.0
+233    1932      C D-penicillamine 15591   F       N            Y       Y     N        0.9   514.000000     3.06 412.000000    2622.0 105.40      87.000000 284.000000          9.8    4.0
+234    1776      C         Placebo 12557   F       N            N       N     N        0.9   578.000000     3.35  78.000000     976.0 116.25     177.000000 322.000000         11.2    2.0
+235    1882      C         Placebo 12120   F       N            Y       N     N       13.0  1336.000000     4.16  71.000000    3510.0 209.25     111.000000 338.000000         11.9    3.0
+236    1908      C D-penicillamine 14019   F       N            Y       Y     N        1.5   253.000000     3.79  67.000000    1006.0 139.50     106.000000 341.000000          9.7    3.0
+237    1882      C D-penicillamine 21828   F       N            Y       N     N        1.6   442.000000     2.95 105.000000     820.0  85.25     108.000000 181.000000         10.1    3.0
+238    1874      C         Placebo 24257   F       N            N       N     S        0.6   280.000000     3.35  97.648387    1093.0 128.65      81.000000 295.000000          9.8    2.0
+239     694      D D-penicillamine 17090   F       N            Y       Y     N        0.8   300.000000     2.94 231.000000    1794.0 130.20      99.000000 319.000000         11.2    4.0
+240    1831      C D-penicillamine 20483   F       N            N       N     N        0.4   232.000000     3.72  24.000000     369.0  51.15     139.000000 326.000000         10.1    3.0
+241     837     CL         Placebo 15112   F       N            Y       Y     N        4.4   316.000000     3.62 308.000000    1119.0 114.70     322.000000 282.000000          9.8    4.0
+242    1810      C D-penicillamine 23585   F       N            Y       N     N        1.9   354.000000     2.97  86.000000    1553.0 196.85     152.000000 277.000000          9.9    3.0
+243     930      D         Placebo 24650   F       N            Y       N     N        8.0   468.000000     2.81 139.000000    2009.0 198.40     139.000000 233.000000         10.0    4.0
+244    1690      D D-penicillamine 16374   F       N            N       Y     N        3.9   350.000000     3.22 121.000000    1268.0 272.80     231.000000 270.000000          9.6    3.0
+245    1790      C         Placebo 16718   F       N            Y       N     N        0.6   273.000000     3.65  48.000000     794.0  52.70     214.000000 305.000000          9.6    3.0
+246    1435     CL D-penicillamine 12035   F       N            Y       N     N        2.1   387.000000     3.77  63.000000    1613.0 150.35      33.000000 185.000000         10.1    4.0
+247     732     CL D-penicillamine 15056   F       N            Y       N     N        6.1  1712.000000     2.83  89.000000    3681.0 158.10     139.000000 297.000000         10.0    3.0
+248    1785      C         Placebo 20241   F       N            Y       N     N        0.8   324.000000     3.51  39.000000    1237.0  66.65     146.000000 371.000000         10.0    3.0
+249    1783      C D-penicillamine 17525   F       N            N       Y     N        1.3   242.000000     3.20  35.000000    1556.0 175.15      71.000000 195.000000         10.6    4.0
+250    1769      C         Placebo 14899   F       N            Y       N     N        0.6   299.000000     3.36  23.000000    2769.0 220.10      85.000000 303.000000         10.9    4.0
+251    1457      C D-penicillamine 20810   F       N            N       N     N        0.5   227.000000     3.61  40.000000     676.0  83.00     120.000000 249.000000          9.9    2.0
+252    1770      C D-penicillamine 25006   F       N            Y       Y     N        1.1   246.000000     3.35 116.000000     924.0 113.15      90.000000 317.000000         10.0    4.0
+253    1765      C D-penicillamine 28650   M       Y            Y       Y     N        7.1   243.000000     3.03 380.000000     983.0 158.10     154.000000  97.000000         11.2    4.0
+254     737     CL D-penicillamine 14558   F       N            Y       Y     N        3.1   227.000000     3.75 121.000000    1136.0 110.00      91.000000 264.000000         10.0    3.0
+255    1735      C         Placebo 12897   F       N            Y       Y     N        0.7   193.000000     3.85  35.000000     466.0  53.00     118.000000 156.000000         10.3    3.0
+256    1701      C D-penicillamine 11485   F       N            N       N     N        1.1   336.000000     3.74  48.000000     823.0  84.00     108.000000 242.000000          9.7    3.0
+257    1614      C D-penicillamine 21281   F       N            N       N     N        0.5   280.000000     4.23  36.000000     377.0  56.00     146.000000 227.000000         10.6    2.0
+258    1702      C D-penicillamine 18806   F       N            N       N     N        1.1   414.000000     3.44  80.000000    1003.0  99.00      55.000000 271.000000          9.6    1.0
+259    1615      C         Placebo 21904   F       N            Y       N     N        3.1   277.000000     2.97  42.000000    1110.0 125.00     126.000000 221.000000          9.8    3.0
+260    1656      C         Placebo 27220   M       N            Y       N     N        5.6   232.000000     3.59 188.000000    1120.0  98.00     128.000000 248.000000         10.9    4.0
+261    1677      C         Placebo 19126   F       N            Y       Y     N        3.2   375.000000     3.14 129.000000     857.0  89.00     124.702128 375.000000          9.5    3.0
+262    1666      C         Placebo 15628   F       N            Y       N     N        2.8   322.000000     3.06  65.000000    2562.0  91.00     209.000000 231.000000          9.5    3.0
+263    1301     CL         Placebo 12738   F       N            Y       Y     S        1.1   432.000000     3.57  45.000000    1406.0 190.00      77.000000 248.000000         11.4    4.0
+264    1542     CL         Placebo 16122   F       N            Y       Y     N        3.4   356.000000     3.12 188.000000    1911.0  92.00     130.000000 318.000000         11.2    3.0
+265    1084     CL         Placebo 16941   F       N            Y       N     N        3.5   348.000000     3.20 121.000000     938.0 120.00     146.000000 296.000000         10.0    4.0
+266    1614      C D-penicillamine 20567   F       N            N       N     N        0.5   318.000000     3.32  52.000000     613.0  70.00     260.000000 279.000000         10.2    3.0
+267     179      D D-penicillamine 25899   F       Y            Y       Y     Y        6.6   222.000000     2.33 138.000000     620.0 106.00      91.000000 195.000000         12.1    4.0
+268    1191      D D-penicillamine 20233   F       Y            Y       N     S        6.4   344.000000     2.75  16.000000     834.0  82.00     179.000000 149.000000         11.0    4.0
+269    1363      C         Placebo 16467   F       N            N       N     N        3.6   374.000000     3.50 143.000000    1428.0 188.00      44.000000 151.000000         10.1    2.0
+270    1568      C D-penicillamine  9598   F       N            Y       Y     N        1.0   448.000000     3.74 102.000000    1128.0  71.00     117.000000 228.000000         10.2    3.0
+271    1569      C         Placebo 18435   F       N            Y       N     N        1.0   321.000000     3.50  94.000000     955.0 111.00     177.000000 289.000000          9.7    3.0
+272    1525      C D-penicillamine 14025   F       N            N       N     N        0.5   226.000000     2.93  22.000000     674.0  58.00      85.000000 153.000000          9.8    1.0
+273    1558      C         Placebo 17320   F       N            N       Y     N        2.2   328.000000     3.46  75.000000    1677.0  87.00     116.000000 202.000000          9.6    3.0
+274    1447     CL D-penicillamine 17525   F       N            N       N     N        1.6   369.510563     3.07 136.000000    1995.0 128.00     124.702128 372.000000          9.6    4.0
+275    1349      C D-penicillamine 13995   F       N            N       N     N        2.2   572.000000     3.77  77.000000    2520.0  92.00     114.000000 309.000000          9.5    4.0
+276    1481      C D-penicillamine 18302   F       N            N       N     N        1.0   219.000000     3.85  67.000000     640.0 145.00     108.000000  95.000000         10.7    2.0
+277    1434      C         Placebo 12816   F       N            N       N     S        1.0   317.000000     3.56  44.000000    1636.0  84.00     111.000000 394.000000          9.8    3.0
+278    1420      C         Placebo 11872   F       N            N       N     N        5.6   338.000000     3.70 130.000000    2139.0 185.00     193.000000 215.000000          9.9    4.0
+279    1433      C         Placebo 20510   F       N            N       N     N        0.5   198.000000     3.77  38.000000     911.0  57.00      56.000000 280.000000          9.8    2.0
+280    1412      C D-penicillamine 16858   F       N            N       N     N        1.6   325.000000     3.69  69.000000    2583.0 142.00     140.000000 284.000000          9.6    3.0
+281      41      D D-penicillamine 24064   F       Y            N       N     Y       17.9   175.000000     2.10 220.000000     705.0 338.00     229.000000  62.000000         12.9    4.0
+282    1455      C         Placebo 12398   F       N            Y       N     N        1.3   304.000000     3.52  97.000000    1622.0  71.00     169.000000 255.000000          9.5    4.0
+283    1030      C         Placebo 22960   F       N            N       N     N        1.1   412.000000     3.99 103.000000    1293.0  91.00     113.000000 422.000000          9.6    4.0
+284    1418      C         Placebo 17738   F       N            N       N     N        1.3   291.000000     3.44  75.000000    1082.0  85.00     195.000000 251.000000          9.5    3.0
+285    1401      C D-penicillamine 16929   F       N            N       N     N        0.8   253.000000     3.48  65.000000     688.0  57.00      80.000000 252.000000         10.0    1.0
+286    1408      C D-penicillamine 14191   F       N            Y       Y     N        2.0   310.000000     3.36  70.000000    1257.0 122.00     118.000000 143.000000          9.8    3.0
+287    1234      C D-penicillamine 21421   F       N            N       Y     N        6.4   373.000000     3.46 155.000000    1768.0 120.00     151.000000 258.000000         10.1    4.0
+288    1067     CL         Placebo 17874   F       N            Y       N     S        8.7   310.000000     3.89 107.000000     637.0 117.00     242.000000 298.000000          9.6    2.0
+289     799      D D-penicillamine 24681   M       N            Y       N     S        4.0   416.000000     3.99 177.000000     960.0  86.00     242.000000 269.000000          9.8    2.0
+290    1363      C D-penicillamine 24101   F       N            N       N     N        1.4   294.000000     3.57  33.000000     722.0  93.00      69.000000 283.000000          9.8    3.0
+291     901     CL D-penicillamine 14939   F       N            N       N     N        3.2   339.000000     3.18 123.000000    3336.0 205.00      84.000000 304.000000          9.9    4.0
+292    1329      C         Placebo 18352   M       N            Y       N     N        8.6   546.000000     3.73  84.000000    1070.0 127.00     153.000000 291.000000         11.2    3.0
+293    1320      C         Placebo 20891   F       N            Y       Y     Y        8.5   194.000000     2.98 196.000000     815.0 163.00      78.000000 122.000000         12.3    4.0
+294    1302      C D-penicillamine 22111   M       N            Y       N     N        6.6  1000.000000     3.07  88.000000    3150.0 193.00     133.000000 299.000000         10.9    4.0
+295     877     CL D-penicillamine 12912   M       N            N       N     N        2.4   646.000000     3.83 102.000000     855.0 127.00     194.000000 306.000000         10.3    3.0
+296    1321      C         Placebo 11462   F       N            N       N     N        0.8   328.000000     3.31  62.000000    1105.0 137.00      95.000000 293.000000         10.9    4.0
+297     533     CL D-penicillamine 20449   M       N            Y       N     N        1.2   275.000000     3.43 100.000000    1142.0  75.00      91.000000 217.000000         11.3    4.0
+298    1300      C         Placebo 19258   F       N            Y       N     N        1.1   340.000000     3.37  73.000000     289.0  97.00      93.000000 243.000000         10.2    3.0
+299    1293      C D-penicillamine 13913   F       N            N       N     N        2.4   342.000000     3.76  90.000000    1653.0 150.00     127.000000 213.000000         10.8    3.0
+300     207      D         Placebo 21247   F       N            Y       N     N        5.2   369.510563     2.23 234.000000     601.0 135.00     124.702128 206.000000         12.3    4.0
+301    1295      C         Placebo 16513   F       N            N       N     N        1.0   393.000000     3.57  50.000000    1307.0  74.00     103.000000 295.000000         10.5    4.0
+302    1271      C D-penicillamine 13806   F       N            N       N     N        0.7   335.000000     3.95  43.000000     657.0  52.00     104.000000 268.000000         10.6    2.0
+303    1250      C         Placebo 22156   F       N            Y       Y     N        1.0   372.000000     3.25 108.000000    1190.0 140.00      55.000000 248.000000         10.6    4.0
+304    1230      C D-penicillamine 12979   F       N            N       N     N        0.5   219.000000     3.93  22.000000     663.0  45.00      75.000000 246.000000         10.8    3.0
+306    1216      C         Placebo 20597   F       N            Y       N     N        0.6   239.000000     3.45  31.000000    1072.0  55.00      64.000000 227.000000         10.7    2.0
+307    1149      C         Placebo 11167   F       N            N       N     N        0.8   273.000000     3.56  52.000000    1282.0 130.00      59.000000 344.000000         10.5    2.0
+308    1153      C D-penicillamine 22347   F       N            Y       N     N        0.4   246.000000     3.58  24.000000     797.0  91.00     113.000000 288.000000         10.4    2.0
+309     994      C         Placebo 21294   F       N            N       N     N        0.4   260.000000     2.75  41.000000    1166.0  70.00      82.000000 231.000000         10.8    2.0
+310     939      C D-penicillamine 22767   F       N            N       N     N        1.7   434.000000     3.35  39.000000    1713.0 171.00     100.000000 234.000000         10.2    2.0
+311     839      C D-penicillamine 13879   F       N            N       N     N        2.0   247.000000     3.16  69.000000    1050.0 117.00      88.000000 335.000000         10.5    2.0
+312     788      C         Placebo 12109   F       N            N       Y     N        6.4   576.000000     3.79 186.000000    2115.0 136.00     149.000000 200.000000         10.8    2.0
+
+Dataset bersih telah disimpan di: /content/drive/MyDrive/PendatUTS/cirrhosis_cleaned.csv
+</pre></div>
+</div>
+</div>
+</div>
+<p>Kode ini bertujuan untuk melakukan <strong>preprocessing dan deteksi outlier</strong> pada dataset <strong>Cirrhosis</strong> menggunakan <strong>Google Colab</strong>. Pertama,  untuk memuatnya ke dalam dataframe <code class="docutils literal notranslate"><span class="pre">df</span></code>. Langkah awal preprocessing meliputi <strong>menghapus baris dengan missing values pada kolom <code class="docutils literal notranslate"><span class="pre">Drug</span></code></strong> menggunakan <code class="docutils literal notranslate"><span class="pre">dropna()</span></code>
+, karena kolom ini penting dalam analisis. Kemudian, dilakukan <strong>imputasi missing values</strong> dengan <strong>nilai rata-rata</strong> pada semua kolom numerik, memastikan tidak ada nilai kosong yang dapat memengaruhi model. Setelah data dibersihkan, dilakukan <strong>deteksi outlier menggunakan Local Outlier Factor (LOF)</strong> dengan parameter <code class="docutils literal notranslate"><span class="pre">n_neighbors=20</span></code> dan <code class="docutils literal notranslate"><span class="pre">contamination=0.05</span></code>, yang menetapkan bahwa 5% data dianggap sebagai outlier. Hasil LOF ditambahkan sebagai kolom <code class="docutils literal notranslate"><span class="pre">&quot;Outlier&quot;</span></code>, dengan nilai <code class="docutils literal notranslate"><span class="pre">-1</span></code> menunjukkan outlier dan <code class="docutils literal notranslate"><span class="pre">1</span></code> menunjukkan data normal. Baris dengan outlier dihapus untuk memastikan dataset lebih bersih sebelum digunakan dalam pemodelan. Akhirnya, jumlah data setelah preprocessing serta jumlah missing values setelah imputasi ditampilkan, dan dataset hasil preprocessing disimpan ke Google Drive sebagai <strong>cirrhosis_cleaned.csv</strong>, siap digunakan untuk tahap selanjutnya seperti pemodelan klasifikasi</p>
+</section>
+<section id="data-modelling">
+<h2>Data Modelling<a class="headerlink" href="#data-modelling" title="Link to this heading">#</a></h2>
+<p>Sebelum melakukan data modelling kita masih melakukan preprocessing one hot encoding untuk fitur kategorical, saya tidak melakukan ini di kode sebelum nya untuk alasan kemudahan membaca kode dan membaca dataset bersih di file lain</p>
+<p>setelah dataset sudah kita encoding kita lakukan KNN Classification untuk melihat kemungkinan</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import library yang diperlukan</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">OneHotEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span>
+
+<span class="c1"># Load dataset dari Google Drive</span>
+<span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;/content/drive/MyDrive/PendatUTS/cirrhosis_cleaned.csv&quot;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+<span class="c1"># --- 1. Preprocessing Data ---</span>
+<span class="c1"># Pisahkan fitur dan target</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ID&quot;</span><span class="p">,</span> <span class="s2">&quot;Status&quot;</span><span class="p">])</span>  <span class="c1"># ID dihapus karena hanya identitas</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Status&quot;</span><span class="p">]</span>
+
+<span class="c1"># Encoding fitur kategori</span>
+<span class="n">categorical_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Drug&quot;</span><span class="p">,</span> <span class="s2">&quot;Sex&quot;</span><span class="p">,</span> <span class="s2">&quot;Ascites&quot;</span><span class="p">,</span> <span class="s2">&quot;Hepatomegaly&quot;</span><span class="p">,</span> <span class="s2">&quot;Spiders&quot;</span><span class="p">,</span> <span class="s2">&quot;Edema&quot;</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">categorical_cols</span><span class="p">,</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Normalisasi fitur numerik</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># --- 2. Split Data Training &amp; Testing ---</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># --- 3. Model Klasifikasi dengan KNN ---</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># Pilih jumlah tetangga</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Prediksi pada data uji</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># --- 4. Evaluasi Model ---</span>
+<span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Akurasi Model KNN: </span><span class="si">{</span><span class="n">accuracy</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Laporan Klasifikasi:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+
+<span class="c1"># --- 5. Visualisasi Akurasi Berdasarkan Jumlah Tetangga ---</span>
+<span class="n">neighbors_range</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">21</span><span class="p">)</span>
+<span class="n">accuracy_scores</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">neighbors_range</span><span class="p">:</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">y_pred_k</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="n">accuracy_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_k</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">neighbors_range</span><span class="p">,</span> <span class="n">accuracy_scores</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Jumlah Tetangga (K)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Akurasi&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Akurasi KNN Berdasarkan Nilai K&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Akurasi Model KNN: 66.67%
+
+Laporan Klasifikasi:
+              precision    recall  f1-score   support
+
+           C       0.67      0.89      0.77        35
+          CL       0.00      0.00      0.00         4
+           D       0.69      0.43      0.53        21
+
+    accuracy                           0.67        60
+   macro avg       0.46      0.44      0.43        60
+weighted avg       0.64      0.67      0.63        60
+</pre></div>
+</div>
+<img alt="_images/4865eb23a0d8d4074b9c319c02872e5dec63a6823425d74d4b4125399106bd79.png" src="_images/4865eb23a0d8d4074b9c319c02872e5dec63a6823425d74d4b4125399106bd79.png" />
+</div>
+</div>
+</section>
+<section id="hasil-prediksi">
+<h2>Hasil Prediksi<a class="headerlink" href="#hasil-prediksi" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Buat dataframe hasil prediksi</span>
+<span class="n">df_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>  <span class="c1"># Gunakan X_test yang sudah diproses</span>
+<span class="n">df_test</span><span class="p">[</span><span class="s2">&quot;Actual Survival State&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">values</span>   <span class="c1"># Masukkan label asli</span>
+<span class="n">df_test</span><span class="p">[</span><span class="s2">&quot;Predicted Survival State&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_pred</span>      <span class="c1"># Masukkan hasil prediksi dari model KNN</span>
+
+<span class="c1"># Tampilkan hasil prediksi survival pasien dengan fitur utama</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Hasil Prediksi Survival Pasien:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_test</span><span class="p">[[</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="s2">&quot;Bilirubin&quot;</span><span class="p">,</span> <span class="s2">&quot;Albumin&quot;</span><span class="p">,</span> <span class="s2">&quot;Stage&quot;</span><span class="p">,</span> <span class="s2">&quot;Actual Survival State&quot;</span><span class="p">,</span> <span class="s2">&quot;Predicted Survival State&quot;</span><span class="p">]])</span>
+<span class="c1"># print(df_test[[&quot;Age&quot;, &quot;Bilirubin&quot;, &quot;Albumin&quot;, &quot;Stage&quot;, &quot;Actual Survival State&quot;, &quot;Predicted Survival State&quot;]].head(20))  # Tampilkan 20 data pertama</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hasil Prediksi Survival Pasien:
+         Age  Bilirubin   Albumin     Stage Actual Survival State  \
+0   1.515027  -0.413713  0.123544 -0.054696                     C   
+1  -0.138255  -0.457062  0.218837 -0.054696                     C   
+2  -2.025928  -0.500410  0.600011 -2.367549                     C   
+3  -0.120747  -0.500410  0.433247 -0.054696                     C   
+4  -1.433809  -0.500410  0.099720 -0.054696                     C   
+5   1.951669   2.013795 -1.853797  1.101731                     D   
+6   1.053823  -0.543758  0.719128  1.101731                     D   
+7   0.676236   1.125153 -1.282036  1.101731                     C   
+8   0.249523  -0.478736 -0.352924 -0.054696                     C   
+9   1.755951  -0.261994  0.909715 -1.211122                     D   
+10  0.323211  -0.652129  1.338536 -0.054696                     D   
+11  0.843733  -0.218646 -0.400571 -1.211122                     D   
+12  0.172699   1.103479  1.124126  1.101731                     D   
+13 -1.501487  -0.522084 -0.400571 -1.211122                     C   
+14 -1.680482   0.496602  0.433247  1.101731                     C   
+15  0.789381  -0.522084 -0.281454 -0.054696                     C   
+16  0.330267  -0.218646 -0.805568 -0.054696                     D   
+17  1.751509  -0.478736 -0.400571  1.101731                     C   
+18 -0.504083   0.128141 -0.710275 -0.054696                     D   
+19 -1.550613  -0.457062  0.885892 -0.054696                     C   
+20 -1.299759   0.019770 -0.352924 -1.211122                    CL   
+21  0.652195  -0.587107  0.409424 -1.211122                     C   
+22  1.035270  -0.522084  0.814422  1.101731                     D   
+23  1.184475  -0.587107  1.219419 -2.367549                     C   
+24 -0.573329  -0.608781  1.338536 -1.211122                     C   
+25  1.541158  -0.543758  1.100302 -0.054696                     D   
+26 -0.978614  -0.045252  0.552364 -0.054696                    CL   
+27  1.984855   0.713344 -2.830556  1.101731                     D   
+28 -0.166998  -0.543758  0.052073 -0.054696                     C   
+29 -0.860765  -0.587107 -0.757922  1.101731                     C   
+30  0.239855  -0.565432  1.171772 -1.211122                     C   
+31 -1.286955  -0.001904  0.028250  1.101731                     D   
+32  1.555791  -0.587107 -0.400571 -1.211122                     C   
+33  0.006770  -0.630455 -1.186742 -0.054696                     C   
+34  0.008861  -0.608781 -0.281454 -0.054696                     C   
+35 -1.224764  -0.478736  2.100884 -0.054696                     D   
+36 -0.523419  -0.587107  1.076479 -1.211122                     C   
+37  1.196234  -0.392039  1.028832  1.101731                     D   
+38 -0.467761  -0.500410  0.123544  1.101731                     C   
+39 -1.480844  -0.608781  0.885892 -2.367549                     C   
+40  1.290304   0.106467 -0.710275 -1.211122                     D   
+41 -0.545369  -0.392039  1.862650 -1.211122                     C   
+42  0.249001  -0.522084  0.409424  1.101731                     C   
+43 -0.279621  -0.435387 -0.019397  1.101731                    CL   
+44 -1.108744  -0.565432  0.195014 -2.367549                     C   
+45  1.380194  -0.305342 -1.305859 -0.054696                     C   
+46  0.413101   3.964470 -0.495864  1.101731                     D   
+47 -0.429872   0.366557 -0.114690  1.101731                     D   
+48  0.517623  -0.500410  1.362359 -0.054696                     C   
+49  0.421462  -0.218646  0.981185 -1.211122                     C   
+50 -0.588746  -0.327016  0.742951  1.101731                     C   
+51 -0.625590  -0.587107 -0.400571  1.101731                     C   
+52  0.186026  -0.543758  0.433247 -1.211122                     C   
+53  0.558909   3.054155 -1.377329  1.101731                     D   
+54  0.215031  -0.023578 -0.900862 -0.054696                     C   
+55  0.182629   0.409906  0.385601 -0.054696                     D   
+56  0.600196  -0.587107  2.672645 -1.211122                     C   
+57 -0.415239  -0.175297 -0.138514 -0.054696                     D   
+58  0.108679   0.865063  0.981185 -0.054696                     D   
+59 -0.855016   0.474928  1.576770 -0.054696                    CL   
+
+   Predicted Survival State  
+0                         C  
+1                         C  
+2                         C  
+3                         C  
+4                         C  
+5                         D  
+6                         D  
+7                         D  
+8                         C  
+9                         C  
+10                        C  
+11                        C  
+12                        D  
+13                        C  
+14                        C  
+15                        C  
+16                        D  
+17                        D  
+18                        C  
+19                        C  
+20                        C  
+21                        C  
+22                        C  
+23                        C  
+24                        C  
+25                        C  
+26                        C  
+27                        D  
+28                        C  
+29                        C  
+30                        C  
+31                        D  
+32                        C  
+33                        D  
+34                        C  
+35                        C  
+36                        C  
+37                        C  
+38                        C  
+39                        C  
+40                        C  
+41                        C  
+42                        C  
+43                        C  
+44                        C  
+45                        D  
+46                        D  
+47                        C  
+48                        C  
+49                        C  
+50                        C  
+51                        C  
+52                        C  
+53                        D  
+54                        C  
+55                        D  
+56                        C  
+57                        C  
+58                       CL  
+59                        C  
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Klasifikasi.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><strong>Klasifikasi pada Iris dataset</strong></p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Tugas6Clustering.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Clustering Iris dataset dengan K- Mean</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preparation"><strong>Data Preparation</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-modelling">Data Modelling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-prediksi">Hasil Prediksi</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vio
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
