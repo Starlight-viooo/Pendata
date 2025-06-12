@@ -1,10 +1,17 @@
 Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/dist-packages/jupyter_core/utils/__init__.py", line 154, in wrapped
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
   File "/usr/local/lib/python3.11/dist-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
     executenb(
   File "/usr/local/lib/python3.11/dist-packages/nbclient/client.py", line 1319, in execute
     return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+  File "/usr/local/lib/python3.11/dist-packages/jupyter_core/utils/__init__.py", line 158, in wrapped
     return loop.run_until_complete(inner)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/usr/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
@@ -102,7 +109,7 @@ for iteration in range(n_iterations):
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mNameError[0m                                 Traceback (most recent call last)
-[0;32m<ipython-input-1-b67e183abedc>[0m in [0;36m<cell line: 0>[0;34m()[0m
+[0;32m<ipython-input-1-1135325132>[0m in [0;36m<cell line: 0>[0;34m()[0m
 [1;32m     60[0m     [0;31m# 1. Hitung pusat cluster[0m[0;34m[0m[0;34m[0m[0m
 [1;32m     61[0m     [0mcentroids[0m [0;34m=[0m [0mcompute_centroids[0m[0;34m([0m[0mU[0m[0;34m,[0m [0mdata[0m[0;34m,[0m [0mm[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 [0;32m---> 62[0;31m     [0mcentroids_df[0m [0;34m=[0m [0mpd[0m[0;34m.[0m[0mDataFrame[0m[0;34m([0m[0mcentroids[0m[0;34m,[0m [0mcolumns[0m[0;34m=[0m[0;34m[[0m[0;34m"x"[0m[0;34m,[0m [0;34m"y"[0m[0;34m][0m[0;34m,[0m [0mindex[0m[0;34m=[0m[0;34m[[0m[0;34mf"C{j+1}"[0m [0;32mfor[0m [0mj[0m [0;32min[0m [0mrange[0m[0;34m([0m[0mn_clusters[0m[0;34m)[0m[0;34m][0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
