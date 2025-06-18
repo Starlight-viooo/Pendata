@@ -191,6 +191,7 @@
 <li class="toctree-l1"><a class="reference internal" href="C-Means%20Clustering.html">Fuzzy C-Mean Clustering</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="decisiontree.html">Decision Tree Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Data%20Binning.html">Data Binning</a></li>
 </ul>
 
     </div>
@@ -681,19 +682,19 @@ X_\text{scaled} = \frac{X - X_\text{min}}{X_\text{max} - X_\text{min}}
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Data Asli (Tanpa Reduksi &amp; Normalisasi) ===
    sepal_length  petal_length  petal_width  sepal_width
-0      1.400000      5.100000      3.50000     0.200000
-1      1.449444      4.995512      3.42559     0.236798
-2      1.300000      4.700000      3.20000     0.200000
-3      1.500000      4.600000      3.10000     0.200000
-4      1.400000      5.000000      3.60000     0.200000
+0      1.400000      5.100000     3.500000     0.200000
+1      1.161953      4.860674     3.360865     0.180852
+2      1.300000      4.700000     3.200000     0.200000
+3      1.500000      4.600000     3.100000     0.200000
+4      1.400000      5.000000     3.600000     0.200000
 
 === Data Setelah Normalisasi (Tanpa PCA) ===
    sepal_length  petal_length  petal_width  sepal_width
-0     -1.360020     -0.923453     1.110881    -1.314913
-1     -1.331279     -1.057844     0.926955    -1.266337
-2     -1.418147     -1.437931     0.369338    -1.314913
-3     -1.301892     -1.566551     0.122156    -1.314913
-4     -1.360020     -1.052072     1.358062    -1.314913
+0     -1.348189     -0.907463     1.115300    -1.307893
+1     -1.485879     -1.212233     0.772977    -1.333125
+2     -1.406030     -1.416843     0.377193    -1.307893
+3     -1.290347     -1.544188     0.131157    -1.307893
+4     -1.348189     -1.034808     1.361336    -1.307893
 </pre></div>
 </div>
 </div>
@@ -772,23 +773,23 @@ X_\text{scaled} = \frac{X - X_\text{min}}{X_\text{max} - X_\text{min}}
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Data Setelah PCA (2 Komponen) ===
       PCA_1     PCA_2
-0 -2.336567  0.434749
-1 -2.302983  0.220464
-2 -2.395404 -0.447447
-3 -2.315441 -0.718654
-4 -2.481627  0.607725
+0 -2.316427  0.461313
+1 -2.458195  0.020509
+2 -2.378967 -0.415292
+3 -2.300639 -0.685396
+4 -2.459085  0.634770
 
 === Data Setelah PCA (3 Komponen) ===
       PCA_1     PCA_2     PCA_3
-0 -2.336567  0.434749  0.127717
-1 -2.302983  0.220464  0.038232
-2 -2.395404 -0.447447 -0.061201
-3 -2.315441 -0.718654 -0.115485
-4 -2.481627  0.607725 -0.022674
+0 -2.316427  0.461313  0.128412
+1 -2.458195  0.020509  0.026293
+2 -2.378967 -0.415292 -0.058039
+3 -2.300639 -0.685396 -0.111330
+4 -2.459085  0.634770 -0.020829
 </pre></div>
 </div>
-<img alt="_images/38089250736153068b4b446f2371bd50fcacc15ae6e4e3ec8bfdf113c3128501.png" src="_images/38089250736153068b4b446f2371bd50fcacc15ae6e4e3ec8bfdf113c3128501.png" />
-<img alt="_images/afb5b6b1d8f34fb1e32918180b0481eb37b74af26c5b6724763bbe6f33fd9f18.png" src="_images/afb5b6b1d8f34fb1e32918180b0481eb37b74af26c5b6724763bbe6f33fd9f18.png" />
+<img alt="_images/7b55103e9b81cbe86761a0dda17afdab05daa74b6bf236cc812db1f4f1e375b6.png" src="_images/7b55103e9b81cbe86761a0dda17afdab05daa74b6bf236cc812db1f4f1e375b6.png" />
+<img alt="_images/ae49497f87f6be6dd79e5bdbaa21b625ff314e272404315388816d524f6faae0.png" src="_images/ae49497f87f6be6dd79e5bdbaa21b625ff314e272404315388816d524f6faae0.png" />
 </div>
 </div>
 </section>
@@ -867,44 +868,44 @@ X_\text{scaled} = \frac{X - X_\text{min}}{X_\text{max} - X_\text{min}}
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Hasil Clustering pada PCA 2D (3 Cluster) ===
       PCA_1     PCA_2  Cluster
-0 -2.336567  0.434749        1
-1 -2.302983  0.220464        1
-2 -2.395404 -0.447447        1
-3 -2.315441 -0.718654        1
-4 -2.481627  0.607725        1
+0 -2.316427  0.461313        1
+1 -2.458195  0.020509        1
+2 -2.378967 -0.415292        1
+3 -2.300639 -0.685396        1
+4 -2.459085  0.634770        1
 </pre></div>
 </div>
-<img alt="_images/319da24186c74f88477c6423b8b2a4e4035187284146a7d789135f9364a97442.png" src="_images/319da24186c74f88477c6423b8b2a4e4035187284146a7d789135f9364a97442.png" />
+<img alt="_images/2ffaddc6019f21cdc98d5990ef7c4a025e44ff715a39475930e3643c9de1ccdc.png" src="_images/2ffaddc6019f21cdc98d5990ef7c4a025e44ff715a39475930e3643c9de1ccdc.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Hasil Clustering pada PCA 3D (2 Cluster) ===
       PCA_1     PCA_2     PCA_3  Cluster_2
-0 -2.336567  0.434749  0.127717          0
-1 -2.302983  0.220464  0.038232          0
-2 -2.395404 -0.447447 -0.061201          0
-3 -2.315441 -0.718654 -0.115485          0
-4 -2.481627  0.607725 -0.022674          0
+0 -2.316427  0.461313  0.128412          1
+1 -2.458195  0.020509  0.026293          1
+2 -2.378967 -0.415292 -0.058039          1
+3 -2.300639 -0.685396 -0.111330          1
+4 -2.459085  0.634770 -0.020829          1
 </pre></div>
 </div>
-<img alt="_images/d0568b9d7144c06a747c93ccbf8c2550d6af96385df94427f7b501e7ee231dde.png" src="_images/d0568b9d7144c06a747c93ccbf8c2550d6af96385df94427f7b501e7ee231dde.png" />
+<img alt="_images/5c80bea527072d075f07520d3fa79db38e7e963509bea940cd4fee686a29c027.png" src="_images/5c80bea527072d075f07520d3fa79db38e7e963509bea940cd4fee686a29c027.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Hasil Clustering pada PCA 3D (3 Cluster) ===
       PCA_1     PCA_2     PCA_3  Cluster_2  Cluster_3
-0 -2.336567  0.434749  0.127717          0          1
-1 -2.302983  0.220464  0.038232          0          1
-2 -2.395404 -0.447447 -0.061201          0          1
-3 -2.315441 -0.718654 -0.115485          0          1
-4 -2.481627  0.607725 -0.022674          0          1
+0 -2.316427  0.461313  0.128412          1          1
+1 -2.458195  0.020509  0.026293          1          1
+2 -2.378967 -0.415292 -0.058039          1          1
+3 -2.300639 -0.685396 -0.111330          1          1
+4 -2.459085  0.634770 -0.020829          1          1
 </pre></div>
 </div>
-<img alt="_images/ccf78ccd925447bfdc0eebff228cdd4904635ef2f9a5163e5a421bdf3423ef86.png" src="_images/ccf78ccd925447bfdc0eebff228cdd4904635ef2f9a5163e5a421bdf3423ef86.png" />
+<img alt="_images/2ac28f5e1d4900d583b828dbe702f74bc458359ee9691f0b59ea92856d5583f2.png" src="_images/2ac28f5e1d4900d583b828dbe702f74bc458359ee9691f0b59ea92856d5583f2.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Hasil Clustering pada PCA 3D (4 Cluster) ===
       PCA_1     PCA_2     PCA_3  Cluster_2  Cluster_3  Cluster_4
-0 -2.336567  0.434749  0.127717          0          1          3
-1 -2.302983  0.220464  0.038232          0          1          2
-2 -2.395404 -0.447447 -0.061201          0          1          2
-3 -2.315441 -0.718654 -0.115485          0          1          2
-4 -2.481627  0.607725 -0.022674          0          1          3
+0 -2.316427  0.461313  0.128412          1          1          3
+1 -2.458195  0.020509  0.026293          1          1          3
+2 -2.378967 -0.415292 -0.058039          1          1          3
+3 -2.300639 -0.685396 -0.111330          1          1          3
+4 -2.459085  0.634770 -0.020829          1          1          1
 </pre></div>
 </div>
-<img alt="_images/50757ddc8c5371ba2dab1483caeb62bcf03483fab368ab637dbc691131007d28.png" src="_images/50757ddc8c5371ba2dab1483caeb62bcf03483fab368ab637dbc691131007d28.png" />
+<img alt="_images/72ea7c9526803b1861c926ce2111d251d0f0266517a277d61f07b06dfd45330c.png" src="_images/72ea7c9526803b1861c926ce2111d251d0f0266517a277d61f07b06dfd45330c.png" />
 </div>
 </div>
 <p>Kode di atas melakukan <strong>clustering menggunakan K-Means</strong> setelah data <strong>dinormalisasi dan direduksi dengan PCA</strong> di tahap sebelumnya.</p>
@@ -966,19 +967,19 @@ X_\text{scaled} = \frac{X - X_\text{min}}{X_\text{max} - X_\text{min}}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>K=2 --&gt; SSE (Inertia): 335.7296, Silhouette Score: 0.5806
-K=3 --&gt; SSE (Inertia): 136.3203, Silhouette Score: 0.6284
-K=4 --&gt; SSE (Inertia): 101.8718, Silhouette Score: 0.5909
-K=5 --&gt; SSE (Inertia): 85.4539, Silhouette Score: 0.5037
-K=6 --&gt; SSE (Inertia): 71.1098, Silhouette Score: 0.4107
-K=7 --&gt; SSE (Inertia): 62.8015, Silhouette Score: 0.4185
-K=8 --&gt; SSE (Inertia): 56.6614, Silhouette Score: 0.4075
-K=9 --&gt; SSE (Inertia): 50.4755, Silhouette Score: 0.4225
-K=10 --&gt; SSE (Inertia): 46.6030, Silhouette Score: 0.3770
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>K=2 --&gt; SSE (Inertia): 441.9719, Silhouette Score: 0.5291
+K=3 --&gt; SSE (Inertia): 163.3921, Silhouette Score: 0.6579
+K=4 --&gt; SSE (Inertia): 101.2493, Silhouette Score: 0.6769
+K=5 --&gt; SSE (Inertia): 82.8154, Silhouette Score: 0.5707
+K=6 --&gt; SSE (Inertia): 70.0444, Silhouette Score: 0.4552
+K=7 --&gt; SSE (Inertia): 62.9374, Silhouette Score: 0.3980
+K=8 --&gt; SSE (Inertia): 55.2741, Silhouette Score: 0.4531
+K=9 --&gt; SSE (Inertia): 48.8193, Silhouette Score: 0.4053
+K=10 --&gt; SSE (Inertia): 44.0554, Silhouette Score: 0.4047
 </pre></div>
 </div>
-<img alt="_images/086fb36a3b4251b0f9a16c440a6234fced390f4d282eb47fc8186f0e108a81c0.png" src="_images/086fb36a3b4251b0f9a16c440a6234fced390f4d282eb47fc8186f0e108a81c0.png" />
-<img alt="_images/71c9f8948aaf673b6a13ddcd0fd86993c75d2789a2bb3475967404400054cbaf.png" src="_images/71c9f8948aaf673b6a13ddcd0fd86993c75d2789a2bb3475967404400054cbaf.png" />
+<img alt="_images/7e3d40c07904611a1994388b0c678e5174357eaa9d63e0b19b4e4a9fb8457ea2.png" src="_images/7e3d40c07904611a1994388b0c678e5174357eaa9d63e0b19b4e4a9fb8457ea2.png" />
+<img alt="_images/ef60209d47bce7da29842b3305bafa257130fa40fc0301c2e29bbad43e66e41b.png" src="_images/ef60209d47bce7da29842b3305bafa257130fa40fc0301c2e29bbad43e66e41b.png" />
 </div>
 </div>
 <p>Kode ini melakukan evaluasi clustering dengan K-Means, menggunakan Elbow Method dan Silhouette Score untuk menentukan jumlah cluster optimal.</p>
