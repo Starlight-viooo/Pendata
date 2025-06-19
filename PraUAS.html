@@ -1,0 +1,1127 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Klasifikasi Prediksi kekambuhan Kanker Tiroid (PRA UAS) &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PraUAS';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Data Binning" href="Data%20Binning.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.jpg" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/logo.jpg" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pendat-tugas2.html"><strong>Pembukaan Data Mining</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="PendatTugas3.html"><strong>Deteksi Outlier dengan Metode K-Nearest Neighbors (KNN)</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="PendatTugas4LOF.html">Local Outlier Factor (LOF)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Klasifikasi.html"><strong>Klasifikasi pada Iris dataset</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="230411100167_PendatUTS.html">Pendat UTS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas6Clustering.html">Clustering Iris dataset dengan K- Mean</a></li>
+<li class="toctree-l1"><a class="reference internal" href="C-Means%20Clustering.html">Fuzzy C-Mean Clustering</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="decisiontree.html">Decision Tree Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Data%20Binning.html">Data Binning</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Klasifikasi Prediksi kekambuhan Kanker Tiroid (PRA UAS)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FPraUAS.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/PraUAS.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Klasifikasi Prediksi kekambuhan Kanker Tiroid (PRA UAS)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informasi-dataset">Informasi Dataset</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="klasifikasi-prediksi-kekambuhan-kanker-tiroid-pra-uas">
+<h1>Klasifikasi Prediksi kekambuhan Kanker Tiroid (PRA UAS)<a class="headerlink" href="#klasifikasi-prediksi-kekambuhan-kanker-tiroid-pra-uas" title="Link to this heading">#</a></h1>
+<p>##Data Understading</p>
+<section id="informasi-dataset">
+<h2>Informasi Dataset<a class="headerlink" href="#informasi-dataset" title="Link to this heading">#</a></h2>
+<p>Dataset ini berisi 13 (sebenarnya 16) fitur klinikopatologis yang bertujuan untuk memprediksi kekambuhan kanker tiroid yang terdefinisi dengan baik. Dataset ini dikumpulkan selama 15 tahun dan setiap pasien diikuti selama setidaknya 10 tahun.</p>
+<p>Di dataset ini tidak ada missing value</p>
+<p>Sumber : <a class="reference external" href="https://archive.ics.uci.edu/dataset/915/differentiated+thyroid+cancer+recurrence">https://archive.ics.uci.edu/dataset/915/differentiated+thyroid+cancer+recurrence</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">ucimlrepo</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting ucimlrepo
+  Downloading ucimlrepo-0.0.7-py3-none-any.whl.metadata (5.5 kB)
+Requirement already satisfied: pandas&gt;=1.0.0 in /usr/local/lib/python3.11/dist-packages (from ucimlrepo) (2.2.2)
+Requirement already satisfied: certifi&gt;=2020.12.5 in /usr/local/lib/python3.11/dist-packages (from ucimlrepo) (2025.6.15)
+Requirement already satisfied: numpy&gt;=1.23.2 in /usr/local/lib/python3.11/dist-packages (from pandas&gt;=1.0.0-&gt;ucimlrepo) (2.0.2)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in /usr/local/lib/python3.11/dist-packages (from pandas&gt;=1.0.0-&gt;ucimlrepo) (2.9.0.post0)
+Requirement already satisfied: pytz&gt;=2020.1 in /usr/local/lib/python3.11/dist-packages (from pandas&gt;=1.0.0-&gt;ucimlrepo) (2025.2)
+Requirement already satisfied: tzdata&gt;=2022.7 in /usr/local/lib/python3.11/dist-packages (from pandas&gt;=1.0.0-&gt;ucimlrepo) (2025.2)
+Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.11/dist-packages (from python-dateutil&gt;=2.8.2-&gt;pandas&gt;=1.0.0-&gt;ucimlrepo) (1.17.0)
+Downloading ucimlrepo-0.0.7-py3-none-any.whl (8.0 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: ucimlrepo
+Successfully installed ucimlrepo-0.0.7
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ucimlrepo</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_ucirepo</span>
+
+<span class="c1"># fetch dataset</span>
+<span class="n">differentiated_thyroid_cancer_recurrence</span> <span class="o">=</span> <span class="n">fetch_ucirepo</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">915</span><span class="p">)</span>
+
+<span class="c1"># data (as pandas dataframes)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">differentiated_thyroid_cancer_recurrence</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">features</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">differentiated_thyroid_cancer_recurrence</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">targets</span>
+
+<span class="c1"># metadata</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">differentiated_thyroid_cancer_recurrence</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
+
+<span class="c1"># variable information</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">differentiated_thyroid_cancer_recurrence</span><span class="o">.</span><span class="n">variables</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;uci_id&#39;: 915, &#39;name&#39;: &#39;Differentiated Thyroid Cancer Recurrence&#39;, &#39;repository_url&#39;: &#39;https://archive.ics.uci.edu/dataset/915/differentiated+thyroid+cancer+recurrence&#39;, &#39;data_url&#39;: &#39;https://archive.ics.uci.edu/static/public/915/data.csv&#39;, &#39;abstract&#39;: &#39;This data set contains 13 clinicopathologic features aiming to predict recurrence of well differentiated thyroid cancer. The data set was collected in duration of 15 years and each patient was followed for at least 10 years.&#39;, &#39;area&#39;: &#39;Health and Medicine&#39;, &#39;tasks&#39;: [&#39;Classification&#39;], &#39;characteristics&#39;: [&#39;Tabular&#39;], &#39;num_instances&#39;: 383, &#39;num_features&#39;: 16, &#39;feature_types&#39;: [&#39;Real&#39;, &#39;Categorical&#39;, &#39;Integer&#39;], &#39;demographics&#39;: [&#39;Age&#39;, &#39;Gender&#39;], &#39;target_col&#39;: [&#39;Recurred&#39;], &#39;index_col&#39;: None, &#39;has_missing_values&#39;: &#39;no&#39;, &#39;missing_values_symbol&#39;: None, &#39;year_of_dataset_creation&#39;: 2023, &#39;last_updated&#39;: &#39;Wed Mar 20 2024&#39;, &#39;dataset_doi&#39;: &#39;10.24432/C5632J&#39;, &#39;creators&#39;: [&#39;Shiva Borzooei&#39;, &#39;Aidin Tarokhian&#39;], &#39;intro_paper&#39;: {&#39;ID&#39;: 333, &#39;type&#39;: &#39;NATIVE&#39;, &#39;title&#39;: &#39;Machine learning for risk stratification of thyroid cancer patients: a 15-year cohort study&#39;, &#39;authors&#39;: &#39;Shiva Borzooei, Giovanni Briganti, Mitra Golparian, Jerome R. Lechien, Aidin Tarokhian&#39;, &#39;venue&#39;: &#39;Head and Neck&#39;, &#39;year&#39;: 2023, &#39;journal&#39;: None, &#39;DOI&#39;: None, &#39;URL&#39;: &#39;https://link.springer.com/article/10.1007/s00405-023-08299-w&#39;, &#39;sha&#39;: None, &#39;corpus&#39;: None, &#39;arxiv&#39;: None, &#39;mag&#39;: None, &#39;acl&#39;: None, &#39;pmid&#39;: None, &#39;pmcid&#39;: None}, &#39;additional_info&#39;: {&#39;summary&#39;: None, &#39;purpose&#39;: &#39;It was a part of research in the field of AI and Medicine&#39;, &#39;funded_by&#39;: &#39;No funding was provided.&#39;, &#39;instances_represent&#39;: &#39;Individual patients&#39;, &#39;recommended_data_splits&#39;: &#39;No&#39;, &#39;sensitive_data&#39;: &#39;No&#39;, &#39;preprocessing_description&#39;: None, &#39;variable_info&#39;: None, &#39;citation&#39;: &#39;Please cite the original article if you use the data set for secondary research and public demonstrations:\nhttps://doi.org/10.1007/s00405-023-08299-w&#39;}}
+                    name     role         type demographic description units  \
+0                    Age  Feature      Integer         Age        None  None   
+1                 Gender  Feature  Categorical      Gender        None  None   
+2                Smoking  Feature  Categorical        None        None  None   
+3             Hx Smoking  Feature  Categorical        None        None  None   
+4        Hx Radiothreapy  Feature  Categorical        None        None  None   
+5       Thyroid Function  Feature  Categorical        None        None  None   
+6   Physical Examination  Feature  Categorical        None        None  None   
+7             Adenopathy  Feature  Categorical        None        None  None   
+8              Pathology  Feature  Categorical        None        None  None   
+9               Focality  Feature  Categorical        None        None  None   
+10                  Risk  Feature  Categorical        None        None  None   
+11                     T  Feature  Categorical        None        None  None   
+12                     N  Feature  Categorical        None        None  None   
+13                     M  Feature  Categorical        None        None  None   
+14                 Stage  Feature  Categorical        None        None  None   
+15              Response  Feature  Categorical        None        None  None   
+16              Recurred   Target  Categorical        None        None  None   
+
+   missing_values  
+0              no  
+1              no  
+2              no  
+3              no  
+4              no  
+5              no  
+6              no  
+7              no  
+8              no  
+9              no  
+10             no  
+11             no  
+12             no  
+13             no  
+14             no  
+15             no  
+16             no  
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     Age Gender Smoking Hx Smoking Hx Radiothreapy             Thyroid Function         Physical Examination Adenopathy       Pathology     Focality          Risk    T    N   M Stage                Response
+0     27      F      No         No              No                    Euthyroid   Single nodular goiter-left         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I           Indeterminate
+1     34      F      No        Yes              No                    Euthyroid          Multinodular goiter         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+2     30      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+3     62      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+4     62      F      No         No              No                    Euthyroid          Multinodular goiter         No  Micropapillary  Multi-Focal           Low  T1a   N0  M0     I               Excellent
+5     52      M     Yes         No              No                    Euthyroid          Multinodular goiter         No  Micropapillary  Multi-Focal           Low  T1a   N0  M0     I           Indeterminate
+6     41      F      No        Yes              No     Clinical Hyperthyroidism  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+7     46      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+8     51      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+9     40      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+10    75      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+11    59      F      No         No              No                    Euthyroid   Single nodular goiter-left         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+12    49      F      No         No              No                    Euthyroid          Multinodular goiter         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+13    50      F      No         No              No     Clinical Hyperthyroidism          Multinodular goiter         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+14    76      F      No         No              No      Clinical Hypothyroidism  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+15    42      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I           Indeterminate
+16    40      F      No        Yes              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+17    44      F      No         No              No                    Euthyroid          Multinodular goiter         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I           Indeterminate
+18    43      F      No         No              No                    Euthyroid          Multinodular goiter         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+19    52      F      No         No              No                    Euthyroid          Multinodular goiter         No  Micropapillary  Multi-Focal           Low  T1a   N0  M0     I           Indeterminate
+20    41      F      No         No              No                    Euthyroid   Single nodular goiter-left         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+21    44      F      No         No              No                    Euthyroid   Single nodular goiter-left         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+22    36      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+23    70      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+24    60      F      No         No              No                    Euthyroid          Multinodular goiter         No  Micropapillary  Multi-Focal           Low  T1a   N0  M0     I               Excellent
+25    33      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+26    43      M      No         No              No  Subclinical Hyperthyroidism   Single nodular goiter-left         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+27    26      M      No         No              No                    Euthyroid   Single nodular goiter-left         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+28    41      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+29    37      F      No        Yes              No   Subclinical Hypothyroidism                       Normal         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+30    37      F      No         No              No                    Euthyroid   Single nodular goiter-left         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+31    30      F      No         No              No     Clinical Hyperthyroidism                       Normal         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+32    36      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+33    55      F      No         No              No                    Euthyroid          Multinodular goiter         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+34    52      M     Yes         No              No                    Euthyroid   Single nodular goiter-left         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+35    37      F      No         No              No   Subclinical Hypothyroidism   Single nodular goiter-left         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+36    31      F      No         No              No     Clinical Hyperthyroidism               Diffuse goiter         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+37    43      M      No         No              No                    Euthyroid          Multinodular goiter         No  Micropapillary  Multi-Focal           Low  T1a   N0  M0     I               Excellent
+38    40      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+39    34      F      No         No              No                    Euthyroid               Diffuse goiter         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+40    51      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+41    45      F      No         No              No                    Euthyroid   Single nodular goiter-left         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+42    20      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+43    38      F      No         No              No                    Euthyroid          Multinodular goiter         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+44    38      F      No         No              No     Clinical Hyperthyroidism               Diffuse goiter         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+45    33      F      No         No              No                    Euthyroid          Multinodular goiter         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
+46    31      F      No         No              No      Clinical Hypothyroidism          Multinodular goiter         No  Micropapillary    Uni-Focal  Intermediate  T1a   N0  M0     I               Excellent
+47    31      F      No         No              No                    Euthyroid          Multinodular goiter      Right       Papillary  Multi-Focal  Intermediate  T1a  N1b  M0     I               Excellent
+48    26      F      No         No              No                    Euthyroid                       Normal  Extensive       Papillary    Uni-Focal  Intermediate  T1a  N1b  M0     I   Structural Incomplete
+49    29      F      No         No              No                    Euthyroid          Multinodular goiter         No      Follicular    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+50    43      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+51    30      F      No         No              No  Subclinical Hyperthyroidism          Multinodular goiter         No       Papillary  Multi-Focal           Low  T1b   N0  M0     I               Excellent
+52    25      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low  T1b   N0  M0     I               Excellent
+53    27      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+54    25      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+55    21      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I           Indeterminate
+56    43      F      No        Yes              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+57    23      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+58    23      F      No         No              No     Clinical Hyperthyroidism   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+59    43      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I           Indeterminate
+60    24      M      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+61    35      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+62    54      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+63    54      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I           Indeterminate
+64    22      F      No         No              No  Subclinical Hyperthyroidism  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+65    38      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low  T1b   N0  M0     I               Excellent
+66    35      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+67    51      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+68    22      M      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low  T1b   N0  M0     I               Excellent
+69    51      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+70    40      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+71    69      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+72    31      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+73    29      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+74    30      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+75    28      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+76    22      F      No         No              No      Clinical Hypothyroidism  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+77    29      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+78    35      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+79    50      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low  T1b   N0  M0     I               Excellent
+80    27      F      No         No              No     Clinical Hyperthyroidism               Diffuse goiter         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+81    17      F      No        Yes              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+82    27      F      No         No              No  Subclinical Hyperthyroidism  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+83    40      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal  Intermediate  T1b   N0  M0     I               Excellent
+84    33      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal  Intermediate  T1b  N1b  M0     I           Indeterminate
+85    25      F      No        Yes             Yes                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+86    73      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
+87    36      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low  T1b   N0  M0     I           Indeterminate
+88    35      F      No         No              No                    Euthyroid          Multinodular goiter      Right       Papillary  Multi-Focal  Intermediate  T1b  N1b  M0     I   Structural Incomplete
+89    31      M     Yes         No              No                    Euthyroid          Multinodular goiter      Right       Papillary  Multi-Focal  Intermediate  T1b  N1b  M0     I   Structural Incomplete
+90    18      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal  Intermediate  T1b  N1b  M0     I   Structural Incomplete
+91    62      F      No         No              No                    Euthyroid  Single nodular goiter-right         No      Follicular  Multi-Focal  Intermediate  T1b   N0  M0     I   Structural Incomplete
+92    62      F      No         No              No                    Euthyroid  Single nodular goiter-right         No    Hurthel cell    Uni-Focal           Low   T2   N0  M0     I               Excellent
+93    39      F      No         No              No                    Euthyroid               Diffuse goiter         No    Hurthel cell    Uni-Focal           Low   T2   N0  M0     I           Indeterminate
+94    37      F      No         No              No                    Euthyroid   Single nodular goiter-left         No    Hurthel cell  Multi-Focal           Low   T2   N0  M0     I               Excellent
+95    26      F      No        Yes              No  Subclinical Hyperthyroidism  Single nodular goiter-right         No    Hurthel cell    Uni-Focal           Low   T2   N0  M0     I               Excellent
+96    31      F      No         No              No                    Euthyroid   Single nodular goiter-left         No    Hurthel cell    Uni-Focal           Low   T2   N0  M0     I           Indeterminate
+97    24      F      No         No              No                    Euthyroid  Single nodular goiter-right         No      Follicular    Uni-Focal           Low   T2   N0  M0     I               Excellent
+98    57      F     Yes         No              No                    Euthyroid          Multinodular goiter         No      Follicular    Uni-Focal           Low   T2   N0  M0     I               Excellent
+99    28      F      No         No              No                    Euthyroid  Single nodular goiter-right         No      Follicular    Uni-Focal           Low   T2   N0  M0     I               Excellent
+100   44      M     Yes         No              No                    Euthyroid  Single nodular goiter-right         No      Follicular    Uni-Focal           Low   T2   N0  M0     I               Excellent
+101   42      F      No         No              No                    Euthyroid   Single nodular goiter-left         No      Follicular    Uni-Focal           Low   T2   N0  M0     I           Indeterminate
+102   27      F      No         No              No                    Euthyroid  Single nodular goiter-right         No      Follicular    Uni-Focal           Low   T2   N0  M0     I               Excellent
+103   51      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+104   33      F      No         No              No      Clinical Hypothyroidism  Single nodular goiter-right      Right       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+105   42      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+106   26      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+107   24      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+108   60      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low   T2   N0  M0     I               Excellent
+109   60      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I  Biochemical Incomplete
+110   31      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+111   66      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+112   44      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+113   32      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+114   26      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low   T2   N0  M0     I               Excellent
+115   37      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+116   33      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+117   23      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low   T2   N0  M0     I           Indeterminate
+118   47      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+119   28      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+120   37      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+121   26      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+122   28      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+123   28      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+124   44      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+125   31      F      No        Yes              No                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+126   27      F      No         No              No      Clinical Hypothyroidism  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+127   56      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I  Biochemical Incomplete
+128   63      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+129   24      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I  Biochemical Incomplete
+130   30      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+131   31      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+132   32      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+133   28      F      No         No              No     Clinical Hyperthyroidism          Multinodular goiter         No       Papillary  Multi-Focal           Low   T2   N0  M0     I               Excellent
+134   51      F      No        Yes              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+135   20      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+136   21      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+137   32      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+138   26      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+139   42      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I  Biochemical Incomplete
+140   28      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+141   41      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+142   42      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+143   49      F      No        Yes              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+144   29      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+145   29      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+146   25      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I           Indeterminate
+147   41      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I           Indeterminate
+148   33      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+149   27      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+150   50      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+151   19      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+152   35      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+153   63      F      No         No              No                    Euthyroid                       Normal         No       Papillary    Uni-Focal           Low   T2   N0  M0     I  Biochemical Incomplete
+154   24      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+155   36      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+156   31      M     Yes         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+157   24      M      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+158   33      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+159   24      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+160   28      F      No         No              No      Clinical Hypothyroidism  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+161   22      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+162   27      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+163   28      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I           Indeterminate
+164   29      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary  Multi-Focal           Low   T2   N0  M0     I               Excellent
+165   40      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low   T2   N0  M0     I               Excellent
+166   31      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+167   55      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+168   21      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+169   40      M     Yes         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+170   38      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+171   21      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+172   31      M     Yes         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+173   30      F      No         No              No                    Euthyroid                       Normal         No       Papillary    Uni-Focal           Low   T2   N0  M0     I           Indeterminate
+174   50      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I           Indeterminate
+175   34      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+176   45      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+177   52      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+178   38      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+179   67      M     Yes         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low   T2   N0  M0     I               Excellent
+180   72      F      No         No              No   Subclinical Hypothyroidism  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I           Indeterminate
+181   45      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low   T2   N0  M0     I               Excellent
+182   45      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low   T2   N0  M0     I  Biochemical Incomplete
+183   26      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+184   67      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+185   56      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+186   30      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+187   34      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+188   50      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+189   42      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+190   35      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low   T2   N0  M0     I               Excellent
+191   23      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low   T2   N0  M0     I               Excellent
+192   44      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low   T2   N0  M0     I               Excellent
+193   23      F      No         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+194   26      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+195   61      M      No         No              No   Subclinical Hypothyroidism   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+196   22      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+197   31      F      No         No              No     Clinical Hyperthyroidism               Diffuse goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+198   68      F      No         No              No     Clinical Hyperthyroidism               Diffuse goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+199   57      M      No         No              No     Clinical Hyperthyroidism   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
+200   27      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low   T2  N1b  M0     I               Excellent
+201   25      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary  Multi-Focal           Low   T2  N1b  M0     I               Excellent
+202   20      M      No         No              No   Subclinical Hypothyroidism          Multinodular goiter         No       Papillary  Multi-Focal  Intermediate   T2  N1b  M0     I               Excellent
+203   33      M      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2  N1b  M0     I               Excellent
+204   36      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal           Low   T2  N1b  M0     I               Excellent
+205   36      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal           Low   T2  N1b  M0     I           Indeterminate
+206   40      F      No         No              No                    Euthyroid          Multinodular goiter       Left       Papillary    Uni-Focal  Intermediate   T2  N1b  M0     I           Indeterminate
+207   17      F      No         No              No                    Euthyroid          Multinodular goiter      Right       Papillary    Uni-Focal  Intermediate   T2  N1b  M0     I           Indeterminate
+208   24      F      No         No              No      Clinical Hypothyroidism          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate   T2  N1b  M0     I               Excellent
+209   38      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary  Multi-Focal  Intermediate   T2  N1b  M0     I               Excellent
+210   28      F      No         No              No                    Euthyroid          Multinodular goiter      Right       Papillary    Uni-Focal  Intermediate   T2  N1b  M0     I               Excellent
+211   36      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal  Intermediate   T2  N1b  M0     I           Indeterminate
+212   50      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal  Intermediate   T2  N1b  M0     I           Indeterminate
+213   51      M      No         No              No     Clinical Hyperthyroidism  Single nodular goiter-right      Right       Papillary    Uni-Focal  Intermediate   T2  N1b  M0     I           Indeterminate
+214   55      F      No         No              No   Subclinical Hypothyroidism          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate   T2  N1b  M0    II           Indeterminate
+215   31      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2  N1a  M0     I               Excellent
+216   33      F      No         No              No      Clinical Hypothyroidism  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2  N1a  M0     I           Indeterminate
+217   28      F     Yes         No              No     Clinical Hyperthyroidism  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2  N1a  M0     I           Indeterminate
+218   48      M      No         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary    Uni-Focal  Intermediate   T2  N1a  M0     I           Indeterminate
+219   40      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2  N1a  M0     I               Excellent
+220   29      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2  N1a  M0     I           Indeterminate
+221   20      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal  Intermediate   T2  N1a  M0     I               Excellent
+222   35      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I           Indeterminate
+223   56      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I   Structural Incomplete
+224   20      M      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal           Low   T2   N0  M0     I   Structural Incomplete
+225   62      F      No         No              No      Clinical Hypothyroidism          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I  Biochemical Incomplete
+226   17      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal          High   T2   N0  M0     I   Structural Incomplete
+227   21      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal           Low   T2  N1b  M0     I   Structural Incomplete
+228   20      M      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal  Intermediate   T2  N1b  M0     I   Structural Incomplete
+229   40      M     Yes         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate   T2  N1b  M0     I   Structural Incomplete
+230   38      M     Yes        Yes              No                    Euthyroid          Multinodular goiter      Right       Papillary  Multi-Focal  Intermediate   T2  N1b  M0     I   Structural Incomplete
+231   21      F      No         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary    Uni-Focal  Intermediate   T2  N1b  M0     I   Structural Incomplete
+232   31      F      No         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary    Uni-Focal  Intermediate   T2  N1b  M0     I   Structural Incomplete
+233   34      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal  Intermediate   T2  N1b  M0     I   Structural Incomplete
+234   60      F      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate   T2  N1b  M0     I   Structural Incomplete
+235   60      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary  Multi-Focal  Intermediate   T2  N1b  M0    II   Structural Incomplete
+236   62      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary  Multi-Focal  Intermediate   T2  N1b  M0    II   Structural Incomplete
+237   36      M      No         No              No     Clinical Hyperthyroidism          Multinodular goiter         No       Papillary    Uni-Focal  Intermediate   T2  N1a  M0     I           Indeterminate
+238   29      F     Yes         No              No                    Euthyroid   Single nodular goiter-left         No      Follicular    Uni-Focal           Low   T2   N0  M0     I   Structural Incomplete
+239   33      M      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I   Structural Incomplete
+240   75      M     Yes         No             Yes                    Euthyroid   Single nodular goiter-left         No      Follicular  Multi-Focal          High   T2   N0  M1   IVB   Structural Incomplete
+241   62      M      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I   Structural Incomplete
+242   56      M      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I  Biochemical Incomplete
+243   52      F      No         No              No                    Euthyroid          Multinodular goiter         No      Follicular    Uni-Focal           Low  T3a   N0  M0     I  Biochemical Incomplete
+244   35      F      No         No              No     Clinical Hyperthyroidism          Multinodular goiter         No       Papillary    Uni-Focal           Low  T3a   N0  M0     I               Excellent
+245   34      F      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary    Uni-Focal  Intermediate  T3a  N1b  M0     I           Indeterminate
+246   32      F      No         No              No                    Euthyroid          Multinodular goiter         No    Hurthel cell  Multi-Focal           Low  T3a   N0  M0     I               Excellent
+247   27      F      No         No              No      Clinical Hypothyroidism  Single nodular goiter-right         No    Hurthel cell  Multi-Focal           Low  T3a   N0  M0     I               Excellent
+248   52      F     Yes         No              No                    Euthyroid   Single nodular goiter-left  Bilateral    Hurthel cell  Multi-Focal           Low  T3a   N0  M0     I   Structural Incomplete
+249   46      F      No         No              No                    Euthyroid   Single nodular goiter-left         No    Hurthel cell  Multi-Focal           Low  T3a   N0  M0     I               Excellent
+250   30      F      No         No              No   Subclinical Hypothyroidism                       Normal      Right      Follicular    Uni-Focal           Low  T3a   N0  M0     I               Excellent
+251   32      F      No         No              No                    Euthyroid   Single nodular goiter-left         No      Follicular  Multi-Focal           Low  T3a   N0  M0     I           Indeterminate
+252   25      F      No         No              No     Clinical Hyperthyroidism          Multinodular goiter         No      Follicular  Multi-Focal           Low  T3a   N0  M0     I               Excellent
+253   38      F      No         No              No                    Euthyroid          Multinodular goiter         No      Follicular  Multi-Focal           Low  T3a   N0  M0     I  Biochemical Incomplete
+254   31      M     Yes        Yes              No                    Euthyroid   Single nodular goiter-left         No      Follicular    Uni-Focal           Low  T3a   N0  M0     I           Indeterminate
+255   37      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I               Excellent
+256   21      M     Yes        Yes              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T3a   N0  M0     I  Biochemical Incomplete
+257   34      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T3a   N0  M0     I               Excellent
+258   30      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I  Biochemical Incomplete
+259   48      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I           Indeterminate
+260   31      M     Yes         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I               Excellent
+261   52      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I           Indeterminate
+262   38      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low  T3a   N0  M0     I               Excellent
+263   41      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I               Excellent
+264   41      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I  Biochemical Incomplete
+265   70      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I           Indeterminate
+266   19      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I               Excellent
+267   41      M      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T3a   N0  M0     I               Excellent
+268   32      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T3a   N0  M0     I               Excellent
+269   35      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I           Indeterminate
+270   39      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T3a   N0  M0     I           Indeterminate
+271   45      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T3a   N0  M0     I               Excellent
+272   46      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I           Indeterminate
+273   45      F      No         No              No      Clinical Hypothyroidism   Single nodular goiter-left         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I           Indeterminate
+274   28      M     Yes         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T3a   N0  M0     I           Indeterminate
+275   31      M      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T3a   N0  M0     I           Indeterminate
+276   81      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low  T3a   N0  M0    II               Excellent
+277   41      M     Yes         No              No                    Euthyroid  Single nodular goiter-right         No    Hurthel cell  Multi-Focal  Intermediate  T3a   N0  M0     I               Excellent
+278   56      M     Yes         No              No                    Euthyroid          Multinodular goiter         No    Hurthel cell  Multi-Focal  Intermediate  T3a   N0  M0     I           Indeterminate
+279   47      F      No         No              No                    Euthyroid          Multinodular goiter         No      Follicular    Uni-Focal  Intermediate  T3a   N0  M0     I           Indeterminate
+280   37      F      No         No              No                    Euthyroid  Single nodular goiter-right         No      Follicular    Uni-Focal  Intermediate  T3a   N0  M0     I               Excellent
+281   32      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal  Intermediate  T3a   N0  M0     I  Biochemical Incomplete
+282   53      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal  Intermediate  T3a   N0  M0     I           Indeterminate
+283   30      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary  Multi-Focal  Intermediate  T3a   N0  M0     I               Excellent
+284   34      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal  Intermediate  T3a   N0  M0     I               Excellent
+285   62      F      No         No              No                    Euthyroid   Single nodular goiter-left         No    Hurthel cell  Multi-Focal  Intermediate  T3a   N0  M0    II           Indeterminate
+286   58      F      No         No              No     Clinical Hyperthyroidism          Multinodular goiter         No      Follicular  Multi-Focal  Intermediate  T3a   N0  M0    II           Indeterminate
+287   55      M      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal  Intermediate  T3a   N0  M0    II           Indeterminate
+288   21      F      No         No              No                    Euthyroid   Single nodular goiter-left      Right       Papillary  Multi-Focal           Low  T3a  N1b  M0     I               Excellent
+289   27      F      No         No              No                    Euthyroid          Multinodular goiter      Right       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I               Excellent
+290   46      F      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I           Indeterminate
+291   44      F      No         No              No                    Euthyroid          Multinodular goiter      Right       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I               Excellent
+292   29      F      No         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary    Uni-Focal           Low  T3a  N1a  M0     I               Excellent
+293   26      F      No         No              No   Subclinical Hypothyroidism          Multinodular goiter      Right       Papillary    Uni-Focal  Intermediate  T3a  N1a  M0     I           Indeterminate
+294   42      M      No         No              No   Subclinical Hypothyroidism  Single nodular goiter-right         No       Papillary  Multi-Focal  Intermediate  T3a  N1a  M0     I           Indeterminate
+295   56      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary  Multi-Focal  Intermediate  T3a  N1a  M0    II               Excellent
+296   51      F      No        Yes              No                    Euthyroid  Single nodular goiter-right      Right    Hurthel cell    Uni-Focal           Low  T3a   N0  M0     I           Indeterminate
+297   61      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal  Intermediate  T3a   N0  M0    II               Excellent
+298   42      M      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I   Structural Incomplete
+299   34      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low  T3a   N0  M0     I   Structural Incomplete
+300   67      F      No         No              No                    Euthyroid          Multinodular goiter         No    Hurthel cell    Uni-Focal  Intermediate  T3a   N0  M0    II           Indeterminate
+301   63      F      No         No              No                    Euthyroid  Single nodular goiter-right         No      Follicular    Uni-Focal  Intermediate  T3a   N0  M0    II           Indeterminate
+302   67      M     Yes        Yes              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary    Uni-Focal  Intermediate  T3a   N0  M0    II  Biochemical Incomplete
+303   73      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal  Intermediate  T3a   N0  M0    II   Structural Incomplete
+304   26      F      No         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary    Uni-Focal  Intermediate  T3a  N1b  M1     I   Structural Incomplete
+305   30      F      No         No              No                    Euthyroid          Multinodular goiter      Right       Papillary    Uni-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
+306   36      F      No         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I           Indeterminate
+307   31      F      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
+308   40      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
+309   49      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
+310   38      M     Yes         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary    Uni-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
+311   27      F      No         No              No                    Euthyroid  Single nodular goiter-right  Bilateral       Papillary    Uni-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
+312   27      M      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
+313   33      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I  Biochemical Incomplete
+314   32      F      No         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
+315   29      F      No         No              No                    Euthyroid          Multinodular goiter      Right       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
+316   37      M      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
+317   48      F      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
+318   30      F      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
+319   33      M      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary    Uni-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
+320   80      F     Yes         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0    II   Structural Incomplete
+321   62      F      No         No              No                    Euthyroid          Multinodular goiter      Right       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0    II   Structural Incomplete
+322   63      M     Yes         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0    II   Structural Incomplete
+323   60      M      No         No              No                    Euthyroid  Single nodular goiter-right  Bilateral       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0    II   Structural Incomplete
+324   79      M     Yes         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0    II           Indeterminate
+325   65      F      No        Yes              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0    II  Biochemical Incomplete
+326   35      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary  Multi-Focal  Intermediate  T3a  N1a  M0     I  Biochemical Incomplete
+327   58      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal  Intermediate  T3a  N1a  M0    II           Indeterminate
+328   34      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal          High  T3a  N1a  M0     I  Biochemical Incomplete
+329   56      F      No         No              No                    Euthyroid   Single nodular goiter-left         No      Follicular  Multi-Focal           Low  T3a   N0  M0     I   Structural Incomplete
+330   52      M     Yes         No              No                    Euthyroid   Single nodular goiter-left      Right      Follicular  Multi-Focal  Intermediate  T3a   N0  M0     I  Biochemical Incomplete
+331   51      F      No         No              No                    Euthyroid   Single nodular goiter-left         No      Follicular    Uni-Focal  Intermediate  T3a   N0  M0     I   Structural Incomplete
+332   31      F      No         No              No                    Euthyroid   Single nodular goiter-left         No      Follicular    Uni-Focal  Intermediate  T3a  N1a  M0     I  Biochemical Incomplete
+333   44      M     Yes         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary  Multi-Focal          High  T3a  N1b  M1    II   Structural Incomplete
+334   15      F      No         No              No                    Euthyroid                       Normal  Bilateral       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
+335   29      M      No         No              No                    Euthyroid          Multinodular goiter  Extensive       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
+336   53      M      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
+337   45      F      No         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
+338   38      F      No         No              No                    Euthyroid   Single nodular goiter-left  Posterior       Papillary  Multi-Focal          High  T3a  N1b  M1    II   Structural Incomplete
+339   48      F      No         No              No     Clinical Hyperthyroidism          Multinodular goiter       Left    Hurthel cell  Multi-Focal  Intermediate  T3b  N1a  M0     I   Structural Incomplete
+340   42      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal  Intermediate  T3b   N0  M0     I           Indeterminate
+341   23      F      No        Yes              No                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal  Intermediate  T3b  N1a  M0     I   Structural Incomplete
+342   22      F      No         No              No                    Euthyroid          Multinodular goiter      Right       Papillary  Multi-Focal  Intermediate  T3b  N1a  M0     I   Structural Incomplete
+343   44      F      No         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary  Multi-Focal  Intermediate  T3b  N1b  M0     I   Structural Incomplete
+344   31      F      No         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary    Uni-Focal  Intermediate  T3b  N1b  M0     I               Excellent
+345   25      F      No         No              No                    Euthyroid          Multinodular goiter       Left       Papillary  Multi-Focal  Intermediate  T3b  N1b  M0     I   Structural Incomplete
+346   32      M      No        Yes              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate  T3b  N1b  M0     I   Structural Incomplete
+347   82      M     Yes         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary    Uni-Focal  Intermediate  T3b  N1b  M0    II   Structural Incomplete
+348   58      F      No         No              No   Subclinical Hypothyroidism          Multinodular goiter  Extensive       Papillary  Multi-Focal  Intermediate  T3b  N1b  M0    II   Structural Incomplete
+349   68      M     Yes        Yes              No   Subclinical Hypothyroidism   Single nodular goiter-left  Bilateral       Papillary  Multi-Focal  Intermediate  T3b  N1b  M0   III   Structural Incomplete
+350   37      F      No         No              No   Subclinical Hypothyroidism   Single nodular goiter-left         No       Papillary  Multi-Focal  Intermediate  T3b  N1a  M1    II   Structural Incomplete
+351   59      M     Yes        Yes              No      Clinical Hypothyroidism          Multinodular goiter         No    Hurthel cell  Multi-Focal  Intermediate  T3b   N0  M0     I   Structural Incomplete
+352   21      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary  Multi-Focal  Intermediate  T3b   N0  M0     I   Structural Incomplete
+353   73      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary  Multi-Focal          High  T3b  N1a  M1   IVB   Structural Incomplete
+354   35      M     Yes         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary  Multi-Focal          High  T3b  N1b  M1    II   Structural Incomplete
+355   32      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary  Multi-Focal  Intermediate  T4a   N0  M0     I               Excellent
+356   54      M     Yes         No              No                    Euthyroid   Single nodular goiter-left      Right    Hurthel cell  Multi-Focal  Intermediate  T4a  N1b  M0    II   Structural Incomplete
+357   26      F     Yes         No              No                    Euthyroid   Single nodular goiter-left  Bilateral    Hurthel cell  Multi-Focal          High  T4a  N1b  M0     I   Structural Incomplete
+358   53      F      No         No              No                    Euthyroid          Multinodular goiter      Right       Papillary    Uni-Focal          High  T4a  N1b  M0     I   Structural Incomplete
+359   35      F      No         No              No                    Euthyroid          Multinodular goiter  Extensive       Papillary  Multi-Focal          High  T4a  N1b  M0     I   Structural Incomplete
+360   49      M      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal          High  T4a  N1b  M0     I   Structural Incomplete
+361   34      F      No         No              No                    Euthyroid          Multinodular goiter      Right       Papillary    Uni-Focal          High  T4a  N1b  M0     I   Structural Incomplete
+362   80      F     Yes        Yes              No                    Euthyroid          Multinodular goiter      Right       Papillary    Uni-Focal          High  T4a  N1b  M0   III   Structural Incomplete
+363   67      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary  Multi-Focal          High  T4a  N1b  M0   III   Structural Incomplete
+364   68      F      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal          High  T4a  N1b  M1   IVB   Structural Incomplete
+365   71      F     Yes         No              No                    Euthyroid   Single nodular goiter-left         No      Follicular  Multi-Focal          High  T4a   N0  M1   IVB   Structural Incomplete
+366   64      F      No        Yes              No                    Euthyroid          Multinodular goiter         No      Follicular  Multi-Focal          High  T4a   N0  M1   IVB   Structural Incomplete
+367   80      M     Yes         No              No                    Euthyroid   Single nodular goiter-left         No    Hurthel cell  Multi-Focal  Intermediate  T4a   N0  M0    II   Structural Incomplete
+368   56      F      No         No              No                    Euthyroid          Multinodular goiter  Posterior       Papillary  Multi-Focal          High  T4a  N1b  M0    II   Structural Incomplete
+369   71      M     Yes        Yes              No   Subclinical Hypothyroidism          Multinodular goiter  Bilateral       Papillary  Multi-Focal          High  T4a  N1b  M0   III   Structural Incomplete
+370   78      M     Yes        Yes             Yes     Clinical Hyperthyroidism          Multinodular goiter         No      Follicular  Multi-Focal          High  T4a   N0  M1   IVB   Structural Incomplete
+371   51      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal          High  T4a  N1a  M1    II   Structural Incomplete
+372   67      F     Yes         No              No   Subclinical Hypothyroidism          Multinodular goiter         No       Papillary  Multi-Focal          High  T4a   N0  M0   IVA  Biochemical Incomplete
+373   31      M     Yes         No             Yes                    Euthyroid   Single nodular goiter-left  Extensive       Papillary  Multi-Focal          High  T4a  N1b  M1    II   Structural Incomplete
+374   62      M     Yes         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary  Multi-Focal          High  T4a  N1b  M1   IVB   Structural Incomplete
+375   59      F      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal          High  T4b  N1b  M0   IVB   Structural Incomplete
+376   40      M     Yes         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal          High  T4b  N1b  M0     I   Structural Incomplete
+377   46      M     Yes         No              No                    Euthyroid   Single nodular goiter-left  Bilateral      Follicular    Uni-Focal          High  T4b  N1b  M1    II   Structural Incomplete
+378   72      M     Yes        Yes             Yes                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal          High  T4b  N1b  M1   IVB  Biochemical Incomplete
+379   81      M     Yes         No             Yes                    Euthyroid          Multinodular goiter  Extensive       Papillary  Multi-Focal          High  T4b  N1b  M1   IVB   Structural Incomplete
+380   72      M     Yes        Yes              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal          High  T4b  N1b  M1   IVB   Structural Incomplete
+381   61      M     Yes        Yes             Yes     Clinical Hyperthyroidism          Multinodular goiter  Extensive    Hurthel cell  Multi-Focal          High  T4b  N1b  M0   IVA   Structural Incomplete
+382   67      M     Yes         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal          High  T4b  N1b  M0   IVA   Structural Incomplete
+  Recurred
+0       No
+1       No
+2       No
+3       No
+4       No
+5       No
+6       No
+7       No
+8       No
+9       No
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;Age&#39;, &#39;Gender&#39;, &#39;Smoking&#39;, &#39;Hx Smoking&#39;, &#39;Hx Radiothreapy&#39;,
+       &#39;Thyroid Function&#39;, &#39;Physical Examination&#39;, &#39;Adenopathy&#39;, &#39;Pathology&#39;,
+       &#39;Focality&#39;, &#39;Risk&#39;, &#39;T&#39;, &#39;N&#39;, &#39;M&#39;, &#39;Stage&#39;, &#39;Response&#39;],
+      dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrdinalEncoder</span>
+
+<span class="c1"># Salin data untuk keamanan</span>
+<span class="n">X_encoded</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Encode fitur Boolean dulu (seperti sebelumnya)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">LabelEncoder</span>
+<span class="n">binary_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Gender&#39;</span><span class="p">,</span> <span class="s1">&#39;Smoking&#39;</span><span class="p">,</span> <span class="s1">&#39;Hx Smoking&#39;</span><span class="p">,</span> <span class="s1">&#39;Hx Radiothreapy&#39;</span><span class="p">,</span> <span class="s1">&#39;Adenopathy&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">binary_features</span><span class="p">:</span>
+    <span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+    <span class="n">X_encoded</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_encoded</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+
+<span class="c1"># Encode semua fitur kategorikal menjadi angka dengan OrdinalEncoder</span>
+<span class="n">categorical_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Thyroid Function&#39;</span><span class="p">,</span> <span class="s1">&#39;Physical Examination&#39;</span><span class="p">,</span> <span class="s1">&#39;Pathology&#39;</span><span class="p">,</span> <span class="s1">&#39;Focality&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;Risk&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;Stage&#39;</span><span class="p">,</span> <span class="s1">&#39;Response&#39;</span><span class="p">]</span>
+<span class="n">ordinal_encoder</span> <span class="o">=</span> <span class="n">OrdinalEncoder</span><span class="p">()</span>
+<span class="n">X_encoded</span><span class="p">[</span><span class="n">categorical_features</span><span class="p">]</span> <span class="o">=</span> <span class="n">ordinal_encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_encoded</span><span class="p">[</span><span class="n">categorical_features</span><span class="p">])</span>
+
+<span class="c1"># Lihat hasilnya</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X_encoded</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Age  Gender  Smoking  Hx Smoking  Hx Radiothreapy  Thyroid Function  \
+0   27       0        0           0                0               2.0   
+1   34       0        0           1                0               2.0   
+2   30       0        0           0                0               2.0   
+3   62       0        0           0                0               2.0   
+4   62       0        0           0                0               2.0   
+
+   Physical Examination  Adenopathy  Pathology  Focality  Risk    T    N    M  \
+0                   3.0           3        2.0       1.0   2.0  0.0  0.0  0.0   
+1                   1.0           3        2.0       1.0   2.0  0.0  0.0  0.0   
+2                   4.0           3        2.0       1.0   2.0  0.0  0.0  0.0   
+3                   4.0           3        2.0       1.0   2.0  0.0  0.0  0.0   
+4                   1.0           3        2.0       0.0   2.0  0.0  0.0  0.0   
+
+   Stage  Response  
+0    0.0       2.0  
+1    0.0       1.0  
+2    0.0       1.0  
+3    0.0       1.0  
+4    0.0       1.0  
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.naive_bayes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+
+<span class="c1"># 1. Split data</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_encoded</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># 2. Buat model Naive Bayes dan latih</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># 3. Prediksi dan evaluasi</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Output evaluasi</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Akurasi:&quot;</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Confusion Matrix:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Classification Report:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Akurasi: 0.8831168831168831
+
+Confusion Matrix:
+ [[57  1]
+ [ 8 11]]
+
+Classification Report:
+               precision    recall  f1-score   support
+
+          No       0.88      0.98      0.93        58
+         Yes       0.92      0.58      0.71        19
+
+    accuracy                           0.88        77
+   macro avg       0.90      0.78      0.82        77
+weighted avg       0.89      0.88      0.87        77
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.11/dist-packages/sklearn/utils/validation.py:1408: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
+  y = column_or_1d(y, warn=True)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Data%20Binning.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Data Binning</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informasi-dataset">Informasi Dataset</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Vio
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
