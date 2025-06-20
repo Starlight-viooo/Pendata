@@ -386,6 +386,11 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informasi-dataset">Informasi Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelling">Modelling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#naive-bayes-ensemble-gabungan-gaussiannb-categorikalnb">Naive Bayes Ensemble(gabungan) GaussianNB+CategorikalNB</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#klasifikasi-dengan-metode-decision-tree">Klasifikasi dengan metode Decision Tree</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -402,7 +407,7 @@ document.write(`
 <p>##Data Understading</p>
 <section id="informasi-dataset">
 <h2>Informasi Dataset<a class="headerlink" href="#informasi-dataset" title="Link to this heading">#</a></h2>
-<p>Dataset ini berisi 13 (sebenarnya 16) fitur klinikopatologis yang bertujuan untuk memprediksi kekambuhan kanker tiroid yang terdefinisi dengan baik. Dataset ini dikumpulkan selama 15 tahun dan setiap pasien diikuti selama setidaknya 10 tahun.</p>
+<p>Dataset ini berisi 17 fitur klinikopatologis yang bertujuan untuk memprediksi kekambuhan kanker tiroid yang terdefinisi dengan baik. Dataset ini dikumpulkan selama 15 tahun dan setiap pasien diikuti selama setidaknya 10 tahun.</p>
 <p>Di dataset ini tidak ada missing value</p>
 <p>Sumber : <a class="reference external" href="https://archive.ics.uci.edu/dataset/915/differentiated+thyroid+cancer+recurrence">https://archive.ics.uci.edu/dataset/915/differentiated+thyroid+cancer+recurrence</a></p>
 <div class="cell docutils container">
@@ -494,396 +499,49 @@ Successfully installed ucimlrepo-0.0.7
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     Age Gender Smoking Hx Smoking Hx Radiothreapy             Thyroid Function         Physical Examination Adenopathy       Pathology     Focality          Risk    T    N   M Stage                Response
-0     27      F      No         No              No                    Euthyroid   Single nodular goiter-left         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I           Indeterminate
-1     34      F      No        Yes              No                    Euthyroid          Multinodular goiter         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-2     30      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-3     62      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-4     62      F      No         No              No                    Euthyroid          Multinodular goiter         No  Micropapillary  Multi-Focal           Low  T1a   N0  M0     I               Excellent
-5     52      M     Yes         No              No                    Euthyroid          Multinodular goiter         No  Micropapillary  Multi-Focal           Low  T1a   N0  M0     I           Indeterminate
-6     41      F      No        Yes              No     Clinical Hyperthyroidism  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-7     46      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-8     51      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-9     40      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-10    75      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-11    59      F      No         No              No                    Euthyroid   Single nodular goiter-left         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-12    49      F      No         No              No                    Euthyroid          Multinodular goiter         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-13    50      F      No         No              No     Clinical Hyperthyroidism          Multinodular goiter         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-14    76      F      No         No              No      Clinical Hypothyroidism  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-15    42      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I           Indeterminate
-16    40      F      No        Yes              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-17    44      F      No         No              No                    Euthyroid          Multinodular goiter         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I           Indeterminate
-18    43      F      No         No              No                    Euthyroid          Multinodular goiter         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-19    52      F      No         No              No                    Euthyroid          Multinodular goiter         No  Micropapillary  Multi-Focal           Low  T1a   N0  M0     I           Indeterminate
-20    41      F      No         No              No                    Euthyroid   Single nodular goiter-left         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-21    44      F      No         No              No                    Euthyroid   Single nodular goiter-left         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-22    36      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-23    70      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-24    60      F      No         No              No                    Euthyroid          Multinodular goiter         No  Micropapillary  Multi-Focal           Low  T1a   N0  M0     I               Excellent
-25    33      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-26    43      M      No         No              No  Subclinical Hyperthyroidism   Single nodular goiter-left         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-27    26      M      No         No              No                    Euthyroid   Single nodular goiter-left         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-28    41      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-29    37      F      No        Yes              No   Subclinical Hypothyroidism                       Normal         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-30    37      F      No         No              No                    Euthyroid   Single nodular goiter-left         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-31    30      F      No         No              No     Clinical Hyperthyroidism                       Normal         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-32    36      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-33    55      F      No         No              No                    Euthyroid          Multinodular goiter         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-34    52      M     Yes         No              No                    Euthyroid   Single nodular goiter-left         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-35    37      F      No         No              No   Subclinical Hypothyroidism   Single nodular goiter-left         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-36    31      F      No         No              No     Clinical Hyperthyroidism               Diffuse goiter         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-37    43      M      No         No              No                    Euthyroid          Multinodular goiter         No  Micropapillary  Multi-Focal           Low  T1a   N0  M0     I               Excellent
-38    40      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-39    34      F      No         No              No                    Euthyroid               Diffuse goiter         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-40    51      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-41    45      F      No         No              No                    Euthyroid   Single nodular goiter-left         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-42    20      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-43    38      F      No         No              No                    Euthyroid          Multinodular goiter         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-44    38      F      No         No              No     Clinical Hyperthyroidism               Diffuse goiter         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-45    33      F      No         No              No                    Euthyroid          Multinodular goiter         No  Micropapillary    Uni-Focal           Low  T1a   N0  M0     I               Excellent
-46    31      F      No         No              No      Clinical Hypothyroidism          Multinodular goiter         No  Micropapillary    Uni-Focal  Intermediate  T1a   N0  M0     I               Excellent
-47    31      F      No         No              No                    Euthyroid          Multinodular goiter      Right       Papillary  Multi-Focal  Intermediate  T1a  N1b  M0     I               Excellent
-48    26      F      No         No              No                    Euthyroid                       Normal  Extensive       Papillary    Uni-Focal  Intermediate  T1a  N1b  M0     I   Structural Incomplete
-49    29      F      No         No              No                    Euthyroid          Multinodular goiter         No      Follicular    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-50    43      F      No         No              No                    Euthyroid  Single nodular goiter-right         No  Micropapillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-51    30      F      No         No              No  Subclinical Hyperthyroidism          Multinodular goiter         No       Papillary  Multi-Focal           Low  T1b   N0  M0     I               Excellent
-52    25      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low  T1b   N0  M0     I               Excellent
-53    27      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-54    25      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-55    21      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I           Indeterminate
-56    43      F      No        Yes              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-57    23      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-58    23      F      No         No              No     Clinical Hyperthyroidism   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-59    43      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I           Indeterminate
-60    24      M      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-61    35      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-62    54      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-63    54      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I           Indeterminate
-64    22      F      No         No              No  Subclinical Hyperthyroidism  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-65    38      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low  T1b   N0  M0     I               Excellent
-66    35      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-67    51      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-68    22      M      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low  T1b   N0  M0     I               Excellent
-69    51      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-70    40      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-71    69      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-72    31      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-73    29      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-74    30      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-75    28      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-76    22      F      No         No              No      Clinical Hypothyroidism  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-77    29      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-78    35      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-79    50      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low  T1b   N0  M0     I               Excellent
-80    27      F      No         No              No     Clinical Hyperthyroidism               Diffuse goiter         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-81    17      F      No        Yes              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-82    27      F      No         No              No  Subclinical Hyperthyroidism  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-83    40      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal  Intermediate  T1b   N0  M0     I               Excellent
-84    33      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal  Intermediate  T1b  N1b  M0     I           Indeterminate
-85    25      F      No        Yes             Yes                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-86    73      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T1b   N0  M0     I               Excellent
-87    36      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low  T1b   N0  M0     I           Indeterminate
-88    35      F      No         No              No                    Euthyroid          Multinodular goiter      Right       Papillary  Multi-Focal  Intermediate  T1b  N1b  M0     I   Structural Incomplete
-89    31      M     Yes         No              No                    Euthyroid          Multinodular goiter      Right       Papillary  Multi-Focal  Intermediate  T1b  N1b  M0     I   Structural Incomplete
-90    18      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal  Intermediate  T1b  N1b  M0     I   Structural Incomplete
-91    62      F      No         No              No                    Euthyroid  Single nodular goiter-right         No      Follicular  Multi-Focal  Intermediate  T1b   N0  M0     I   Structural Incomplete
-92    62      F      No         No              No                    Euthyroid  Single nodular goiter-right         No    Hurthel cell    Uni-Focal           Low   T2   N0  M0     I               Excellent
-93    39      F      No         No              No                    Euthyroid               Diffuse goiter         No    Hurthel cell    Uni-Focal           Low   T2   N0  M0     I           Indeterminate
-94    37      F      No         No              No                    Euthyroid   Single nodular goiter-left         No    Hurthel cell  Multi-Focal           Low   T2   N0  M0     I               Excellent
-95    26      F      No        Yes              No  Subclinical Hyperthyroidism  Single nodular goiter-right         No    Hurthel cell    Uni-Focal           Low   T2   N0  M0     I               Excellent
-96    31      F      No         No              No                    Euthyroid   Single nodular goiter-left         No    Hurthel cell    Uni-Focal           Low   T2   N0  M0     I           Indeterminate
-97    24      F      No         No              No                    Euthyroid  Single nodular goiter-right         No      Follicular    Uni-Focal           Low   T2   N0  M0     I               Excellent
-98    57      F     Yes         No              No                    Euthyroid          Multinodular goiter         No      Follicular    Uni-Focal           Low   T2   N0  M0     I               Excellent
-99    28      F      No         No              No                    Euthyroid  Single nodular goiter-right         No      Follicular    Uni-Focal           Low   T2   N0  M0     I               Excellent
-100   44      M     Yes         No              No                    Euthyroid  Single nodular goiter-right         No      Follicular    Uni-Focal           Low   T2   N0  M0     I               Excellent
-101   42      F      No         No              No                    Euthyroid   Single nodular goiter-left         No      Follicular    Uni-Focal           Low   T2   N0  M0     I           Indeterminate
-102   27      F      No         No              No                    Euthyroid  Single nodular goiter-right         No      Follicular    Uni-Focal           Low   T2   N0  M0     I               Excellent
-103   51      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-104   33      F      No         No              No      Clinical Hypothyroidism  Single nodular goiter-right      Right       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-105   42      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-106   26      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-107   24      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-108   60      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low   T2   N0  M0     I               Excellent
-109   60      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I  Biochemical Incomplete
-110   31      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-111   66      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-112   44      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-113   32      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-114   26      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low   T2   N0  M0     I               Excellent
-115   37      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-116   33      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-117   23      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low   T2   N0  M0     I           Indeterminate
-118   47      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-119   28      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-120   37      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-121   26      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-122   28      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-123   28      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-124   44      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-125   31      F      No        Yes              No                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-126   27      F      No         No              No      Clinical Hypothyroidism  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-127   56      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I  Biochemical Incomplete
-128   63      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-129   24      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I  Biochemical Incomplete
-130   30      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-131   31      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-132   32      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-133   28      F      No         No              No     Clinical Hyperthyroidism          Multinodular goiter         No       Papillary  Multi-Focal           Low   T2   N0  M0     I               Excellent
-134   51      F      No        Yes              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-135   20      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-136   21      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-137   32      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-138   26      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-139   42      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I  Biochemical Incomplete
-140   28      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-141   41      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-142   42      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-143   49      F      No        Yes              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-144   29      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-145   29      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-146   25      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I           Indeterminate
-147   41      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I           Indeterminate
-148   33      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-149   27      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-150   50      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-151   19      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-152   35      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-153   63      F      No         No              No                    Euthyroid                       Normal         No       Papillary    Uni-Focal           Low   T2   N0  M0     I  Biochemical Incomplete
-154   24      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-155   36      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-156   31      M     Yes         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-157   24      M      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-158   33      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-159   24      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-160   28      F      No         No              No      Clinical Hypothyroidism  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-161   22      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-162   27      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-163   28      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I           Indeterminate
-164   29      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary  Multi-Focal           Low   T2   N0  M0     I               Excellent
-165   40      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low   T2   N0  M0     I               Excellent
-166   31      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-167   55      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-168   21      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-169   40      M     Yes         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-170   38      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-171   21      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-172   31      M     Yes         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-173   30      F      No         No              No                    Euthyroid                       Normal         No       Papillary    Uni-Focal           Low   T2   N0  M0     I           Indeterminate
-174   50      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I           Indeterminate
-175   34      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-176   45      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-177   52      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-178   38      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-179   67      M     Yes         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low   T2   N0  M0     I               Excellent
-180   72      F      No         No              No   Subclinical Hypothyroidism  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I           Indeterminate
-181   45      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low   T2   N0  M0     I               Excellent
-182   45      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low   T2   N0  M0     I  Biochemical Incomplete
-183   26      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-184   67      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-185   56      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-186   30      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-187   34      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-188   50      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-189   42      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-190   35      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low   T2   N0  M0     I               Excellent
-191   23      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low   T2   N0  M0     I               Excellent
-192   44      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low   T2   N0  M0     I               Excellent
-193   23      F      No         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-194   26      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-195   61      M      No         No              No   Subclinical Hypothyroidism   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-196   22      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-197   31      F      No         No              No     Clinical Hyperthyroidism               Diffuse goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-198   68      F      No         No              No     Clinical Hyperthyroidism               Diffuse goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-199   57      M      No         No              No     Clinical Hyperthyroidism   Single nodular goiter-left         No       Papillary    Uni-Focal           Low   T2   N0  M0     I               Excellent
-200   27      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low   T2  N1b  M0     I               Excellent
-201   25      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary  Multi-Focal           Low   T2  N1b  M0     I               Excellent
-202   20      M      No         No              No   Subclinical Hypothyroidism          Multinodular goiter         No       Papillary  Multi-Focal  Intermediate   T2  N1b  M0     I               Excellent
-203   33      M      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2  N1b  M0     I               Excellent
-204   36      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal           Low   T2  N1b  M0     I               Excellent
-205   36      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal           Low   T2  N1b  M0     I           Indeterminate
-206   40      F      No         No              No                    Euthyroid          Multinodular goiter       Left       Papillary    Uni-Focal  Intermediate   T2  N1b  M0     I           Indeterminate
-207   17      F      No         No              No                    Euthyroid          Multinodular goiter      Right       Papillary    Uni-Focal  Intermediate   T2  N1b  M0     I           Indeterminate
-208   24      F      No         No              No      Clinical Hypothyroidism          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate   T2  N1b  M0     I               Excellent
-209   38      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary  Multi-Focal  Intermediate   T2  N1b  M0     I               Excellent
-210   28      F      No         No              No                    Euthyroid          Multinodular goiter      Right       Papillary    Uni-Focal  Intermediate   T2  N1b  M0     I               Excellent
-211   36      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal  Intermediate   T2  N1b  M0     I           Indeterminate
-212   50      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal  Intermediate   T2  N1b  M0     I           Indeterminate
-213   51      M      No         No              No     Clinical Hyperthyroidism  Single nodular goiter-right      Right       Papillary    Uni-Focal  Intermediate   T2  N1b  M0     I           Indeterminate
-214   55      F      No         No              No   Subclinical Hypothyroidism          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate   T2  N1b  M0    II           Indeterminate
-215   31      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2  N1a  M0     I               Excellent
-216   33      F      No         No              No      Clinical Hypothyroidism  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2  N1a  M0     I           Indeterminate
-217   28      F     Yes         No              No     Clinical Hyperthyroidism  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2  N1a  M0     I           Indeterminate
-218   48      M      No         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary    Uni-Focal  Intermediate   T2  N1a  M0     I           Indeterminate
-219   40      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2  N1a  M0     I               Excellent
-220   29      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2  N1a  M0     I           Indeterminate
-221   20      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal  Intermediate   T2  N1a  M0     I               Excellent
-222   35      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I           Indeterminate
-223   56      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I   Structural Incomplete
-224   20      M      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal           Low   T2   N0  M0     I   Structural Incomplete
-225   62      F      No         No              No      Clinical Hypothyroidism          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I  Biochemical Incomplete
-226   17      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal          High   T2   N0  M0     I   Structural Incomplete
-227   21      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal           Low   T2  N1b  M0     I   Structural Incomplete
-228   20      M      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal  Intermediate   T2  N1b  M0     I   Structural Incomplete
-229   40      M     Yes         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate   T2  N1b  M0     I   Structural Incomplete
-230   38      M     Yes        Yes              No                    Euthyroid          Multinodular goiter      Right       Papillary  Multi-Focal  Intermediate   T2  N1b  M0     I   Structural Incomplete
-231   21      F      No         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary    Uni-Focal  Intermediate   T2  N1b  M0     I   Structural Incomplete
-232   31      F      No         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary    Uni-Focal  Intermediate   T2  N1b  M0     I   Structural Incomplete
-233   34      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal  Intermediate   T2  N1b  M0     I   Structural Incomplete
-234   60      F      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate   T2  N1b  M0     I   Structural Incomplete
-235   60      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary  Multi-Focal  Intermediate   T2  N1b  M0    II   Structural Incomplete
-236   62      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary  Multi-Focal  Intermediate   T2  N1b  M0    II   Structural Incomplete
-237   36      M      No         No              No     Clinical Hyperthyroidism          Multinodular goiter         No       Papillary    Uni-Focal  Intermediate   T2  N1a  M0     I           Indeterminate
-238   29      F     Yes         No              No                    Euthyroid   Single nodular goiter-left         No      Follicular    Uni-Focal           Low   T2   N0  M0     I   Structural Incomplete
-239   33      M      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I   Structural Incomplete
-240   75      M     Yes         No             Yes                    Euthyroid   Single nodular goiter-left         No      Follicular  Multi-Focal          High   T2   N0  M1   IVB   Structural Incomplete
-241   62      M      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low   T2   N0  M0     I   Structural Incomplete
-242   56      M      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low   T2   N0  M0     I  Biochemical Incomplete
-243   52      F      No         No              No                    Euthyroid          Multinodular goiter         No      Follicular    Uni-Focal           Low  T3a   N0  M0     I  Biochemical Incomplete
-244   35      F      No         No              No     Clinical Hyperthyroidism          Multinodular goiter         No       Papillary    Uni-Focal           Low  T3a   N0  M0     I               Excellent
-245   34      F      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary    Uni-Focal  Intermediate  T3a  N1b  M0     I           Indeterminate
-246   32      F      No         No              No                    Euthyroid          Multinodular goiter         No    Hurthel cell  Multi-Focal           Low  T3a   N0  M0     I               Excellent
-247   27      F      No         No              No      Clinical Hypothyroidism  Single nodular goiter-right         No    Hurthel cell  Multi-Focal           Low  T3a   N0  M0     I               Excellent
-248   52      F     Yes         No              No                    Euthyroid   Single nodular goiter-left  Bilateral    Hurthel cell  Multi-Focal           Low  T3a   N0  M0     I   Structural Incomplete
-249   46      F      No         No              No                    Euthyroid   Single nodular goiter-left         No    Hurthel cell  Multi-Focal           Low  T3a   N0  M0     I               Excellent
-250   30      F      No         No              No   Subclinical Hypothyroidism                       Normal      Right      Follicular    Uni-Focal           Low  T3a   N0  M0     I               Excellent
-251   32      F      No         No              No                    Euthyroid   Single nodular goiter-left         No      Follicular  Multi-Focal           Low  T3a   N0  M0     I           Indeterminate
-252   25      F      No         No              No     Clinical Hyperthyroidism          Multinodular goiter         No      Follicular  Multi-Focal           Low  T3a   N0  M0     I               Excellent
-253   38      F      No         No              No                    Euthyroid          Multinodular goiter         No      Follicular  Multi-Focal           Low  T3a   N0  M0     I  Biochemical Incomplete
-254   31      M     Yes        Yes              No                    Euthyroid   Single nodular goiter-left         No      Follicular    Uni-Focal           Low  T3a   N0  M0     I           Indeterminate
-255   37      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I               Excellent
-256   21      M     Yes        Yes              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T3a   N0  M0     I  Biochemical Incomplete
-257   34      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T3a   N0  M0     I               Excellent
-258   30      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I  Biochemical Incomplete
-259   48      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I           Indeterminate
-260   31      M     Yes         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I               Excellent
-261   52      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I           Indeterminate
-262   38      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low  T3a   N0  M0     I               Excellent
-263   41      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I               Excellent
-264   41      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I  Biochemical Incomplete
-265   70      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I           Indeterminate
-266   19      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I               Excellent
-267   41      M      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T3a   N0  M0     I               Excellent
-268   32      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T3a   N0  M0     I               Excellent
-269   35      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I           Indeterminate
-270   39      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T3a   N0  M0     I           Indeterminate
-271   45      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T3a   N0  M0     I               Excellent
-272   46      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I           Indeterminate
-273   45      F      No         No              No      Clinical Hypothyroidism   Single nodular goiter-left         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I           Indeterminate
-274   28      M     Yes         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary    Uni-Focal           Low  T3a   N0  M0     I           Indeterminate
-275   31      M      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal           Low  T3a   N0  M0     I           Indeterminate
-276   81      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal           Low  T3a   N0  M0    II               Excellent
-277   41      M     Yes         No              No                    Euthyroid  Single nodular goiter-right         No    Hurthel cell  Multi-Focal  Intermediate  T3a   N0  M0     I               Excellent
-278   56      M     Yes         No              No                    Euthyroid          Multinodular goiter         No    Hurthel cell  Multi-Focal  Intermediate  T3a   N0  M0     I           Indeterminate
-279   47      F      No         No              No                    Euthyroid          Multinodular goiter         No      Follicular    Uni-Focal  Intermediate  T3a   N0  M0     I           Indeterminate
-280   37      F      No         No              No                    Euthyroid  Single nodular goiter-right         No      Follicular    Uni-Focal  Intermediate  T3a   N0  M0     I               Excellent
-281   32      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal  Intermediate  T3a   N0  M0     I  Biochemical Incomplete
-282   53      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal  Intermediate  T3a   N0  M0     I           Indeterminate
-283   30      F      No         No              No                    Euthyroid   Single nodular goiter-left         No       Papillary  Multi-Focal  Intermediate  T3a   N0  M0     I               Excellent
-284   34      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal  Intermediate  T3a   N0  M0     I               Excellent
-285   62      F      No         No              No                    Euthyroid   Single nodular goiter-left         No    Hurthel cell  Multi-Focal  Intermediate  T3a   N0  M0    II           Indeterminate
-286   58      F      No         No              No     Clinical Hyperthyroidism          Multinodular goiter         No      Follicular  Multi-Focal  Intermediate  T3a   N0  M0    II           Indeterminate
-287   55      M      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal  Intermediate  T3a   N0  M0    II           Indeterminate
-288   21      F      No         No              No                    Euthyroid   Single nodular goiter-left      Right       Papillary  Multi-Focal           Low  T3a  N1b  M0     I               Excellent
-289   27      F      No         No              No                    Euthyroid          Multinodular goiter      Right       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I               Excellent
-290   46      F      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I           Indeterminate
-291   44      F      No         No              No                    Euthyroid          Multinodular goiter      Right       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I               Excellent
-292   29      F      No         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary    Uni-Focal           Low  T3a  N1a  M0     I               Excellent
-293   26      F      No         No              No   Subclinical Hypothyroidism          Multinodular goiter      Right       Papillary    Uni-Focal  Intermediate  T3a  N1a  M0     I           Indeterminate
-294   42      M      No         No              No   Subclinical Hypothyroidism  Single nodular goiter-right         No       Papillary  Multi-Focal  Intermediate  T3a  N1a  M0     I           Indeterminate
-295   56      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary  Multi-Focal  Intermediate  T3a  N1a  M0    II               Excellent
-296   51      F      No        Yes              No                    Euthyroid  Single nodular goiter-right      Right    Hurthel cell    Uni-Focal           Low  T3a   N0  M0     I           Indeterminate
-297   61      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal  Intermediate  T3a   N0  M0    II               Excellent
-298   42      M      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary  Multi-Focal           Low  T3a   N0  M0     I   Structural Incomplete
-299   34      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal           Low  T3a   N0  M0     I   Structural Incomplete
-300   67      F      No         No              No                    Euthyroid          Multinodular goiter         No    Hurthel cell    Uni-Focal  Intermediate  T3a   N0  M0    II           Indeterminate
-301   63      F      No         No              No                    Euthyroid  Single nodular goiter-right         No      Follicular    Uni-Focal  Intermediate  T3a   N0  M0    II           Indeterminate
-302   67      M     Yes        Yes              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary    Uni-Focal  Intermediate  T3a   N0  M0    II  Biochemical Incomplete
-303   73      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary    Uni-Focal  Intermediate  T3a   N0  M0    II   Structural Incomplete
-304   26      F      No         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary    Uni-Focal  Intermediate  T3a  N1b  M1     I   Structural Incomplete
-305   30      F      No         No              No                    Euthyroid          Multinodular goiter      Right       Papillary    Uni-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
-306   36      F      No         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I           Indeterminate
-307   31      F      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
-308   40      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
-309   49      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
-310   38      M     Yes         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary    Uni-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
-311   27      F      No         No              No                    Euthyroid  Single nodular goiter-right  Bilateral       Papillary    Uni-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
-312   27      M      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
-313   33      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I  Biochemical Incomplete
-314   32      F      No         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
-315   29      F      No         No              No                    Euthyroid          Multinodular goiter      Right       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
-316   37      M      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
-317   48      F      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
-318   30      F      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
-319   33      M      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary    Uni-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
-320   80      F     Yes         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0    II   Structural Incomplete
-321   62      F      No         No              No                    Euthyroid          Multinodular goiter      Right       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0    II   Structural Incomplete
-322   63      M     Yes         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0    II   Structural Incomplete
-323   60      M      No         No              No                    Euthyroid  Single nodular goiter-right  Bilateral       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0    II   Structural Incomplete
-324   79      M     Yes         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0    II           Indeterminate
-325   65      F      No        Yes              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0    II  Biochemical Incomplete
-326   35      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary  Multi-Focal  Intermediate  T3a  N1a  M0     I  Biochemical Incomplete
-327   58      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal  Intermediate  T3a  N1a  M0    II           Indeterminate
-328   34      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary    Uni-Focal          High  T3a  N1a  M0     I  Biochemical Incomplete
-329   56      F      No         No              No                    Euthyroid   Single nodular goiter-left         No      Follicular  Multi-Focal           Low  T3a   N0  M0     I   Structural Incomplete
-330   52      M     Yes         No              No                    Euthyroid   Single nodular goiter-left      Right      Follicular  Multi-Focal  Intermediate  T3a   N0  M0     I  Biochemical Incomplete
-331   51      F      No         No              No                    Euthyroid   Single nodular goiter-left         No      Follicular    Uni-Focal  Intermediate  T3a   N0  M0     I   Structural Incomplete
-332   31      F      No         No              No                    Euthyroid   Single nodular goiter-left         No      Follicular    Uni-Focal  Intermediate  T3a  N1a  M0     I  Biochemical Incomplete
-333   44      M     Yes         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary  Multi-Focal          High  T3a  N1b  M1    II   Structural Incomplete
-334   15      F      No         No              No                    Euthyroid                       Normal  Bilateral       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
-335   29      M      No         No              No                    Euthyroid          Multinodular goiter  Extensive       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
-336   53      M      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
-337   45      F      No         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary  Multi-Focal  Intermediate  T3a  N1b  M0     I   Structural Incomplete
-338   38      F      No         No              No                    Euthyroid   Single nodular goiter-left  Posterior       Papillary  Multi-Focal          High  T3a  N1b  M1    II   Structural Incomplete
-339   48      F      No         No              No     Clinical Hyperthyroidism          Multinodular goiter       Left    Hurthel cell  Multi-Focal  Intermediate  T3b  N1a  M0     I   Structural Incomplete
-340   42      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal  Intermediate  T3b   N0  M0     I           Indeterminate
-341   23      F      No        Yes              No                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal  Intermediate  T3b  N1a  M0     I   Structural Incomplete
-342   22      F      No         No              No                    Euthyroid          Multinodular goiter      Right       Papillary  Multi-Focal  Intermediate  T3b  N1a  M0     I   Structural Incomplete
-343   44      F      No         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary  Multi-Focal  Intermediate  T3b  N1b  M0     I   Structural Incomplete
-344   31      F      No         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary    Uni-Focal  Intermediate  T3b  N1b  M0     I               Excellent
-345   25      F      No         No              No                    Euthyroid          Multinodular goiter       Left       Papillary  Multi-Focal  Intermediate  T3b  N1b  M0     I   Structural Incomplete
-346   32      M      No        Yes              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal  Intermediate  T3b  N1b  M0     I   Structural Incomplete
-347   82      M     Yes         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary    Uni-Focal  Intermediate  T3b  N1b  M0    II   Structural Incomplete
-348   58      F      No         No              No   Subclinical Hypothyroidism          Multinodular goiter  Extensive       Papillary  Multi-Focal  Intermediate  T3b  N1b  M0    II   Structural Incomplete
-349   68      M     Yes        Yes              No   Subclinical Hypothyroidism   Single nodular goiter-left  Bilateral       Papillary  Multi-Focal  Intermediate  T3b  N1b  M0   III   Structural Incomplete
-350   37      F      No         No              No   Subclinical Hypothyroidism   Single nodular goiter-left         No       Papillary  Multi-Focal  Intermediate  T3b  N1a  M1    II   Structural Incomplete
-351   59      M     Yes        Yes              No      Clinical Hypothyroidism          Multinodular goiter         No    Hurthel cell  Multi-Focal  Intermediate  T3b   N0  M0     I   Structural Incomplete
-352   21      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary  Multi-Focal  Intermediate  T3b   N0  M0     I   Structural Incomplete
-353   73      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary  Multi-Focal          High  T3b  N1a  M1   IVB   Structural Incomplete
-354   35      M     Yes         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary  Multi-Focal          High  T3b  N1b  M1    II   Structural Incomplete
-355   32      F      No         No              No                    Euthyroid  Single nodular goiter-right         No       Papillary  Multi-Focal  Intermediate  T4a   N0  M0     I               Excellent
-356   54      M     Yes         No              No                    Euthyroid   Single nodular goiter-left      Right    Hurthel cell  Multi-Focal  Intermediate  T4a  N1b  M0    II   Structural Incomplete
-357   26      F     Yes         No              No                    Euthyroid   Single nodular goiter-left  Bilateral    Hurthel cell  Multi-Focal          High  T4a  N1b  M0     I   Structural Incomplete
-358   53      F      No         No              No                    Euthyroid          Multinodular goiter      Right       Papillary    Uni-Focal          High  T4a  N1b  M0     I   Structural Incomplete
-359   35      F      No         No              No                    Euthyroid          Multinodular goiter  Extensive       Papillary  Multi-Focal          High  T4a  N1b  M0     I   Structural Incomplete
-360   49      M      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal          High  T4a  N1b  M0     I   Structural Incomplete
-361   34      F      No         No              No                    Euthyroid          Multinodular goiter      Right       Papillary    Uni-Focal          High  T4a  N1b  M0     I   Structural Incomplete
-362   80      F     Yes        Yes              No                    Euthyroid          Multinodular goiter      Right       Papillary    Uni-Focal          High  T4a  N1b  M0   III   Structural Incomplete
-363   67      F      No         No              No                    Euthyroid  Single nodular goiter-right      Right       Papillary  Multi-Focal          High  T4a  N1b  M0   III   Structural Incomplete
-364   68      F      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal          High  T4a  N1b  M1   IVB   Structural Incomplete
-365   71      F     Yes         No              No                    Euthyroid   Single nodular goiter-left         No      Follicular  Multi-Focal          High  T4a   N0  M1   IVB   Structural Incomplete
-366   64      F      No        Yes              No                    Euthyroid          Multinodular goiter         No      Follicular  Multi-Focal          High  T4a   N0  M1   IVB   Structural Incomplete
-367   80      M     Yes         No              No                    Euthyroid   Single nodular goiter-left         No    Hurthel cell  Multi-Focal  Intermediate  T4a   N0  M0    II   Structural Incomplete
-368   56      F      No         No              No                    Euthyroid          Multinodular goiter  Posterior       Papillary  Multi-Focal          High  T4a  N1b  M0    II   Structural Incomplete
-369   71      M     Yes        Yes              No   Subclinical Hypothyroidism          Multinodular goiter  Bilateral       Papillary  Multi-Focal          High  T4a  N1b  M0   III   Structural Incomplete
-370   78      M     Yes        Yes             Yes     Clinical Hyperthyroidism          Multinodular goiter         No      Follicular  Multi-Focal          High  T4a   N0  M1   IVB   Structural Incomplete
-371   51      F      No         No              No                    Euthyroid          Multinodular goiter         No       Papillary  Multi-Focal          High  T4a  N1a  M1    II   Structural Incomplete
-372   67      F     Yes         No              No   Subclinical Hypothyroidism          Multinodular goiter         No       Papillary  Multi-Focal          High  T4a   N0  M0   IVA  Biochemical Incomplete
-373   31      M     Yes         No             Yes                    Euthyroid   Single nodular goiter-left  Extensive       Papillary  Multi-Focal          High  T4a  N1b  M1    II   Structural Incomplete
-374   62      M     Yes         No              No                    Euthyroid   Single nodular goiter-left       Left       Papillary  Multi-Focal          High  T4a  N1b  M1   IVB   Structural Incomplete
-375   59      F      No         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal          High  T4b  N1b  M0   IVB   Structural Incomplete
-376   40      M     Yes         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal          High  T4b  N1b  M0     I   Structural Incomplete
-377   46      M     Yes         No              No                    Euthyroid   Single nodular goiter-left  Bilateral      Follicular    Uni-Focal          High  T4b  N1b  M1    II   Structural Incomplete
-378   72      M     Yes        Yes             Yes                    Euthyroid  Single nodular goiter-right      Right       Papillary    Uni-Focal          High  T4b  N1b  M1   IVB  Biochemical Incomplete
-379   81      M     Yes         No             Yes                    Euthyroid          Multinodular goiter  Extensive       Papillary  Multi-Focal          High  T4b  N1b  M1   IVB   Structural Incomplete
-380   72      M     Yes        Yes              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal          High  T4b  N1b  M1   IVB   Structural Incomplete
-381   61      M     Yes        Yes             Yes     Clinical Hyperthyroidism          Multinodular goiter  Extensive    Hurthel cell  Multi-Focal          High  T4b  N1b  M0   IVA   Structural Incomplete
-382   67      M     Yes         No              No                    Euthyroid          Multinodular goiter  Bilateral       Papillary  Multi-Focal          High  T4b  N1b  M0   IVA   Structural Incomplete
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Age Gender Smoking Hx Smoking Hx Radiothreapy          Thyroid Function  \
+0   27      F      No         No              No                 Euthyroid   
+1   34      F      No        Yes              No                 Euthyroid   
+2   30      F      No         No              No                 Euthyroid   
+3   62      F      No         No              No                 Euthyroid   
+4   62      F      No         No              No                 Euthyroid   
+5   52      M     Yes         No              No                 Euthyroid   
+6   41      F      No        Yes              No  Clinical Hyperthyroidism   
+7   46      F      No         No              No                 Euthyroid   
+8   51      F      No         No              No                 Euthyroid   
+9   40      F      No         No              No                 Euthyroid   
+
+          Physical Examination Adenopathy       Pathology     Focality Risk  \
+0   Single nodular goiter-left         No  Micropapillary    Uni-Focal  Low   
+1          Multinodular goiter         No  Micropapillary    Uni-Focal  Low   
+2  Single nodular goiter-right         No  Micropapillary    Uni-Focal  Low   
+3  Single nodular goiter-right         No  Micropapillary    Uni-Focal  Low   
+4          Multinodular goiter         No  Micropapillary  Multi-Focal  Low   
+5          Multinodular goiter         No  Micropapillary  Multi-Focal  Low   
+6  Single nodular goiter-right         No  Micropapillary    Uni-Focal  Low   
+7  Single nodular goiter-right         No  Micropapillary    Uni-Focal  Low   
+8  Single nodular goiter-right         No  Micropapillary    Uni-Focal  Low   
+9  Single nodular goiter-right         No  Micropapillary    Uni-Focal  Low   
+
+     T   N   M Stage       Response  
+0  T1a  N0  M0     I  Indeterminate  
+1  T1a  N0  M0     I      Excellent  
+2  T1a  N0  M0     I      Excellent  
+3  T1a  N0  M0     I      Excellent  
+4  T1a  N0  M0     I      Excellent  
+5  T1a  N0  M0     I  Indeterminate  
+6  T1a  N0  M0     I      Excellent  
+7  T1a  N0  M0     I      Excellent  
+8  T1a  N0  M0     I      Excellent  
+9  T1a  N0  M0     I      Excellent  
   Recurred
 0       No
 1       No
@@ -895,21 +553,11 @@ Successfully installed ucimlrepo-0.0.7
 7       No
 8       No
 9       No
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;Age&#39;, &#39;Gender&#39;, &#39;Smoking&#39;, &#39;Hx Smoking&#39;, &#39;Hx Radiothreapy&#39;,
+Index([&#39;Age&#39;, &#39;Gender&#39;, &#39;Smoking&#39;, &#39;Hx Smoking&#39;, &#39;Hx Radiothreapy&#39;,
        &#39;Thyroid Function&#39;, &#39;Physical Examination&#39;, &#39;Adenopathy&#39;, &#39;Pathology&#39;,
        &#39;Focality&#39;, &#39;Risk&#39;, &#39;T&#39;, &#39;N&#39;, &#39;M&#39;, &#39;Stage&#39;, &#39;Response&#39;],
       dtype=&#39;object&#39;)
+Index([&#39;Recurred&#39;], dtype=&#39;object&#39;)
 </pre></div>
 </div>
 </div>
@@ -935,31 +583,17 @@ Successfully installed ucimlrepo-0.0.7
 <span class="n">X_encoded</span><span class="p">[</span><span class="n">categorical_features</span><span class="p">]</span> <span class="o">=</span> <span class="n">ordinal_encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_encoded</span><span class="p">[</span><span class="n">categorical_features</span><span class="p">])</span>
 
 <span class="c1"># Lihat hasilnya</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">X_encoded</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X_encoded</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Age  Gender  Smoking  Hx Smoking  Hx Radiothreapy  Thyroid Function  \
-0   27       0        0           0                0               2.0   
-1   34       0        0           1                0               2.0   
-2   30       0        0           0                0               2.0   
-3   62       0        0           0                0               2.0   
-4   62       0        0           0                0               2.0   
-
-   Physical Examination  Adenopathy  Pathology  Focality  Risk    T    N    M  \
-0                   3.0           3        2.0       1.0   2.0  0.0  0.0  0.0   
-1                   1.0           3        2.0       1.0   2.0  0.0  0.0  0.0   
-2                   4.0           3        2.0       1.0   2.0  0.0  0.0  0.0   
-3                   4.0           3        2.0       1.0   2.0  0.0  0.0  0.0   
-4                   1.0           3        2.0       0.0   2.0  0.0  0.0  0.0   
-
-   Stage  Response  
-0    0.0       2.0  
-1    0.0       1.0  
-2    0.0       1.0  
-3    0.0       1.0  
-4    0.0       1.0  
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Age  Gender  Smoking  Hx Smoking  Hx Radiothreapy  Thyroid Function  Physical Examination  Adenopathy  Pathology  Focality  Risk   T   N   M  Stage  Response
+  27       0        0           0                0               2.0                   3.0           3        2.0       1.0   2.0 0.0 0.0 0.0    0.0       2.0
+  34       0        0           1                0               2.0                   1.0           3        2.0       1.0   2.0 0.0 0.0 0.0    0.0       1.0
+  30       0        0           0                0               2.0                   4.0           3        2.0       1.0   2.0 0.0 0.0 0.0    0.0       1.0
+  62       0        0           0                0               2.0                   4.0           3        2.0       1.0   2.0 0.0 0.0 0.0    0.0       1.0
+  62       0        0           0                0               2.0                   1.0           3        2.0       0.0   2.0 0.0 0.0 0.0    0.0       1.0
 </pre></div>
 </div>
 </div>
@@ -1011,6 +645,698 @@ weighted avg       0.89      0.88      0.87        77
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">X_encoded</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     Age  Gender  Smoking  Hx Smoking  Hx Radiothreapy  Thyroid Function  \
+0     27       0        0           0                0               2.0   
+1     34       0        0           1                0               2.0   
+2     30       0        0           0                0               2.0   
+3     62       0        0           0                0               2.0   
+4     62       0        0           0                0               2.0   
+..   ...     ...      ...         ...              ...               ...   
+378   72       1        1           1                1               2.0   
+379   81       1        1           0                1               2.0   
+380   72       1        1           1                0               2.0   
+381   61       1        1           1                1               0.0   
+382   67       1        1           0                0               2.0   
+
+     Physical Examination  Adenopathy  Pathology  Focality  Risk    T    N  \
+0                     3.0           3        2.0       1.0   2.0  0.0  0.0   
+1                     1.0           3        2.0       1.0   2.0  0.0  0.0   
+2                     4.0           3        2.0       1.0   2.0  0.0  0.0   
+3                     4.0           3        2.0       1.0   2.0  0.0  0.0   
+4                     1.0           3        2.0       0.0   2.0  0.0  0.0   
+..                    ...         ...        ...       ...   ...  ...  ...   
+378                   4.0           5        3.0       1.0   0.0  6.0  2.0   
+379                   1.0           1        3.0       0.0   0.0  6.0  2.0   
+380                   1.0           0        3.0       0.0   0.0  6.0  2.0   
+381                   1.0           1        1.0       0.0   0.0  6.0  2.0   
+382                   1.0           0        3.0       0.0   0.0  6.0  2.0   
+
+       M  Stage  Response  
+0    0.0    0.0       2.0  
+1    0.0    0.0       1.0  
+2    0.0    0.0       1.0  
+3    0.0    0.0       1.0  
+4    0.0    0.0       1.0  
+..   ...    ...       ...  
+378  1.0    4.0       0.0  
+379  1.0    4.0       3.0  
+380  1.0    4.0       3.0  
+381  0.0    3.0       3.0  
+382  0.0    3.0       3.0  
+
+[383 rows x 16 columns]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="modelling">
+<h2>Modelling<a class="headerlink" href="#modelling" title="Link to this heading">#</a></h2>
+<section id="naive-bayes-ensemble-gabungan-gaussiannb-categorikalnb">
+<h3>Naive Bayes Ensemble(gabungan) GaussianNB+CategorikalNB<a class="headerlink" href="#naive-bayes-ensemble-gabungan-gaussiannb-categorikalnb" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.naive_bayes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianNB</span><span class="p">,</span> <span class="n">CategoricalNB</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">classification_report</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">OrdinalEncoder</span><span class="p">,</span> <span class="n">LabelEncoder</span>
+
+<span class="c1"># === 1. Pra-pemrosesan Fitur ===</span>
+
+<span class="c1"># Fitur numerik dan kategorikal</span>
+<span class="n">numerical_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span>
+<span class="n">categorical_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Gender&#39;</span><span class="p">,</span> <span class="s1">&#39;Smoking&#39;</span><span class="p">,</span> <span class="s1">&#39;Hx Smoking&#39;</span><span class="p">,</span> <span class="s1">&#39;Hx Radiothreapy&#39;</span><span class="p">,</span> <span class="s1">&#39;Thyroid Function&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;Physical Examination&#39;</span><span class="p">,</span> <span class="s1">&#39;Adenopathy&#39;</span><span class="p">,</span> <span class="s1">&#39;Pathology&#39;</span><span class="p">,</span> <span class="s1">&#39;Focality&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;Risk&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;Stage&#39;</span><span class="p">,</span> <span class="s1">&#39;Response&#39;</span><span class="p">]</span>
+
+<span class="c1"># Salin data</span>
+<span class="n">X_num</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">numerical_features</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">X_cat</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">categorical_features</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># NORMALISASI fitur numerik</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X_num_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_num</span><span class="p">)</span>
+
+<span class="c1"># Encoding fitur kategorikal</span>
+<span class="n">ordinal_encoder</span> <span class="o">=</span> <span class="n">OrdinalEncoder</span><span class="p">()</span>
+<span class="n">X_cat_encoded</span> <span class="o">=</span> <span class="n">ordinal_encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_cat</span><span class="p">)</span>
+
+<span class="c1"># Gabungkan fitur numerik dan kategorikal</span>
+<span class="n">X_combined</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">X_num_scaled</span><span class="p">,</span> <span class="n">X_cat_encoded</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># === 2. Encoding Target y ===</span>
+
+<span class="n">le_y</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+<span class="n">y_encoded</span> <span class="o">=</span> <span class="n">le_y</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>  <span class="c1"># &quot;No&quot; -&gt; 0, &quot;Yes&quot; -&gt; 1</span>
+
+<span class="c1"># === 3. Split Data ===</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_combined</span><span class="p">,</span> <span class="n">y_encoded</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Pisahkan kembali fitur numerik dan kategorikal untuk masing-masing model</span>
+<span class="n">X_train_num</span><span class="p">,</span> <span class="n">X_train_cat</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">1</span><span class="p">],</span> <span class="n">X_train</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span>
+<span class="n">X_test_num</span><span class="p">,</span> <span class="n">X_test_cat</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">1</span><span class="p">],</span> <span class="n">X_test</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span>
+
+<span class="c1"># === 4. Modeling ===</span>
+
+<span class="c1"># Model Gaussian untuk numerik</span>
+<span class="n">gnb</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="n">gnb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_num</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Model Categorical untuk kategorikal</span>
+<span class="n">cnb</span> <span class="o">=</span> <span class="n">CategoricalNB</span><span class="p">()</span>
+<span class="n">cnb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_cat</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Prediksi probabilitas dari masing-masing model</span>
+<span class="n">proba_num</span> <span class="o">=</span> <span class="n">gnb</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test_num</span><span class="p">)</span>
+<span class="n">proba_cat</span> <span class="o">=</span> <span class="n">cnb</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test_cat</span><span class="p">)</span>
+
+<span class="c1"># Kombinasi rata-rata probabilitas</span>
+<span class="n">combined_proba</span> <span class="o">=</span> <span class="p">(</span><span class="n">proba_num</span> <span class="o">+</span> <span class="n">proba_cat</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">combined_proba</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># === 5. Evaluasi ===</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Akurasi:&quot;</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Confusion Matrix:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Classification Report:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="n">le_y</span><span class="o">.</span><span class="n">classes_</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Akurasi: 0.948051948051948
+
+Confusion Matrix:
+ [[57  1]
+ [ 3 16]]
+
+Classification Report:
+               precision    recall  f1-score   support
+
+          No       0.95      0.98      0.97        58
+         Yes       0.94      0.84      0.89        19
+
+    accuracy                           0.95        77
+   macro avg       0.95      0.91      0.93        77
+weighted avg       0.95      0.95      0.95        77
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.11/dist-packages/sklearn/preprocessing/_label.py:110: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
+  y = column_or_1d(y, warn=True)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Mencari Data Valid untuk data Kategorikal</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">X</span><span class="p">[</span><span class="n">categorical_features</span><span class="p">]</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="s1">&#39;Physical Examination&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Gender
+[&#39;F&#39; &#39;M&#39;]
+ 
+Smoking
+[&#39;No&#39; &#39;Yes&#39;]
+ 
+Hx Smoking
+[&#39;No&#39; &#39;Yes&#39;]
+ 
+Hx Radiothreapy
+[&#39;No&#39; &#39;Yes&#39;]
+ 
+Thyroid Function
+[&#39;Euthyroid&#39; &#39;Clinical Hyperthyroidism&#39; &#39;Clinical Hypothyroidism&#39;
+ &#39;Subclinical Hyperthyroidism&#39; &#39;Subclinical Hypothyroidism&#39;]
+ 
+Physical Examination
+[&#39;Single nodular goiter-left&#39; &#39;Multinodular goiter&#39;
+ &#39;Single nodular goiter-right&#39; &#39;Normal&#39; &#39;Diffuse goiter&#39;]
+ 
+Adenopathy
+[&#39;No&#39; &#39;Right&#39; &#39;Extensive&#39; &#39;Left&#39; &#39;Bilateral&#39; &#39;Posterior&#39;]
+ 
+Pathology
+[&#39;Micropapillary&#39; &#39;Papillary&#39; &#39;Follicular&#39; &#39;Hurthel cell&#39;]
+ 
+Focality
+[&#39;Uni-Focal&#39; &#39;Multi-Focal&#39;]
+ 
+Risk
+[&#39;Low&#39; &#39;Intermediate&#39; &#39;High&#39;]
+ 
+T
+[&#39;T1a&#39; &#39;T1b&#39; &#39;T2&#39; &#39;T3a&#39; &#39;T3b&#39; &#39;T4a&#39; &#39;T4b&#39;]
+ 
+N
+[&#39;N0&#39; &#39;N1b&#39; &#39;N1a&#39;]
+ 
+M
+[&#39;M0&#39; &#39;M1&#39;]
+ 
+Stage
+[&#39;I&#39; &#39;II&#39; &#39;IVB&#39; &#39;III&#39; &#39;IVA&#39;]
+ 
+Response
+[&#39;Indeterminate&#39; &#39;Excellent&#39; &#39;Structural Incomplete&#39;
+ &#39;Biochemical Incomplete&#39;]
+ 
+[&#39;Single nodular goiter-left&#39; &#39;Multinodular goiter&#39;
+ &#39;Single nodular goiter-right&#39; &#39;Normal&#39; &#39;Diffuse goiter&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">OrdinalEncoder</span><span class="p">,</span> <span class="n">LabelEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.naive_bayes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianNB</span><span class="p">,</span> <span class="n">CategoricalNB</span>
+
+<span class="c1"># PASTIKAN KOLOM DAN TIPE DATANYA SAMA PERSIS DENGAN DATA PELATIHAN ASLI!</span>
+<span class="c1"># new_data = X.head(3)</span>
+<span class="n">new_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;Age&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">58</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">72</span><span class="p">],</span>
+    <span class="s1">&#39;Gender&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Smoking&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;No&#39;</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;No&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Hx Smoking&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;No&#39;</span><span class="p">,</span> <span class="s1">&#39;No&#39;</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Hx Radiothreapy&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;No&#39;</span><span class="p">,</span> <span class="s1">&#39;No&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Thyroid Function&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Euthyroid&#39;</span><span class="p">,</span> <span class="s1">&#39;Euthyroid&#39;</span><span class="p">,</span> <span class="s1">&#39;Clinical Hyperthyroidism&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Physical Examination&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Single nodular goiter-left&#39;</span><span class="p">,</span> <span class="s1">&#39;Single nodular goiter-left&#39;</span><span class="p">,</span> <span class="s1">&#39;Single nodular goiter-left&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Adenopathy&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;No&#39;</span><span class="p">,</span> <span class="s1">&#39;No&#39;</span><span class="p">,</span> <span class="s1">&#39;No&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Pathology&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Micropapillary&#39;</span><span class="p">,</span> <span class="s1">&#39;Micropapillary&#39;</span><span class="p">,</span> <span class="s1">&#39;Micropapillary&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Focality&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Uni-Focal&#39;</span><span class="p">,</span> <span class="s1">&#39;Multi-Focal&#39;</span><span class="p">,</span> <span class="s1">&#39;Uni-Focal&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Risk&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Intermediate&#39;</span><span class="p">,</span> <span class="s1">&#39;High&#39;</span><span class="p">,</span> <span class="s1">&#39;Low&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;T&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;T2&#39;</span><span class="p">,</span> <span class="s1">&#39;T4a&#39;</span><span class="p">,</span> <span class="s1">&#39;T1a&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;N0&#39;</span><span class="p">,</span> <span class="s1">&#39;N1b&#39;</span><span class="p">,</span> <span class="s1">&#39;N0&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;M&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;M0&#39;</span><span class="p">,</span> <span class="s1">&#39;M1&#39;</span><span class="p">,</span> <span class="s1">&#39;M0&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Stage&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;IVB&#39;</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Response&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Excellent&#39;</span><span class="p">,</span> <span class="s1">&#39;Indeterminate&#39;</span><span class="p">,</span> <span class="s1">&#39;Excellent&#39;</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Data Baru untuk Prediksi ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">new_data</span><span class="p">)</span>
+
+<span class="c1"># --- 2. Pra-pemrosesan Data Baru ---</span>
+
+<span class="c1"># Pisahkan fitur numerik dan kategorikal dari data baru</span>
+<span class="n">numerical_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span> <span class="c1"># Definisikan ulang agar mudah dibaca di sini</span>
+<span class="n">categorical_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Gender&#39;</span><span class="p">,</span> <span class="s1">&#39;Smoking&#39;</span><span class="p">,</span> <span class="s1">&#39;Hx Smoking&#39;</span><span class="p">,</span> <span class="s1">&#39;Hx Radiothreapy&#39;</span><span class="p">,</span> <span class="s1">&#39;Thyroid Function&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;Physical Examination&#39;</span><span class="p">,</span> <span class="s1">&#39;Adenopathy&#39;</span><span class="p">,</span> <span class="s1">&#39;Pathology&#39;</span><span class="p">,</span> <span class="s1">&#39;Focality&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;Risk&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;Stage&#39;</span><span class="p">,</span> <span class="s1">&#39;Response&#39;</span><span class="p">]</span> <span class="c1"># Definisikan ulang</span>
+
+<span class="n">new_data_num</span> <span class="o">=</span> <span class="n">new_data</span><span class="p">[</span><span class="n">numerical_features</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">new_data_cat</span> <span class="o">=</span> <span class="n">new_data</span><span class="p">[</span><span class="n">categorical_features</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Standarisasi fitur numerik menggunakan **scaler yang sudah dilatih**</span>
+<span class="n">new_data_num_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">new_data_num</span><span class="p">)</span>
+
+<span class="c1"># Encoding fitur kategorikal menggunakan **ordinal_encoder yang sudah dilatih**</span>
+<span class="c1"># Jika ada kategori di new_data_cat yang tidak pernah dilihat oleh ordinal_encoder saat fit,</span>
+<span class="c1"># ini akan menimbulkan ValueError. Pastikan semua kategori di data baru sudah ada di data training.</span>
+<span class="n">new_data_cat_encoded</span> <span class="o">=</span> <span class="n">ordinal_encoder</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">new_data_cat</span><span class="p">)</span>
+
+<span class="c1"># Gabungkan fitur numerik dan kategorikal</span>
+<span class="n">new_data_combined</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">new_data_num_scaled</span><span class="p">,</span> <span class="n">new_data_cat_encoded</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Pisahkan kembali untuk prediksi oleh masing-masing model</span>
+<span class="c1"># Jumlah kolom numerik dan kategorikal harus sama dengan saat pelatihan</span>
+<span class="n">num_cols_for_gaussian</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">numerical_features</span><span class="p">)</span> <span class="c1"># Harusnya 1 (untuk &#39;Age&#39;)</span>
+<span class="n">num_cols_for_categorical</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">categorical_features</span><span class="p">)</span> <span class="c1"># Harusnya 16</span>
+
+<span class="n">new_data_num_pred</span> <span class="o">=</span> <span class="n">new_data_combined</span><span class="p">[:,</span> <span class="p">:</span><span class="n">num_cols_for_gaussian</span><span class="p">]</span>
+<span class="n">new_data_cat_pred</span> <span class="o">=</span> <span class="n">new_data_combined</span><span class="p">[:,</span> <span class="n">num_cols_for_gaussian</span> <span class="p">:</span> <span class="n">num_cols_for_gaussian</span> <span class="o">+</span> <span class="n">num_cols_for_categorical</span><span class="p">]</span>
+
+<span class="c1"># --- 3. Prediksi dengan Model Ensemble ---</span>
+
+<span class="c1"># Prediksi probabilitas dari masing-masing model</span>
+<span class="n">new_proba_num</span> <span class="o">=</span> <span class="n">gnb</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">new_data_num_pred</span><span class="p">)</span>
+<span class="n">new_proba_cat</span> <span class="o">=</span> <span class="n">cnb</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">new_data_cat_pred</span><span class="p">)</span>
+
+<span class="c1"># Kombinasi rata-rata probabilitas</span>
+<span class="n">new_combined_proba</span> <span class="o">=</span> <span class="p">(</span><span class="n">new_proba_num</span> <span class="o">+</span> <span class="n">new_proba_cat</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">new_y_pred_encoded</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">new_combined_proba</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Mengubah kembali prediksi ke label asli (&quot;No&quot; atau &quot;Yes&quot;)</span>
+<span class="n">new_y_pred_labels</span> <span class="o">=</span> <span class="n">le_y</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">new_y_pred_encoded</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Hasil Prediksi untuk Data Baru ---&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pred_label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">new_y_pred_labels</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pasien </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">: Kekambuhan Kanker Tiroid Diprediksi: </span><span class="si">{</span><span class="n">pred_label</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Data Baru untuk Prediksi ---
+   Age Gender Smoking Hx Smoking Hx Radiothreapy          Thyroid Function  \
+0   58      F      No         No             Yes                 Euthyroid   
+1   45      M     Yes         No              No                 Euthyroid   
+2   72      F      No        Yes              No  Clinical Hyperthyroidism   
+
+         Physical Examination Adenopathy       Pathology     Focality  \
+0  Single nodular goiter-left         No  Micropapillary    Uni-Focal   
+1  Single nodular goiter-left         No  Micropapillary  Multi-Focal   
+2  Single nodular goiter-left         No  Micropapillary    Uni-Focal   
+
+           Risk    T    N   M Stage       Response  
+0  Intermediate   T2   N0  M0     I      Excellent  
+1          High  T4a  N1b  M1   IVB  Indeterminate  
+2           Low  T1a   N0  M0     I      Excellent  
+
+--- Hasil Prediksi untuk Data Baru ---
+Pasien 1: Kekambuhan Kanker Tiroid Diprediksi: No
+Pasien 2: Kekambuhan Kanker Tiroid Diprediksi: Yes
+Pasien 3: Kekambuhan Kanker Tiroid Diprediksi: No
+</pre></div>
+</div>
+</div>
+</div>
+<p>###KNN Classification</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">OrdinalEncoder</span><span class="p">,</span> <span class="n">LabelEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">classification_report</span>
+
+<span class="c1"># ASUMSI:</span>
+<span class="c1"># - Variabel &#39;X&#39; (fitur dataset asli) dan &#39;y&#39; (target dataset asli) sudah ada.</span>
+
+<span class="c1"># === 1. Pra-pemrosesan Fitur ===</span>
+
+<span class="c1"># Definisikan fitur numerik dan kategorikal</span>
+<span class="n">numerical_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span>
+<span class="n">categorical_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Gender&#39;</span><span class="p">,</span> <span class="s1">&#39;Smoking&#39;</span><span class="p">,</span> <span class="s1">&#39;Hx Smoking&#39;</span><span class="p">,</span> <span class="s1">&#39;Hx Radiothreapy&#39;</span><span class="p">,</span> <span class="s1">&#39;Thyroid Function&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;Physical Examination&#39;</span><span class="p">,</span> <span class="s1">&#39;Adenopathy&#39;</span><span class="p">,</span> <span class="s1">&#39;Pathology&#39;</span><span class="p">,</span> <span class="s1">&#39;Focality&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;Risk&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;Stage&#39;</span><span class="p">,</span> <span class="s1">&#39;Response&#39;</span><span class="p">]</span>
+
+<span class="c1"># Salin data untuk pra-pemrosesan</span>
+<span class="n">X_processed</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Standarisasi fitur numerik</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X_processed</span><span class="p">[</span><span class="n">numerical_features</span><span class="p">]</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_processed</span><span class="p">[</span><span class="n">numerical_features</span><span class="p">])</span>
+
+<span class="c1"># Encoding fitur kategorikal dengan OrdinalEncoder</span>
+<span class="n">ordinal_encoder</span> <span class="o">=</span> <span class="n">OrdinalEncoder</span><span class="p">()</span>
+<span class="n">X_processed</span><span class="p">[</span><span class="n">categorical_features</span><span class="p">]</span> <span class="o">=</span> <span class="n">ordinal_encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_processed</span><span class="p">[</span><span class="n">categorical_features</span><span class="p">])</span>
+
+<span class="c1"># Gabungkan semua fitur yang sudah diproses menjadi satu array NumPy</span>
+<span class="c1"># Pastikan urutan kolom sesuai dengan definisi features Anda</span>
+<span class="n">X_combined</span> <span class="o">=</span> <span class="n">X_processed</span><span class="p">[</span><span class="n">numerical_features</span> <span class="o">+</span> <span class="n">categorical_features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+
+<span class="c1"># === 2. Encoding Target y ===</span>
+<span class="n">le_y</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+<span class="n">y_encoded</span> <span class="o">=</span> <span class="n">le_y</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>  <span class="c1"># &quot;No&quot; -&gt; 0, &quot;Yes&quot; -&gt; 1</span>
+
+<span class="c1"># === 3. Split Data ===</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_combined</span><span class="p">,</span> <span class="n">y_encoded</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># === 4. Modeling KNN ===</span>
+
+<span class="c1"># Inisialisasi model KNN</span>
+<span class="c1"># n_neighbors=5 adalah nilai K yang umum digunakan, bisa disesuaikan</span>
+<span class="c1"># metrik &#39;euclidean&#39; adalah default dan cocok untuk data yang sudah discale</span>
+<span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Latih model KNN</span>
+<span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Prediksi pada data uji</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># === 5. Evaluasi ===</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Hasil Evaluasi Model KNN dengan OrdinalEncoder ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Akurasi:&quot;</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Confusion Matrix:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Classification Report:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="n">le_y</span><span class="o">.</span><span class="n">classes_</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Hasil Evaluasi Model KNN dengan OrdinalEncoder ---
+Akurasi: 0.9090909090909091
+
+Confusion Matrix:
+ [[57  1]
+ [ 6 13]]
+
+Classification Report:
+               precision    recall  f1-score   support
+
+          No       0.90      0.98      0.94        58
+         Yes       0.93      0.68      0.79        19
+
+    accuracy                           0.91        77
+   macro avg       0.92      0.83      0.87        77
+weighted avg       0.91      0.91      0.90        77
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.11/dist-packages/sklearn/preprocessing/_label.py:110: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
+  y = column_or_1d(y, warn=True)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">,</span> <span class="n">LabelEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">classification_report</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.compose</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColumnTransformer</span> <span class="c1"># Penting untuk menggabungkan pra-pemrosesan</span>
+
+<span class="c1"># ASUMSI:</span>
+<span class="c1"># - Variabel &#39;X&#39; (fitur dataset asli) dan &#39;y&#39; (target dataset asli) sudah ada.</span>
+
+<span class="c1"># === 1. Pra-pemrosesan Fitur dengan One-Hot Encoding ===</span>
+
+<span class="c1"># Definisikan fitur-fitur Anda</span>
+<span class="n">numerical_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span>
+<span class="c1"># Semua fitur kategorikal akan di-One-Hot Encode</span>
+<span class="n">categorical_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Gender&#39;</span><span class="p">,</span> <span class="s1">&#39;Smoking&#39;</span><span class="p">,</span> <span class="s1">&#39;Hx Smoking&#39;</span><span class="p">,</span> <span class="s1">&#39;Hx Radiothreapy&#39;</span><span class="p">,</span> <span class="s1">&#39;Thyroid Function&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;Physical Examination&#39;</span><span class="p">,</span> <span class="s1">&#39;Adenopathy&#39;</span><span class="p">,</span> <span class="s1">&#39;Pathology&#39;</span><span class="p">,</span> <span class="s1">&#39;Focality&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;Risk&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;Stage&#39;</span><span class="p">,</span> <span class="s1">&#39;Response&#39;</span><span class="p">]</span>
+
+<span class="c1"># Buat ColumnTransformer untuk menggabungkan pra-pemrosesan</span>
+<span class="c1"># &#39;remainder=&quot;passthrough&quot;&#39; akan mempertahankan kolom yang tidak disebutkan (misalnya, jika ada kolom lain yang tidak diolah)</span>
+<span class="c1"># Tetapi di sini kita akan secara eksplisit memilih kolom.</span>
+<span class="n">preprocessor</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
+    <span class="n">transformers</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;num&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">numerical_features</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">),</span> <span class="n">categorical_features</span><span class="p">)</span> <span class="c1"># handle_unknown=&#39;ignore&#39; untuk data baru</span>
+    <span class="p">])</span>
+
+<span class="c1"># Terapkan pra-pemrosesan pada seluruh dataset X</span>
+<span class="n">X_combined</span> <span class="o">=</span> <span class="n">preprocessor</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># === 2. Encoding Target y ===</span>
+<span class="n">le_y</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+<span class="n">y_encoded</span> <span class="o">=</span> <span class="n">le_y</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>  <span class="c1"># &quot;No&quot; -&gt; 0, &quot;Yes&quot; -&gt; 1</span>
+
+<span class="c1"># === 3. Split Data ===</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_combined</span><span class="p">,</span> <span class="n">y_encoded</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># === 4. Modeling KNN ===</span>
+
+<span class="c1"># Inisialisasi model KNN</span>
+<span class="c1"># n_neighbors=5 adalah nilai K yang umum digunakan, bisa disesuaikan</span>
+<span class="c1"># metrik &#39;euclidean&#39; adalah default dan cocok untuk data yang sudah discale dan one-hot encoded</span>
+<span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Latih model KNN</span>
+<span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Prediksi pada data uji</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># === 5. Evaluasi ===</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Hasil Evaluasi Model KNN dengan One-Hot Encoder ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Akurasi:&quot;</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Confusion Matrix:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Classification Report:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="n">le_y</span><span class="o">.</span><span class="n">classes_</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Hasil Evaluasi Model KNN dengan One-Hot Encoder ---
+Akurasi: 0.922077922077922
+
+Confusion Matrix:
+ [[56  2]
+ [ 4 15]]
+
+Classification Report:
+               precision    recall  f1-score   support
+
+          No       0.93      0.97      0.95        58
+         Yes       0.88      0.79      0.83        19
+
+    accuracy                           0.92        77
+   macro avg       0.91      0.88      0.89        77
+weighted avg       0.92      0.92      0.92        77
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.11/dist-packages/sklearn/preprocessing/_label.py:110: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
+  y = column_or_1d(y, warn=True)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">OrdinalEncoder</span><span class="p">,</span> <span class="n">LabelEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsClassifier</span> <span class="c1"># Import model KNN</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">classification_report</span>
+
+<span class="c1"># Asumsi:</span>
+<span class="c1"># - Variabel &#39;X&#39; (fitur dataset asli) dan &#39;y&#39; (target dataset asli) sudah ada.</span>
+
+<span class="c1"># --- 1. Pra-pemrosesan Fitur ---</span>
+
+<span class="c1"># Definisikan fitur numerik dan kategorikal</span>
+<span class="n">numerical_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span>
+<span class="n">categorical_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Gender&#39;</span><span class="p">,</span> <span class="s1">&#39;Smoking&#39;</span><span class="p">,</span> <span class="s1">&#39;Hx Smoking&#39;</span><span class="p">,</span> <span class="s1">&#39;Hx Radiothreapy&#39;</span><span class="p">,</span> <span class="s1">&#39;Thyroid Function&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;Physical Examination&#39;</span><span class="p">,</span> <span class="s1">&#39;Adenopathy&#39;</span><span class="p">,</span> <span class="s1">&#39;Pathology&#39;</span><span class="p">,</span> <span class="s1">&#39;Focality&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;Risk&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;Stage&#39;</span><span class="p">,</span> <span class="s1">&#39;Response&#39;</span><span class="p">]</span>
+
+<span class="c1"># Salin data untuk pra-pemrosesan</span>
+<span class="n">X_processed</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># **Standarisasi fitur numerik**</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X_processed</span><span class="p">[</span><span class="n">numerical_features</span><span class="p">]</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_processed</span><span class="p">[</span><span class="n">numerical_features</span><span class="p">])</span>
+
+<span class="c1"># **Encoding fitur kategorikal dengan OrdinalEncoder**</span>
+<span class="c1"># OrdinalEncoder akan mengubah string menjadi angka integer non-negatif.</span>
+<span class="c1"># Ini mengasumsikan ada urutan implisit antar kategori, yang mungkin tidak selalu benar.</span>
+<span class="n">ordinal_encoder</span> <span class="o">=</span> <span class="n">OrdinalEncoder</span><span class="p">()</span>
+<span class="n">X_processed</span><span class="p">[</span><span class="n">categorical_features</span><span class="p">]</span> <span class="o">=</span> <span class="n">ordinal_encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_processed</span><span class="p">[</span><span class="n">categorical_features</span><span class="p">])</span>
+
+<span class="c1"># Gabungkan semua fitur yang sudah diproses menjadi satu array NumPy</span>
+<span class="c1"># Pastikan urutan kolom sesuai dengan definisi fitur Anda</span>
+<span class="n">X_combined</span> <span class="o">=</span> <span class="n">X_processed</span><span class="p">[</span><span class="n">numerical_features</span> <span class="o">+</span> <span class="n">categorical_features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+
+<span class="c1"># --- 2. Encoding Target y ---</span>
+<span class="c1"># Mengubah target &#39;Recurred&#39; menjadi angka (0 atau 1)</span>
+<span class="n">le_y</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+<span class="n">y_encoded</span> <span class="o">=</span> <span class="n">le_y</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>  <span class="c1"># &quot;No&quot; -&gt; 0, &quot;Yes&quot; -&gt; 1</span>
+
+<span class="c1"># --- 3. Split Data ---</span>
+<span class="c1"># Memisahkan data menjadi set pelatihan dan pengujian</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_combined</span><span class="p">,</span> <span class="n">y_encoded</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># --- 4. Modelling KNN ---</span>
+
+<span class="c1"># Inisialisasi model KNeighborsClassifier</span>
+<span class="c1"># n_neighbors: Jumlah tetangga terdekat yang akan dipertimbangkan. Nilai 5 adalah titik awal yang umum.</span>
+<span class="c1"># metric: Metrik jarak yang digunakan. &#39;euclidean&#39; adalah default dan cocok untuk data yang sudah discale.</span>
+<span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;euclidean&#39;</span><span class="p">)</span>
+
+<span class="c1"># Latih model KNN pada data pelatihan</span>
+<span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Prediksi pada data uji</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># --- 5. Evaluasi ---</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Hasil Evaluasi Model KNN dengan OrdinalEncoder ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Akurasi: </span><span class="si">{</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_pred</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Confusion Matrix:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Classification Report:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="n">le_y</span><span class="o">.</span><span class="n">classes_</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Hasil Evaluasi Model KNN dengan OrdinalEncoder ---
+Akurasi: 0.9091
+
+Confusion Matrix:
+ [[57  1]
+ [ 6 13]]
+
+Classification Report:
+               precision    recall  f1-score   support
+
+          No       0.90      0.98      0.94        58
+         Yes       0.93      0.68      0.79        19
+
+    accuracy                           0.91        77
+   macro avg       0.92      0.83      0.87        77
+weighted avg       0.91      0.91      0.90        77
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.11/dist-packages/sklearn/preprocessing/_label.py:110: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
+  y = column_or_1d(y, warn=True)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="klasifikasi-dengan-metode-decision-tree">
+<h3>Klasifikasi dengan metode Decision Tree<a class="headerlink" href="#klasifikasi-dengan-metode-decision-tree" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">OrdinalEncoder</span><span class="p">,</span> <span class="n">LabelEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionTreeClassifier</span> <span class="c1"># Import model Decision Tree</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">classification_report</span>
+
+<span class="c1"># Asumsi:</span>
+<span class="c1"># - Variabel &#39;X&#39; (fitur dataset asli) dan &#39;y&#39; (target dataset asli) sudah ada.</span>
+
+<span class="c1"># === 1. Pra-pemrosesan Fitur ===</span>
+
+<span class="c1"># Definisikan fitur numerik dan kategorikal</span>
+<span class="n">numerical_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span>
+<span class="n">categorical_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Gender&#39;</span><span class="p">,</span> <span class="s1">&#39;Smoking&#39;</span><span class="p">,</span> <span class="s1">&#39;Hx Smoking&#39;</span><span class="p">,</span> <span class="s1">&#39;Hx Radiothreapy&#39;</span><span class="p">,</span> <span class="s1">&#39;Thyroid Function&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;Physical Examination&#39;</span><span class="p">,</span> <span class="s1">&#39;Adenopathy&#39;</span><span class="p">,</span> <span class="s1">&#39;Pathology&#39;</span><span class="p">,</span> <span class="s1">&#39;Focality&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;Risk&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;Stage&#39;</span><span class="p">,</span> <span class="s1">&#39;Response&#39;</span><span class="p">]</span>
+
+<span class="c1"># Salin data untuk pra-pemrosesan agar tidak merusak data asli</span>
+<span class="n">X_processed</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># **Standardisasi fitur numerik**</span>
+<span class="c1"># Ini dilakukan untuk konsistensi, meskipun Decision Tree tidak terpengaruh oleh skala.</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X_processed</span><span class="p">[</span><span class="n">numerical_features</span><span class="p">]</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_processed</span><span class="p">[</span><span class="n">numerical_features</span><span class="p">])</span>
+
+<span class="c1"># **Encoding fitur kategorikal dengan OrdinalEncoder**</span>
+<span class="c1"># Mengubah kategori string menjadi representasi numerik (integer non-negatif).</span>
+<span class="n">ordinal_encoder</span> <span class="o">=</span> <span class="n">OrdinalEncoder</span><span class="p">()</span>
+<span class="n">X_processed</span><span class="p">[</span><span class="n">categorical_features</span><span class="p">]</span> <span class="o">=</span> <span class="n">ordinal_encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_processed</span><span class="p">[</span><span class="n">categorical_features</span><span class="p">])</span>
+
+<span class="c1"># Gabungkan semua fitur yang sudah diproses menjadi satu array NumPy</span>
+<span class="c1"># Pastikan urutan kolom sesuai dengan definisi fitur Anda</span>
+<span class="n">X_combined</span> <span class="o">=</span> <span class="n">X_processed</span><span class="p">[</span><span class="n">numerical_features</span> <span class="o">+</span> <span class="n">categorical_features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+
+<span class="c1"># === 2. Encoding Target y ===</span>
+<span class="c1"># Mengubah target &#39;Recurred&#39; menjadi angka (0 atau 1)</span>
+<span class="n">le_y</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+<span class="n">y_encoded</span> <span class="o">=</span> <span class="n">le_y</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>  <span class="c1"># &quot;No&quot; -&gt; 0, &quot;Yes&quot; -&gt; 1</span>
+
+<span class="c1"># === 3. Split Data ===</span>
+<span class="c1"># Memisahkan data menjadi set pelatihan dan pengujian</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_combined</span><span class="p">,</span> <span class="n">y_encoded</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># === 4. Modelling Decision Tree ===</span>
+
+<span class="c1"># Inisialisasi model DecisionTreeClassifier</span>
+<span class="c1"># random_state=42 untuk memastikan hasil yang sama setiap kali dijalankan.</span>
+<span class="n">dt_classifier</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Latih model Decision Tree pada data pelatihan</span>
+<span class="n">dt_classifier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Prediksi pada data uji</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">dt_classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># --- 5. Evaluasi ---</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Hasil Evaluasi Model Decision Tree dengan Ordinal Encoding ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Akurasi: </span><span class="si">{</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_pred</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Confusion Matrix:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Classification Report:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="n">le_y</span><span class="o">.</span><span class="n">classes_</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Hasil Evaluasi Model Decision Tree dengan Ordinal Encoding ---
+Akurasi: 0.9221
+
+Confusion Matrix:
+ [[54  4]
+ [ 2 17]]
+
+Classification Report:
+               precision    recall  f1-score   support
+
+          No       0.96      0.93      0.95        58
+         Yes       0.81      0.89      0.85        19
+
+    accuracy                           0.92        77
+   macro avg       0.89      0.91      0.90        77
+weighted avg       0.93      0.92      0.92        77
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.11/dist-packages/sklearn/preprocessing/_label.py:110: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
+  y = column_or_1d(y, warn=True)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 </section>
 
@@ -1070,6 +1396,11 @@ weighted avg       0.89      0.88      0.87        77
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informasi-dataset">Informasi Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelling">Modelling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#naive-bayes-ensemble-gabungan-gaussiannb-categorikalnb">Naive Bayes Ensemble(gabungan) GaussianNB+CategorikalNB</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#klasifikasi-dengan-metode-decision-tree">Klasifikasi dengan metode Decision Tree</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
