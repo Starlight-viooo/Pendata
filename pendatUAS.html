@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Klasifikasi UAS &#8212; My sample book</title>
+    <title>Klasifikasi Penyakit Hati (UAS) &#8212; My sample book</title>
   
   
   
@@ -190,7 +190,7 @@
 <li class="toctree-l1"><a class="reference internal" href="decisiontree.html">Decision Tree Classification</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Data%20Binning.html">Data Binning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="PraUAS.html">Klasifikasi Prediksi kekambuhan Kanker Tiroid (PRA UAS)</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Klasifikasi UAS</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Klasifikasi Penyakit Hati (UAS)</a></li>
 </ul>
 
     </div>
@@ -376,7 +376,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Klasifikasi UAS</h1>
+    <h1>Klasifikasi Penyakit Hati (UAS)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -386,7 +386,15 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding">Data Understanding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-data">Visualisasi Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membersihkan-outlier">Membersihkan Outlier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#encoding-gender-ke-angka">Encoding Gender ke Angka</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelling">Modelling</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#knn-classifier">KNN Classifier</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree">Decision Tree</a></li>
@@ -405,8 +413,11 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="klasifikasi-uas">
-<h1>Klasifikasi UAS<a class="headerlink" href="#klasifikasi-uas" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="klasifikasi-penyakit-hati-uas">
+<h1>Klasifikasi Penyakit Hati (UAS)<a class="headerlink" href="#klasifikasi-penyakit-hati-uas" title="Link to this heading">#</a></h1>
+<p>Dataset ini dibuat untuk mengetahui apakah pasien di india mengalami penyakit hati berdasarkan informasi tentang beberapa penanda biokimia, termasuk albumin dan enzim lain yang diperlukan untuk metabolisme.</p>
+<section id="data-understanding">
+<h2>Data Understanding<a class="headerlink" href="#data-understanding" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">ucimlrepo</span>
@@ -414,18 +425,28 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: ucimlrepo in /usr/local/lib/python3.11/dist-packages (0.0.7)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting ucimlrepo
+  Downloading ucimlrepo-0.0.7-py3-none-any.whl.metadata (5.5 kB)
 Requirement already satisfied: pandas&gt;=1.0.0 in /usr/local/lib/python3.11/dist-packages (from ucimlrepo) (2.2.2)
 Requirement already satisfied: certifi&gt;=2020.12.5 in /usr/local/lib/python3.11/dist-packages (from ucimlrepo) (2025.6.15)
 Requirement already satisfied: numpy&gt;=1.23.2 in /usr/local/lib/python3.11/dist-packages (from pandas&gt;=1.0.0-&gt;ucimlrepo) (2.0.2)
 Requirement already satisfied: python-dateutil&gt;=2.8.2 in /usr/local/lib/python3.11/dist-packages (from pandas&gt;=1.0.0-&gt;ucimlrepo) (2.9.0.post0)
 Requirement already satisfied: pytz&gt;=2020.1 in /usr/local/lib/python3.11/dist-packages (from pandas&gt;=1.0.0-&gt;ucimlrepo) (2025.2)
 Requirement already satisfied: tzdata&gt;=2022.7 in /usr/local/lib/python3.11/dist-packages (from pandas&gt;=1.0.0-&gt;ucimlrepo) (2025.2)
-Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.11/dist-packages (from python-dateutil&gt;=2.8.2-&gt;pandas&gt;=1.0.0-&gt;ucimlrepo) (1.17.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.11/dist-packages (from python-dateutil&gt;=2.8.2-&gt;pandas&gt;=1.0.0-&gt;ucimlrepo) (1.17.0)
+Downloading ucimlrepo-0.0.7-py3-none-any.whl (8.0 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: ucimlrepo
+Successfully installed ucimlrepo-0.0.7
 </pre></div>
 </div>
 </div>
 </div>
+<section id="visualisasi-data">
+<h3>Visualisasi Data<a class="headerlink" href="#visualisasi-data" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ucimlrepo</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_ucirepo</span>
@@ -586,8 +607,13 @@ A/G Ratio: 10 outliers
 <img alt="_images/5d51730dfc3ec1fff4b876cc19bd519e51038eac74d1cecd31b0c85df2709199.png" src="_images/5d51730dfc3ec1fff4b876cc19bd519e51038eac74d1cecd31b0c85df2709199.png" />
 </div>
 </div>
+</section>
+</section>
 <section id="preprocessing">
 <h2>Preprocessing<a class="headerlink" href="#preprocessing" title="Link to this heading">#</a></h2>
+<p>Sebelum kita lakukan modelling, kita bersihkan outlier terlebih dahulu dengan metode deteksi LOF dan outlier di perbaiki dengan mean non outlier</p>
+<section id="membersihkan-outlier">
+<h3>Membersihkan Outlier<a class="headerlink" href="#membersihkan-outlier" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -646,6 +672,10 @@ A/G Ratio: 10 outliers
 </div>
 </div>
 </div>
+<p>Setelah menghilangkan outlier, kita encode kategorikal ke angka</p>
+</section>
+<section id="encoding-gender-ke-angka">
+<h3>Encoding Gender ke Angka<a class="headerlink" href="#encoding-gender-ke-angka" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -732,6 +762,7 @@ dtype: object
 </div>
 </div>
 </div>
+</section>
 </section>
 <section id="modelling">
 <h2>Modelling<a class="headerlink" href="#modelling" title="Link to this heading">#</a></h2>
@@ -831,6 +862,8 @@ weighted avg       0.71      0.66      0.68       117
 </section>
 <section id="naive-bayes">
 <h3>Naive Bayes<a class="headerlink" href="#naive-bayes" title="Link to this heading">#</a></h3>
+<p>Naive Bayes adalah algoritma klasifikasi berbasis probabilitas yang menggunakan Teorema Bayes, dengan asumsi “naif” bahwa setiap fitur bekerja secara independen terhadap fitur lainnya.</p>
+<p>dalam Modelling kali ini, saya membuat dua model yang nanti di gabungkan untuk melakukan klasifikasi. ini lebih akurat dibanding memproses data ke numerik lalu melakukan modelling dengan gaussian naive bayes saja</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.naive_bayes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianNB</span><span class="p">,</span> <span class="n">CategoricalNB</span>
@@ -901,6 +934,7 @@ weighted avg       0.71      0.66      0.68       117
 </section>
 <section id="deploy">
 <h2>Deploy<a class="headerlink" href="#deploy" title="Link to this heading">#</a></h2>
+<p>Dari Semua Model klasifikasi di atas, Naive Bayes Classifier Ensemble(Gabungan) memiliki skor akurasi paling tinggi. oleh karena itu, Model klasifikasi yang saya pakai adalah Naive Bayes Ensemble, berikut adalah kode untuk melihat bagaimana model digunakan</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ambil 10 data awal sebagai data testing</span>
@@ -1020,7 +1054,15 @@ weighted avg       0.71      0.66      0.68       117
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding">Data Understanding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-data">Visualisasi Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membersihkan-outlier">Membersihkan Outlier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#encoding-gender-ke-angka">Encoding Gender ke Angka</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelling">Modelling</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#knn-classifier">KNN Classifier</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-tree">Decision Tree</a></li>
